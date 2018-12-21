@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Friends of Go on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
+    <description>Recent content in Friends of Go on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/friends-of-go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bienvenidos a Friends of Go</title>
+      <link>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</link>
+      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</guid>
+      <description>Con esta entrada queremos innagurar nuestro nuevo blog.
+¿De qué irá este blog? Como bien sabéis (y sino lo sabéis os lo decimos ahora), Friends of GO nace con la idea de acercar GO a los desarrolladores.
+Go es un lenguaje de programación relativamente nuevo, vio la luz en 2009 y desde ahí no ha parado de crecer y de ser adoptado por más y más proyectos en el mundo entero.</description>
+    </item>
+    
+  </channel>
+</rss>
