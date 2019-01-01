@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Blog | Friends of GO</title>
-    <link>https://blog.friendsofgo.tech/posts/</link>
-    <description>Recent content in Posts on Blog | Friends of GO</description>
+    <title>Go Modules on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/go-modules/</link>
+    <description>Recent content in Go Modules on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
     <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.friendsofgo.tech/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.friendsofgo.tech/tags/go-modules/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,17 +19,6 @@
       <guid>https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/</guid>
       <description>Si ya has estado experimentando un poco con el lenguaje de programación GO habrás descubierto que cada vez que quieres usar un nuevo paquete, éste se te descarga en el GOPATH de forma que usar versiones determinadas en cada proyecto se vuelve imposible.
 Por suerte para nosotros tenemos varias alternativas a la gestión de dependencias en GO pero desde la versión 1.11 del mismo lo tenemos de forma nativa.</description>
-    </item>
-    
-    <item>
-      <title>Bienvenidos a Friends of Go</title>
-      <link>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</guid>
-      <description>Con esta entrada queremos innagurar nuestro nuevo blog.
-¿De qué irá este blog? Como bien sabéis (y sino lo sabéis os lo decimos ahora), Friends of GO nace con la idea de acercar GO a los desarrolladores.
-Go es un lenguaje de programación relativamente nuevo, vio la luz en 2009 y desde ahí no ha parado de crecer y de ser adoptado por más y más proyectos en el mundo entero.</description>
     </item>
     
   </channel>

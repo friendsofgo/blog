@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,25 +14,43 @@
     <item>
       <title>Friends of Go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Gestion Dependencias</title>
+      <link>https://blog.friendsofgo.tech/tags/gestion-dependencias/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/gestion-dependencias/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Go Modules</title>
+      <link>https://blog.friendsofgo.tech/tags/go-modules/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/go-modules/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
       <description></description>
