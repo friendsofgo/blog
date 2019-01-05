@@ -6,3 +6,16 @@
         text-align: justify;
     }
 }
+
+.highlight .chroma {
+    border: 1px solid #ddd;
+    border-radius: 4px; 
+    white-space: pre;
+    padding: 0.5rem;
+}
+
+.highlight .chroma code {
+    font-family: "SFMono-Regular","SF-Mono",Menlo,Monaco,Consolas,"Liberation Mono","Roboto Mono","Ubuntu Mono","Courier New",Courier,monospace;
+    font-size: .8rem;
+    line-height: 1.667em;
+}
