@@ -259,7 +259,7 @@ Por suerte, el proceso de dockerizar una aplicación escrita en Go es muy sencil
 <p>Posteriormente vamos a crear una nueva imagen mínima (<code>alpine</code>) en el mismo <code>Dockerfile</code>, que sólo contenga el binario generado en el proceso de compilación anterior:</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
 </span><span class="err"></span>COPY --from<span class="o">=</span>build /go/bin/myapp /bin/<span class="err">
-</span><span class="err"></span><span class="k">ENTRYPOINT</span><span class="s"> myapp $@</span></code></pre></div>
+</span><span class="err"></span><span class="k">ENTRYPOINT</span><span class="s"> [&#34;myapp&#34;]</span></code></pre></div>
 <p>Cómo podemos ver, estamos haciendo que nuestro punto de entrada (<code>ENTRYPOINT</code>) sea el binario generado, además, estamos habilitando el paso de parámetros en la ejecución de contenedores con nuestra imagen, parámetros que posteriormente podríamos capturar, por ejemplo, haciendo uso de los <strong><a href="https://golang.org/pkg/flag/">flags</a> nativos de Go</strong>.</p>
 
 <p>Al final, deberíamos tener un <strong>Dockerfile</strong> parecido a éste:</p>
@@ -270,7 +270,7 @@ Por suerte, el proceso de dockerizar una aplicación escrita en Go es muy sencil
 </span><span class="err">
 </span><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
 </span><span class="err"></span>COPY --from<span class="o">=</span>build /go/bin/myapp /bin/<span class="err">
-</span><span class="err"></span><span class="k">ENTRYPOINT</span><span class="s"> myapp $@</span></code></pre></div>
+</span><span class="err"></span><span class="k">ENTRYPOINT</span><span class="s"> [&#34;myapp&#34;]</span></code></pre></div>
 <p>¡Y ahora ya sí! Ya tendríamos nuestra aplicación correctamente dockerizada, con una <strong>imagen mínima</strong> que tiene <strong>exclusivamente el binario de nuestra aplicación</strong>.</p>
 
 <h2 id="predicando-con-el-ejemplo">Predicando con el ejemplo</h2>
