@@ -6,10 +6,20 @@
     <description>Recent content in Golang on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dockerizando tu aplicación en Go</title>
+      <link>https://blog.friendsofgo.tech/posts/dockerizando-tu-aplicacion-en-go/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/dockerizando-tu-aplicacion-en-go/</guid>
+      <description>Si estás interesado por los contenedores (concretamente por Docker) y estás inmerso en el mundo de Go, entonces es probable que te hayas preguntado cómo puedes dockerizar tu aplicación. Y aquí estamos para explicártelo, a la vez que repasamos algunos conceptos básicos y buenas prácticas de Go.
+Por suerte, el proceso de dockerizar una aplicación escrita en Go es muy sencillo, pues, conceptualmente, lo único que tenemos que hacer es compilar nuestra aplicación para generar el binario que irá dentro del contenedor.</description>
+    </item>
     
     <item>
       <title>Go Modules en 3 pasos</title>
