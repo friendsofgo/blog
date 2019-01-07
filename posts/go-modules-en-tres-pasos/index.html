@@ -53,6 +53,7 @@ Por suerte para nosotros tenemos varias alternativas a la gestión de dependenci
 
 
     <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -231,13 +232,7 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 <p>Dado que aún es una funcionalidad que se encuentra en desarrollo, viene con un valor por defecto que no aún no está reconocido. Así que tendremos que activarlo nosotros.</p>
 
 <p>Tranquilos es realmente simple</p>
-
-<pre><code class="language-sh">$ echo &quot;export GO111MODULES=on&quot; &gt;&gt; ~/.bash_profile
-</code></pre>
-
-<pre><code class="language-sh">$ source ~/.bash_profile
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ <span class="nb">echo</span> <span class="s2">&#34;export GO111MODULES=on&#34;</span> &gt;&gt; ~/.bash_profile</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ <span class="nb">source</span> ~/.bash_profile</code></pre></div>
 <p>Es decir básicamente cambiar el valor de la variable de entorno <em>GO111MODULES</em> a <em>on</em> con esto ya tendríamos <strong>Go Modules</strong> funcionando.</p>
 
 <p>¿Sencillo no?</p>
@@ -245,10 +240,7 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 <h2 id="empezar-a-usar-go-mod-en-nuestro-proyecto">Empezar a usar Go Mod en nuestro proyecto</h2>
 
 <p>Ahora ya lo tenemos activado, pero queremos poder empezar a usarlo, nada más sencillo que ejecutar el siguiente comando en nuestra consola</p>
-
-<pre><code class="language-sh">$ go mod init &lt;modulename&gt;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ go mod init &lt;modulename&gt;</code></pre></div>
 <p><em>Module name</em> será el nombre que queramos darle a nuestro modulo, normalmente será el nombre del propio proyecto. También advertir que este nombre debería ser lo más único posible, porque si tenemos colisiones con otros nombres de módulo, bueno digamos que no será divertido.</p>
 
 <p>Esto nos creará un fichero <code>go.mod</code> el cual no tendremos que tocar para nada.</p>
@@ -256,10 +248,7 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 <h3 id="descarguemos-las-dependencias">Descarguemos las dependencias</h3>
 
 <p>Una vez hemos inicializado <strong>Go Modules</strong> en nuestro proyecto, podemos descargar las dependencias del mismo, esto servirá tanto para la primera vez como para cada vez que añadamos una nueva dependencia.</p>
-
-<pre><code class="language-sh">$ go get -u ./...
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ go get -u ./...</code></pre></div>
 <p>Sí sí, tranquilos no me he vuelto loco, se que antes al ejecutar este comando, <strong>GO</strong> bajaba todas las dependencias en nuestro <em>GOPATH</em> y esto hacia que fuera una locura controlar que versión teníamos de cada una, pero con <strong>GO Modules</strong> activado esto no es así, ya que sí seguira bajando las dependencias a nuestro <em>GOPATH</em> pero dentro del directorio <code>$GOPATH/pkg/mod</code>.</p>
 
 <p>Además descargará basándose en <em>semantic version</em> y un control de integridad de una versión según la que esté utilizando el proyecto en ese momento. Con esto es capaz de saber si por ejemplo al bajar una <em>tag</em>, alguien ha modificado esa <em>tag</em> y ya no es igual que la que tu usabas en ese momento.</p>
@@ -271,10 +260,7 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 <p>Si vienes de usar dep u otro sistema similar sabrás que hasta ahora las dependencias se gestionaban dentro de la carpeta <code>vendor</code>, incluso que teníamos que comitearla para evitar posibles discordancias entre las líbrerias que usaba cada developer, o como se generarían los builds a producción.</p>
 
 <p>Como hemos podido ver gracias a como funciona <strong>GO Modules</strong> esto no sería necesario, pero si queremos mantener la compatibilidad hasta que <strong>Go Modules</strong> termine de asentarse tendremos que mantener la carpeta <code>vendor</code>. Tranquilos como todo en <strong>GO</strong> es realmente sencillo.</p>
-
-<pre><code class="language-sh">$ go mod vendor
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ go mod vendor</code></pre></div>
 <p>Y listo ya tendremos nuestras dependencias guardadas como se hacía hasta ahora.</p>
 
 <p>Como véis en tres sencillos pasos hemos podido configurar nuestro proyecto para que empiece a funcionar con <strong>Go Modules</strong>, en próximos artículos hablaremos de como migrar un proyecto que esté usando <strong>Dep</strong> o <strong>Glide</strong> para que empiece a usar <strong>Go Modules</strong></p>
@@ -291,6 +277,11 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
       <span class="navigation-tittle">Bienvenidos a Friends of Go</span>
     </a>
     
+    
+    <a href="/posts/dockerizando-tu-aplicacion-en-go/" class="navigation-next">
+      <span class="navigation-tittle">Dockerizando tu aplicación en Go</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
     
 </div>
 
