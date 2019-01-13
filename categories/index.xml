@@ -6,19 +6,9 @@
     <description>Recent content in Categories on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Arquitectura Del Código</title>
-      <link>https://blog.friendsofgo.tech/categories/arquitectura-del-c%C3%B3digo/</link>
-      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/arquitectura-del-c%C3%B3digo/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Docker</title>
@@ -35,6 +25,15 @@
       <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/categories/friends-of-go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gestión De Dependencias</title>
+      <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</guid>
       <description></description>
     </item>
     

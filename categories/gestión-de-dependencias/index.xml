@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gestión De Dependencias on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</link>
+    <description>Recent content in Gestión De Dependencias on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go Modules en 3 pasos</title>
+      <link>https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/</guid>
+      <description>Si ya has estado experimentando un poco con el lenguaje de programación GO habrás descubierto que cada vez que quieres usar un nuevo paquete, éste se te descarga en el GOPATH de forma que usar versiones determinadas en cada proyecto se vuelve imposible.
+Por suerte para nosotros tenemos varias alternativas a la gestión de dependencias en GO pero desde la versión 1.11 del mismo lo tenemos de forma nativa.</description>
+    </item>
+    
+  </channel>
+</rss>
