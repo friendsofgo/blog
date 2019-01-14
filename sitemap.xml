@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/posts/dockerizando-tu-aplicacion-en-go/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
   </url>
@@ -19,12 +24,18 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/dep/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -42,7 +53,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -54,42 +65,48 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/gestion-dependencias/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/glide/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go-modules/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

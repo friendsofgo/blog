@@ -6,10 +6,20 @@
     <description>Recent content in Go Modules on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/go-modules/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Migrar a Go Modules fácilmente</title>
+      <link>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</link>
+      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</guid>
+      <description>En un artículo anterior vimos lo sencillo que era empezar a usar Go Modules, pero, ¿y si os digo que es igual de fácil migrar un proyecto a Go Modules desde los anteriores gestores de dependencias? Sí seguro que pensaréis que estoy de coña, así que vamos a verlo.
+Buscar un repositorio con Glide o Dep Esto no debería ser muy complicado, de hecho, seguro que a día de hoy muchos de los repositorios de proyectos GO en GitHub utilizan uno de estos gestores de dependencias.</description>
+    </item>
     
     <item>
       <title>Go Modules en 3 pasos</title>
