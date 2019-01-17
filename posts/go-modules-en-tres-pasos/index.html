@@ -210,7 +210,7 @@ Por suerte para nosotros tenemos varias alternativas a la gestión de dependenci
     
     
     <br/>
-    <i class="fas fa-clock"></i> 3 min read
+    <i class="fas fa-clock"></i> 4 min read
 </div>
 
 
@@ -227,11 +227,13 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 
 <p>Si no estás familiarizado con la gestión de dependencias en general te aconsejo que leas un poco sobre el tema antes de continuar.</p>
 
-<h2 id="activar-go-mod">Activar GO Mod</h2>
+<h2 id="adiós-gopath">Adiós GOPATH</h2>
 
-<p>Dado que aún es una funcionalidad que se encuentra en desarrollo, viene con un valor por defecto que no aún no está reconocido. Así que tendremos que activarlo nosotros.</p>
+<p>Una de las grandes ventajas de empezar a usar <strong>Go Modules</strong> es que ya no necesitaremos del <code>GOPATH</code> para crear nuestro proyecto, sino que podremos inicializar nuestro proyecto en el directorio donde queramos.</p>
 
-<p>Tranquilos es realmente simple</p>
+<h2 id="activar-go-mod-para-seguir-usando-gopath">Activar GO Mod para seguir usando GOPATH</h2>
+
+<p>Por defecto <strong>Go Modules</strong> no viene activado para ser usado en GOPATH, pero si queremos utilizarlo será tan sencillo como activar la variable de entorno que nos ofrecen.</p>
 
 <pre><code>$ echo &quot;export GO111MODULES=on&quot; &gt;&gt; ~/.bash_profile
 </code></pre>
@@ -239,7 +241,7 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 <pre><code>$ source ~/.bash_profile
 </code></pre>
 
-<p>Es decir básicamente cambiar el valor de la variable de entorno <em>GO111MODULES</em> a <em>on</em> con esto ya tendríamos <strong>Go Modules</strong> funcionando.</p>
+<p>Es decir básicamente cambiar el valor de la variable de entorno <em>GO111MODULES</em> a <em>on</em> con esto ya tendríamos <strong>Go Modules</strong> funcionando en nuestro <code>GOPATH</code>.</p>
 
 <p>¿Sencillo no?</p>
 
@@ -258,14 +260,18 @@ cada vez que quieres usar un nuevo paquete, éste se te descarga en el <em>GOPAT
 
 <p>Una vez hemos inicializado <strong>Go Modules</strong> en nuestro proyecto, podemos descargar las dependencias del mismo, esto servirá tanto para la primera vez como para cada vez que añadamos una nueva dependencia.</p>
 
-<pre><code>$ go get -u ./...
+<pre><code>$ go mod tidy
 </code></pre>
 
-<p>Sí sí, tranquilos no me he vuelto loco, se que antes al ejecutar este comando, <strong>GO</strong> bajaba todas las dependencias en nuestro <em>GOPATH</em> y esto hacia que fuera una locura controlar que versión teníamos de cada una, pero con <strong>GO Modules</strong> activado esto no es así, ya que sí seguira bajando las dependencias a nuestro <em>GOPATH</em> pero dentro del directorio <code>$GOPATH/pkg/mod</code>.</p>
+<h2 id="cuáles-son-las-funciones-de-go-mod-tidy">¿Cuáles son las funciones de go mod tidy?</h2>
 
-<p>Además descargará basándose en <em>semantic version</em> y un control de integridad de una versión según la que esté utilizando el proyecto en ese momento. Con esto es capaz de saber si por ejemplo al bajar una <em>tag</em>, alguien ha modificado esa <em>tag</em> y ya no es igual que la que tu usabas en ese momento.</p>
+<p><code>go mod tidy</code> incluye en nuestro <code>go.mod</code>todas las dependencias necesarias para nuestros tests, de manera que si un test falla, sabremos cual es la dependencia que utiliza para reproducir el error.</p>
 
-<p>Este proceso creará un nuevo fichero <code>go.sum</code> el cual se encargará de gestionar nuestras versiones e indicar el hash de integridad de cada una de ellas, este fichero tampoco deberemos de estar modificandolo.</p>
+<p><code>go mod tidy</code> también se asegura de que tu fichero <code>go.mod</code> refleje las dependencias de todas las posibles combinaciones de Sistema Operativo, arquitecura y <em>build tags</em>. Al contrario que el comando <code>go build</code> y <code>go test</code> que sólo actualizará el fichero <code>go.mod</code> con los paquetes necesarios para los actuales <code>GOOS</code>, <code>GOARCH</code> y <em>build tags</em>.</p>
+
+<p><code>go mod tidy</code> creará el fichero <code>go.sum</code> sino existe el cual se encargará de gestionar nuestras versiones e indicar el hash de integridad de cada una de ellas, este fichero tampoco deberemos de estar modificandolo, además nos permite dejar de utilizar el comando <code>go get ./...</code> o <code>go get -u ./...</code></p>
+
+<p>A partir de ahora las líberias que se descarguen seran basándose en <em>semantic version</em> y un control de integridad de una versión según la que esté utilizando el proyecto en ese momento. Con esto es capaz de saber si por ejemplo al bajar una <em>tag</em>, alguien ha modificado esa <em>tag</em> y ya no es igual que la que tu usabas en ese momento.</p>
 
 <h2 id="compatibilidad-con-vendoring">Compatibilidad con vendoring</h2>
 

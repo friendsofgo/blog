@@ -258,7 +258,7 @@ https://github.com/friendsofgo/graphiql
 	83%	MIT-feh
 </code></pre>
 
-<p>Una vez vemos que todo responde como debería, podremos migrar. Este primer paso es muy importante ya que, en caso de tener algún problema durante la migración, deberíamos saber si hemos roto algo durante el proceso o si ya estaba roto con anterioridad, lo nos ahorrará muchos dolores de cabeza.</p>
+<p>Una vez vemos que todo responde como debería, podremos migrar. Este primer paso es muy importante ya que, en caso de tener algún problema durante la migración, deberíamos saber si hemos roto algo durante el proceso o si ya estaba roto con anterioridad, lo que nos ahorrará muchos dolores de cabeza.</p>
 
 <h2 id="vamos-a-migrar">Vamos a migrar</h2>
 
@@ -276,16 +276,9 @@ https://github.com/friendsofgo/graphiql
 <pre><code>$ go mod tidy
 </code></pre>
 
-<p>Esto nos incluirá en nuestro fichero <code>go.mod</code> también las dependencias que tengan los tests, así, si un test falla, sabremos que dependencia está usando para poder reproducirlo. Además, también nos añadirá el fichero <code>go.sum</code> .</p>
-
 <p>Ya en este punto podremos hacer lo siguiente sin ningún miedo:</p>
 
 <pre><code>$ rm -rf Gopkg.toml Gopkg.lock vendor
-</code></pre>
-
-<p>Y podemos bajar nuestras dependencias usando <strong>Go Modules</strong>:</p>
-
-<pre><code>$ go get ./...
 </code></pre>
 
 <p>Y, en principio, ya lo tenemos! Pero ahora viene la prueba de fuego: lanzar de nuevo los comandos que lanzamos al principio para ver que todo sigue funcionando.</p>
