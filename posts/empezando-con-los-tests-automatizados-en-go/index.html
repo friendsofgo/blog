@@ -242,7 +242,10 @@ En esta ocasión, el <em>core</em> de Go nos proporciona, tanto los paquetes nec
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
 <p>Una vez definido nuestro test, ejecutarlo es tan sencillo como:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">go <span class="nb">test</span> -cover ./...</code></pre></div>
+
+<pre><code>go test -cover ./...
+</code></pre>
+
 <p>Cómo podemos ver, a la ejecución de la <em>tool</em> para ejecutar los tests (<code>go test</code>) le hemos pasado dos parámetros adicionales.
 Veamos para qué sirven:</p>
 
@@ -315,7 +318,10 @@ Además, esta aproximación nos introduce el concepto de <a href="https://golang
 <ul>
 <li>Por un lado, <strong>los subtests nos permiten hacer ejecuciones parciales de nuestros tests</strong>. En el ejemplo anterior, podríamos querer lanzar solo los tests que correspondan a algún animal en particular:</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">go <span class="nb">test</span> -run TestIsSuperAnimal/gopher      <span class="c1"># solo ejecuta los tests de gophers</span></code></pre></div>
+
+<pre><code>go test -run TestIsSuperAnimal/gopher      # solo ejecuta los tests de gophers
+</code></pre>
+
 <ul>
 <li>Por otro lado, podemos hacer que, la ejecución de cada uno de los casos, se realice de forma <strong>concurrente</strong>.
 Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</li>
@@ -377,12 +383,12 @@ Del mismo modo que cuándo hablábamos de aserciones, en esta ocasión tenemos l
 implementación propia o librería externa.</p>
 
 <p>Las opciones aquí también son multiples. De hecho, la propia librería <a href="https://github.com/stretchr/testify#mock-package">testify</a>, anteriormente comentada,
-también nos ofrece un paquete <code>mock</code>. Y, de nuevo, Mat Ryer tiene también una genia librería llamada <a href="https://github.com/matryer/moq">moq</a>.</p>
+también nos ofrece un paquete <code>mock</code>. Y, de nuevo, Mat Ryer tiene también una genial librería llamada <a href="https://github.com/matryer/moq">moq</a>.</p>
 
 <h2 id="llegó-la-hora-de-testear">Llegó la hora de testear</h2>
 
 <p>Cómo habéis visto, empezar con los tests automatizados en Go es coser y cantar.
-Así que, a partir de ahora, ya no tenéis escusa para seguir con vuestra metodología TDD en Go!
+Así que, a partir de ahora, ¡ya no tenéis escusa para seguir con vuestra metodología TDD en Go!
 Y, si este artículo se os ha quedado corto, no dudéis que pronto llegarán más y mejores artículos relacionados con el testing (<em>test doubles</em> en profundidad, tests de código asíncrono, tests de aceptación, etc).
 Cómo siempre, no dudéis en comentar con nosotros cualquier duda o sugerencia para futuros artículos.</p>
 
