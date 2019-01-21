@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+    
+    
+    
+
+<title>Empezando con los tests automatizados en Go • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Empezando con los tests automatizados en Go"/>
+<meta name="twitter:description" content="Empezar a escribir tests automatizados en Go es tan fácil que no requiere de librerías externas, como sí ocurre en otros lenguajes (véase PHPUnit o JUnit). En esta ocasión, el core de Go nos proporciona, tanto los paquetes necesarios (testing) como el binario para la ejecución de los mismos (go test).
+Veamos un sencillo ejemplo:
+package main import ( &#34;strings&#34; &#34;testing&#34; ) func IsSuperAnimal(animal string) bool { return strings.ToLower(animal) == &#34;gopher&#34; } func TestIsSuperAnimal(t *testing."/>
+
+<meta property="og:title" content="Empezando con los tests automatizados en Go" />
+<meta property="og:description" content="Empezar a escribir tests automatizados en Go es tan fácil que no requiere de librerías externas, como sí ocurre en otros lenguajes (véase PHPUnit o JUnit). En esta ocasión, el core de Go nos proporciona, tanto los paquetes necesarios (testing) como el binario para la ejecución de los mismos (go test).
+Veamos un sencillo ejemplo:
+package main import ( &#34;strings&#34; &#34;testing&#34; ) func IsSuperAnimal(animal string) bool { return strings.ToLower(animal) == &#34;gopher&#34; } func TestIsSuperAnimal(t *testing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/" /><meta property="article:published_time" content="2019-01-21T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-21T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+        <div class="container ">
+          <div class="sidebar-about">
+            
+              
+              
+              
+              
+              <div class="author-image">
+                <a href="https://blog.friendsofgo.tech/">
+                <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+                </a>
+              </div>
+              
+            
+            
+            <p class="site__description">
+              
+            </p>
+          </div>
+          <div class="collapsible-menu">
+            <input type="checkbox" id="menuToggle">
+            <label for="menuToggle">Blog | Friends of GO</label>
+            <div class="menu-content">
+              <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+              <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+            </div>
+          </div>
+          
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+</div>
+
+
+
+        </div>
+      </div>
+      
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Empezando con los tests automatizados en Go</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> 21 Jan, 2019
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/testing">TESTING</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/go">go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/golang">golang</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/testing">testing</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 5 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Empezar a escribir <strong>tests automatizados</strong> en Go es tan fácil que no requiere de librerías externas, como sí ocurre en otros lenguajes (véase <a href="https://phpunit.de/">PHPUnit</a> o <a href="https://junit.org/junit5/">JUnit</a>).
+En esta ocasión, el <em>core</em> de Go nos proporciona, tanto los paquetes necesarios (<a href="https://golang.org/pkg/testing/">testing</a>) como el binario para la ejecución de los mismos (<a href="https://golang.org/pkg/testing/">go test</a>).</p>
+
+<p>Veamos un sencillo ejemplo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;strings&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="nx">animal</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">animal</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;gopher&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestIsSuperAnimal</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">expected</span> <span class="o">:=</span> <span class="kc">true</span>
+	<span class="nx">got</span> <span class="o">:=</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="nx">expected</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;Expected: %v, got: %v&#34;</span><span class="p">,</span> <span class="nx">expected</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Una vez definido nuestro test, ejecutarlo es tan sencillo como:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">go <span class="nb">test</span> -cover ./...</code></pre></div>
+<p>Cómo podemos ver, a la ejecución de la <em>tool</em> para ejecutar los tests (<code>go test</code>) le hemos pasado dos parámetros adicionales.
+Veamos para qué sirven:</p>
+
+<ul>
+<li><code>-cover</code> nos permite generar un reporte con el <em>coverage</em> de nuestras suites de test.</li>
+<li><code>./...</code> nos permite ejecutar todos los tests dentro del directorio actual y los subdirectorios del mismo, de forma recursiva.<br /></li>
+</ul>
+
+<h2 id="table-driven-design-cubriendo-todos-los-casos">Table Driven Design - Cubriendo todos los casos</h2>
+
+<p>Por sencilla que sea la lógica que queramos testear, <strong>en muchas ocasiones nos encontraremos que un solo test no nos cubre todos los posibles casos</strong>.
+En estas situaciones tenemos dos alternativas:</p>
+
+<ul>
+<li>Escribir un test para cada caso. E.g.: <code>TestAdd2Plus2</code>, <code>TestAdd-2Plus-2</code>, etc.</li>
+<li>Escribir un único test que reciba como parámetro todos los posibles casos (véase <a href="https://github.com/golang/go/wiki/TableDrivenTests">TableDrivenTests</a> o <a href="https://phpunit.de/manual/6.5/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers">DataProvider</a>).</li>
+</ul>
+
+<p>Sin embargo, es muy probable que, a medida que nuestra batería de tests vaya creciendo, tengamos que ponerle cariño para que la mantenibilidad de los mismos no caiga por los suelos.
+Es por este motivo que, la primera opción suele estar desaconsejada, pues tiende a la duplicación de código, con la pérdida de mantenibilidad que eso conlleva.</p>
+
+<p>Veamos pues qué entendemos por <em>Table Driven Tests</em>:</p>
+
+<blockquote>
+<p>Escribir bien los tests no siempre es trivial, pero en muchas situaciones se puede cubrir mucho terreno con <strong>pruebas basadas en tablas</strong> (aka <strong>Table Driven Tests</strong>).</p>
+
+<p>En este enfoque, definimos una tabla como juego de pruebas (<em>input</em>) para nuestros tests. Cada entrada de la tabla es un caso de prueba completo con las entradas y los resultados esperados, y, algunas veces, con información adicional, como un nombre para identificar cada caso.</p>
+
+<p>Dada una tabla de casos de prueba, el test simplemente itera a través de todas las entradas de la tabla y para cada entrada realiza las pruebas necesarias. El código de test se escribe una vez y se amortiza en todas las entradas de la tabla, por lo que tiene sentido escribir una prueba cuidadosa con buenos mensajes de error.</p>
+</blockquote>
+
+<p>Siguiendo con el ejemplo anterior, veamos como podríamos añadir más casuísticas a nuestro test, a la vez que nos ahorramos la duplicación de código:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;strings&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="nx">animal</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">animal</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;gopher&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">isSuperAnimalTests</span> <span class="p">=</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">animal</span> <span class="kt">string</span>
+	<span class="nx">expected</span> <span class="kt">bool</span>
+<span class="p">}{</span>
+	<span class="p">{</span><span class="s">&#34;elephant&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">},</span>
+	<span class="p">{</span><span class="s">&#34;python&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">},</span>
+	<span class="p">{</span><span class="s">&#34;gopher&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">},</span>
+	<span class="p">{</span><span class="s">&#34;whale&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">},</span>
+	<span class="p">{</span><span class="s">&#34;gem&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestIsSuperAnimal</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">isSuperAnimalTests</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">animal</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">//t.Parallel()
+</span><span class="c1"></span>			<span class="nx">got</span> <span class="o">:=</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">animal</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">got</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">expected</span> <span class="p">{</span>
+				<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;Expected: %v, got: %v&#34;</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">expected</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Efectivamente, esta aproximación para la definición de tests es la que se conoce como <em>TableDrivenTests</em>, y, como hemos podido ver, nos permite probar diferentes casuísticas sin tener que escribir varios tests con un código casi idéntico.
+Además, esta aproximación nos introduce el concepto de <a href="https://golang.org/pkg/testing/#hdr-Subtests_and_Sub_benchmarks">subtests</a>, lo que tiene varias implicaciones:</p>
+
+<ul>
+<li>Por un lado, <strong>los subtests nos permiten hacer ejecuciones parciales de nuestros tests</strong>. En el ejemplo anterior, podríamos querer lanzar solo los tests que correspondan a algún animal en particular:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">go <span class="nb">test</span> -run TestIsSuperAnimal/gopher      <span class="c1"># solo ejecuta los tests de gophers</span></code></pre></div>
+<ul>
+<li>Por otro lado, podemos hacer que, la ejecución de cada uno de los casos, se realice de forma <strong>concurrente</strong>.
+Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nf">Parallel</span><span class="p">()</span></code></pre></div>
+<h2 id="assertions">Assertions</h2>
+
+<p>Aquellos lectores que vengáis de otros lenguajes de programación, seguramente estéis echando de menos sentencias cómo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">$this-&gt;assertEquals($expected, $got);   // php</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">got</span><span class="o">);</span>    <span class="o">//</span> <span class="n">java</span></code></pre></div>
+<p>En este sentido, los desarrolladores de Go nos dan libertad, pues podemos:</p>
+
+<ul>
+<li>Crear nuestros propios métodos de aserción. E.g.: <code>assertTrue</code>, <code>assertEquals</code>, etc.</li>
+<li>Usar una librería externa.</li>
+</ul>
+
+<p>A modo de recomendación personal, os aconsejamos echar un vistazo al paquete <code>assert</code> de la librería <a href="https://github.com/stretchr/testify#assert-package">testify</a>
+y a la librería minimalista <a href="https://github.com/matryer/is">is</a> del grandísimo <a href="http://matryer.com/">Mat Ryer</a> (<a href="https://twitter.com/matryer">@matryer</a>).</p>
+
+<p>Veamos un ejemplo con cada una de ellas:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// testify/assert
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;github.com/stretchr/testify/assert&#34;</span>
+	<span class="s">&#34;strings&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="nx">animal</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">animal</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;gopher&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestIsSuperAnimal</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">assert</span><span class="p">.</span><span class="nf">True</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// is
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;github.com/matryer/is&#34;</span>
+	<span class="s">&#34;strings&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="nx">animal</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">animal</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;gopher&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestIsSuperAnimal</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">is</span> <span class="o">:=</span> <span class="nx">is</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="nx">is</span><span class="p">.</span><span class="nf">True</span><span class="p">(</span><span class="nf">IsSuperAnimal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="mocking">Mocking</h2>
+
+<p>A pesar de que los <a href="https://es.wikipedia.org/wiki/Objeto_simulado"><em>mocks</em></a> son considerados, en muchos casos, un antipatrón.
+Este tipo de <a href="https://en.wikipedia.org/wiki/Test_double"><em>test doubles</em></a> sigue siendo un recurso muy habitual entre los desarrolladores.
+A lo que nos surge la siguiente pregunta: <strong>¿cómo hacemos mocks en Go?</strong>
+Del mismo modo que cuándo hablábamos de aserciones, en esta ocasión tenemos las dos mismas opciones:
+implementación propia o librería externa.</p>
+
+<p>Las opciones aquí también son multiples. De hecho, la propia librería <a href="https://github.com/stretchr/testify#mock-package">testify</a>, anteriormente comentada,
+también nos ofrece un paquete <code>mock</code>. Y, de nuevo, Mat Ryer tiene también una genia librería llamada <a href="https://github.com/matryer/moq">moq</a>.</p>
+
+<h2 id="llegó-la-hora-de-testear">Llegó la hora de testear</h2>
+
+<p>Cómo habéis visto, empezar con los tests automatizados en Go es coser y cantar.
+Así que, a partir de ahora, ya no tenéis escusa para seguir con vuestra metodología TDD en Go!
+Y, si este artículo se os ha quedado corto, no dudéis que pronto llegarán más y mejores artículos relacionados con el testing (<em>test doubles</em> en profundidad, tests de código asíncrono, tests de aceptación, etc).
+Cómo siempre, no dudéis en comentar con nosotros cualquier duda o sugerencia para futuros artículos.</p>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/migrar-a-go-modules-facilmente/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Migrar a Go Modules fácilmente</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>

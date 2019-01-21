@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</loc>
     <lastmod>2019-01-14T00:00:00+00:00</lastmod>
   </url>
@@ -24,7 +29,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -53,7 +58,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -83,7 +88,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -95,18 +100,30 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/</loc>
     <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
