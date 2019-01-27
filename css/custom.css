@@ -19,3 +19,87 @@
     font-size: .8rem;
     line-height: 1.667em;
 }
+
+.navigation {
+    clear: both;
+}
+
+@media screen and (min-width: 520px) {
+    .about-the-author {
+        width:82%
+    }
+}
+
+.about-the-author .left-column {
+    text-align: center;
+    float: left;
+    width: 90px;
+    padding-top: 8px;
+    margin-bottom: 25px;
+}
+
+.about-the-author .left-column .profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    display: inline-block;
+    background: no-repeat center center;
+    background-size: cover;
+    margin-right: 2px;
+    margin-bottom: 12px;
+    margin-bottom: 25px;
+}
+
+.about-the-author .main-content {
+    margin: auto;
+    width: calc(100% - 92px);
+    float: left;
+    margin-bottom: 25px;
+}
+
+.about-the-author .main-content h4 {
+    margin: 13px 0px 0px;
+    font-size: 28px;
+    text-align: left;
+    font-weight: 400
+}
+
+.about-the-author .main-content p {
+    margin: 2px 0px;
+    padding-left: 0px;
+    line-height: 22px;
+    font-size: 0.88em
+}
+
+.about-the-author .main-content .social-author {
+    font-size: 0.85em
+}
+
+.about-the-author .main-content .social-author a {
+    color: #666666;
+    margin-right: 6px;
+    display: inline-block
+}
+
+.about-the-author .main-content .social-author a:hover {
+    color: #222222;
+    text-decoration: none;
+}
+
+.container .about-the-author .main-content .social-author a .icon-img {
+    width: 15px;
+    height: 15px;
+    vertical-align: -2px;
+    margin: 0px;
+    opacity: 0.7;
+    display: inline;
+}
+
+.post-list__item .post-info {
+    margin-bottom: 15px;
+}
+.item__date, .item__author {
+    display: inline;
+    color: #3f3f3f;
+    font-size:15px;    
+}
