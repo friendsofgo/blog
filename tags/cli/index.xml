@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cli on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/cli/</link>
+    <description>Recent content in Cli on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Crear tu primer CLI en GO</title>
+      <link>https://blog.friendsofgo.tech/posts/crear-tu-primer-cli-en-go/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/crear-tu-primer-cli-en-go/</guid>
+      <description>Construyendo una herramienta de cliente en GO Seguro que en tu día a día te has encontrado con que utilizas multitud de herramientas de línea de comandos como desarrollador, véase Git o Docker, entre otras. Incluso puede que hayas creado las tuyas propias en algún momento de tu vida.
+Pero, ¿cómo se hacen en GO? Por suerte para nosotros, y para variar, GO viene con la solución bajo el brazo, sin tener que recurrir a librerías externas.</description>
+    </item>
+    
+  </channel>
+</rss>
