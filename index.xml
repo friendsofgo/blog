@@ -6,10 +6,19 @@
     <description>Recent content on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Feb 2019 00:05:04 +0100</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Newsletter</title>
+      <link>https://blog.friendsofgo.tech/newsletter/</link>
+      <pubDate>Fri, 01 Feb 2019 00:05:04 +0100</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/newsletter/</guid>
+      <description>#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; } /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block. We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. /  #mc-embedded-subscribe-form input[type=checkbox]{display: inline; width: auto;margin-right: 10px;} #mergeRow-gdpr {margin-top: 20px;} #mergeRow-gdpr fieldset label {font-weight: normal;} #mc-embedded-subscribe-form .mc_fieldset{border:none;min-height: 0px;padding-bottom:0px;}  Subscribe to our mailing list  indicates required Nombre   Apellidos   Email *   Marketing Permissions Selecciona la manera en la que quieres saber de Friends of Go:</description>
+    </item>
     
     <item>
       <title>Crear tu primer CLI en GO</title>
