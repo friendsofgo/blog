@@ -6,10 +6,20 @@
     <description>Recent content in Friends of Go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/friends-of-go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Semantic Versioning</title>
+      <link>https://blog.friendsofgo.tech/posts/semantic-versioning/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/semantic-versioning/</guid>
+      <description>El tema que vamos a tratar hoy no sólo afecta a GO sino que es un tema que se trata en general en el mundo del software. Y va íntimamente ligado al tema de dependencias que llevamos tratando durante el pasado mes de Enero.
+¿Por qué existe el Semantic Versioning? Cuando Go Modules hace su magia y nos baja las dependencias que tiene nuestro proyecto, modifica y añade las líneas necesarias de dichas dependencias al fichero go.</description>
+    </item>
     
     <item>
       <title>Crear tu primer CLI en GO</title>

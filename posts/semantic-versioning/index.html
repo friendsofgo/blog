@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Semantic Versioning • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Semantic Versioning"/>
+<meta name="twitter:description" content="El tema que vamos a tratar hoy no sólo afecta a GO sino que es un tema que se trata en general en el mundo del software. Y va íntimamente ligado al tema de dependencias que llevamos tratando durante el pasado mes de Enero.
+¿Por qué existe el Semantic Versioning? Cuando Go Modules hace su magia y nos baja las dependencias que tiene nuestro proyecto, modifica y añade las líneas necesarias de dichas dependencias al fichero go."/>
+
+<meta property="og:title" content="Semantic Versioning" />
+<meta property="og:description" content="El tema que vamos a tratar hoy no sólo afecta a GO sino que es un tema que se trata en general en el mundo del software. Y va íntimamente ligado al tema de dependencias que llevamos tratando durante el pasado mes de Enero.
+¿Por qué existe el Semantic Versioning? Cuando Go Modules hace su magia y nos baja las dependencias que tiene nuestro proyecto, modifica y añade las líneas necesarias de dichas dependencias al fichero go." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/semantic-versioning/" />
+<meta property="article:published_time" content="2019-02-04T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-04T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+        <div class="container ">
+          <div class="sidebar-about">
+            
+              
+              
+              
+              
+              <div class="author-image">
+                <a href="https://blog.friendsofgo.tech/">
+                <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+                </a>
+              </div>
+              
+            
+            
+            <p class="site__description">
+              
+            </p>
+          </div>
+          <div class="collapsible-menu">
+            <input type="checkbox" id="menuToggle">
+            <label for="menuToggle">Blog | Friends of GO</label>
+            <div class="menu-content">
+              <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+              
+              <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+            </div>
+          </div>
+          
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+</div>
+
+
+
+        </div>
+      </div>
+      
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>Semantic Versioning</h1>
+    
+    
+<div class="post__meta">   
+    
+    
+    
+    <i class="fas fa-user-alt"></i> Adrián Pérez
+    
+    
+    
+      <i class="fas fa-calendar-alt"></i> 4 Feb, 2019
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/gesti%C3%B3n-de-dependencias">GESTIÓN DE DEPENDENCIAS</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/go">go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/golang">golang</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/semantic-versioning">semantic versioning</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/gestion-dependencias">gestion dependencias</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/sem-ver">sem ver</a>
+          
+      
+    
+    
+    <br/>    
+    <i class="fas fa-clock"></i> 3 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>El tema que vamos a tratar hoy no sólo afecta a <strong>GO</strong> sino que es un tema que se trata en general en el mundo del software. Y va íntimamente ligado al tema de dependencias que llevamos tratando durante el pasado mes de Enero.</p>
+
+<h2 id="por-qué-existe-el-semantic-versioning">¿Por qué existe el Semantic Versioning?</h2>
+
+<p>Cuando <strong>Go Modules</strong> hace su magia y nos baja las dependencias que tiene nuestro proyecto, modifica y añade las líneas necesarias de dichas dependencias al fichero <code>go.mod</code> el cual queda similar:</p>
+
+<pre><code>module github.com/aperezg/monster
+
+require (
+	github.com/google/jsonapi v0.0.0-20181016150055-d0428f63eb51
+	github.com/gorilla/mux v1.7.0
+	github.com/oklog/ulid v1.3.1
+)
+</code></pre>
+
+<p>Si nos fijamos en el apartado de <code>require</code> podemos ver que las dependencias necesarias para nuestro proyecto son:</p>
+
+<pre><code>- github.com/google/jsonapi
+- github.com/gorilla/mux
+- github.com/oklog/ulid
+</code></pre>
+
+<p>Pero además cada una indica una version determinada, con la letra <code>v</code>. Esto es muy importante porque imaginemos que no tuviéramos versiones y no tuviéramos forma de obtener o mantener en nuestro proyecto la versión del código que nos fuera correcta, sería una locura, estaríamos constantemente adaptando nuestro código para que funcionara.</p>
+
+<p>Pero uno de los co-fundadores de <strong>Github</strong> y creador de <strong>Gravatar</strong>, <a href="https://semver.org/spec/v2.0.0.html">Tom Preston-Werner</a>, tuvo a bien diseñar una especificación muy sencilla para evitar que no se desatara el infierno en la Tierra.</p>
+
+<h2 id="especificación-de-semantic-versioning-sem-ver">Especificación de Semantic Versioning (Sem ver)</h2>
+
+<p><img src="https://res.cloudinary.com/fogo/image/upload/v1549189683/fogo/blog/semver.png" alt="" /></p>
+
+<p>Como podemos ver en la imagen anterior la especificación de <strong>Sem ver</strong> se divide básicamente en tres, entendamos como funciona cada una de sus partes.</p>
+
+<h3 id="patch-version">Patch version</h3>
+
+<p>Muchos olvidan la importancia o la existencia del <strong>Patch</strong> o bien tienden a llamarlo <strong>Minor</strong> pero son cosas distintas.</p>
+
+<p>Subiremos la versión de nuestro <strong>Patch</strong> siempre y cuando lo que cambiemos en el código sea un <strong>bug fix</strong>, es decir un comportamiento no esperado o erróneo en el código actual, el cual debe de mantener la compatibilidad con versiones anteriores. Si por cualquier motivo el <em>bug</em> que estamos arreglando hiciera que la librería ya no fuera compatible, es decir que los que la utilizan tengan que hacer un refactor en su código para poder seguir utilizándola, tendríamos que cambiar de <strong>Major</strong> como ya veremos luego.</p>
+
+<h3 id="minor-version">Minor version</h3>
+
+<p>La parte <strong>Minor</strong> de nuestra versión es una de las más utilizadas durante el desarrollo de una nueva librería, ya que lo que nos permite es informar de que hemos añadido funcionalidades que antes no existían en la misma, pero que estos cambios siguen siendo compatibles con las versiones anteriores.</p>
+
+<p>Además cuando empecemos una nueva librería ésta empezará en <code>v0.1.0</code></p>
+
+<p>Igual que comentamos con el <strong>Patch</strong> si por cualquier motivo la funcionalidad añadida modifica el comportamiento de la librería y obliga a la gente que la utiliza a tener que hacer modificaciones en su código, indicará que debemos de modificar nuestra <strong>Major</strong></p>
+
+<h3 id="major-version">Major version</h3>
+
+<p>Como venimos comentando durante las dos partes anteriores subiremos la versión de nuestra <strong>Major</strong> siempre que tengamos que lanzar un cambio en nuestro código que nos provoque no poder mantener la compatibilidad con las versiones anteriores. A esto lo llamamos <strong>breaking changes</strong></p>
+
+<p>Tenemos que tener cuidado de no caer en la tentación de ir incrementando este valor de manera alocada, es decir mientras más podamos aguantar sólo subiendo <strong>Patch</strong> y <strong>Minor</strong> mejor, ya que evitará que la gente que utiliza nuestras librerías tengan que realizar cambios en su código para adaptarse a la nueva versión.</p>
+
+<p>Se puede dar el caso de que sin querer subamos una <strong>Minor</strong> o <strong>Patch</strong> que rompa la compatibilidad, en cuyo caso no crearemos una <strong>Major</strong>, sino que arreglaremos el código para recuperar la compatibilidad y sacaremos una <strong>Minor</strong> lo antes posible informando a los usuarios del problema.</p>
+
+<p>Y hasta aquí el tema de <strong>Semantic Versioning</strong> esperamos que os haya resultado útil, y comprendáis mejor como funcionan las versiones, si queréis que profundicemos en como realizar este control de versiones de nuestras librerías con <em>Git</em> y <em>Go Modules</em> dejadlo en los comentarios o pedirlo por <a href="https://twitter.com/FriendsOfGoTech">Twitter</a></p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+    <div class="left-column">      
+        <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+    </div>
+    <div class="main-content">
+      <h4>Adrián Pérez</h4> 
+      <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>     
+      <p class="social-author">
+          
+          <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+            <img alt="twitter" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png"> adrianpgl
+          </a>
+          
+          
+          <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+            <img alt="github" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png"> aperezg
+          </a>
+          
+      </p>
+    </div>
+  </div>
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/crear-tu-primer-cli-en-go/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Crear tu primer CLI en GO</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>
