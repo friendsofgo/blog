@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Api on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/api/</link>
+    <description>Recent content in Api on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 18 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>¿Cómo crear una API Rest en Golang?</title>
+      <link>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</guid>
+      <description>Ya os hemos explicado como crear un command line en Go utilizando los paquetes que nos ofrece Go en el propio lenguaje, sin necesidad de ninguna librería externa.
+Pues esta vez crearemos nuestra primera API Rest, exclusivamente con lo que Go nos permite de entrada, bueno veremos que esto no es exactamente cierto, haremos algo de trampa y utilizaremos alguna librería externa, pero ningún framework.
+¿Por qué no usamos un framework?</description>
+    </item>
+    
+  </channel>
+</rss>

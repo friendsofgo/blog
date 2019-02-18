@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking/</loc>
     <lastmod>2019-02-11T00:00:00+00:00</lastmod>
   </url>
@@ -48,6 +53,18 @@
   </url>
   
   <url>
+    <loc>https://blog.friendsofgo.tech/categories/api/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/api/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/tags/benchmarking/</loc>
     <lastmod>2019-02-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -55,12 +72,13 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -71,13 +89,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/command-line/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
     <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/command-line/</loc>
     <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -95,13 +113,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -113,14 +131,14 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -144,7 +162,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,13 +174,25 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/json/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/rest/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -179,18 +209,18 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
     <lastmod>2019-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

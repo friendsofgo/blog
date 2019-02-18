@@ -6,10 +6,21 @@
     <description>Recent content in Golang on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 11 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>¿Cómo crear una API Rest en Golang?</title>
+      <link>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</link>
+      <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</guid>
+      <description>Ya os hemos explicado como crear un command line en Go utilizando los paquetes que nos ofrece Go en el propio lenguaje, sin necesidad de ninguna librería externa.
+Pues esta vez crearemos nuestra primera API Rest, exclusivamente con lo que Go nos permite de entrada, bueno veremos que esto no es exactamente cierto, haremos algo de trampa y utilizaremos alguna librería externa, pero ningún framework.
+¿Por qué no usamos un framework?</description>
+    </item>
     
     <item>
       <title>Analizando el rendimiento de tus aplicaciones Go: Benchmarking</title>

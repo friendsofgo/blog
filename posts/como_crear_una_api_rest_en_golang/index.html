@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>¿Cómo crear una API Rest en Golang? • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="¿Cómo crear una API Rest en Golang?"/>
+<meta name="twitter:description" content="Ya os hemos explicado como crear un command line en Go utilizando los paquetes que nos ofrece Go en el propio lenguaje, sin necesidad de ninguna librería externa.
+Pues esta vez crearemos nuestra primera API Rest, exclusivamente con lo que Go nos permite de entrada, bueno veremos que esto no es exactamente cierto, haremos algo de trampa y utilizaremos alguna librería externa, pero ningún framework.
+¿Por qué no usamos un framework?"/>
+
+<meta property="og:title" content="¿Cómo crear una API Rest en Golang?" />
+<meta property="og:description" content="Ya os hemos explicado como crear un command line en Go utilizando los paquetes que nos ofrece Go en el propio lenguaje, sin necesidad de ninguna librería externa.
+Pues esta vez crearemos nuestra primera API Rest, exclusivamente con lo que Go nos permite de entrada, bueno veremos que esto no es exactamente cierto, haremos algo de trampa y utilizaremos alguna librería externa, pero ningún framework.
+¿Por qué no usamos un framework?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/" />
+<meta property="article:published_time" content="2019-02-18T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-18T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+        <div class="container ">
+          <div class="sidebar-about">
+            
+              
+              
+              
+              
+              <div class="author-image">
+                <a href="https://blog.friendsofgo.tech/">
+                <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+                </a>
+              </div>
+              
+            
+            
+            <p class="site__description">
+              
+            </p>
+          </div>
+          <div class="collapsible-menu">
+            <input type="checkbox" id="menuToggle">
+            <label for="menuToggle">Blog | Friends of GO</label>
+            <div class="menu-content">
+              <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+              
+              <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+            </div>
+          </div>
+          
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+</div>
+
+
+
+        </div>
+      </div>
+      
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>¿Cómo crear una API Rest en Golang?</h1>
+    
+    
+<div class="post__meta">   
+    
+    
+    
+    <i class="fas fa-user-alt"></i> Adrián Pérez
+    
+    
+    
+      <i class="fas fa-calendar-alt"></i> 18 Feb, 2019
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/api">API</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/go">go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/golang">golang</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/api">api</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/rest">rest</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/json">json</a>
+          
+      
+    
+    
+    <br/>    
+    <i class="fas fa-clock"></i> 7 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Ya os hemos explicado como crear un <a href="https://blog.friendsofgo.tech/posts/crear-tu-primer-cli-en-go/"><em>command line</em> en <strong>Go</strong></a> utilizando los paquetes que nos ofrece <strong>Go</strong> en el propio lenguaje, sin necesidad de ninguna librería externa.</p>
+
+<p>Pues esta vez crearemos nuestra primera <strong>API Rest</strong>, exclusivamente con lo que <strong>Go</strong> nos permite de entrada, bueno veremos que esto no es exactamente cierto, haremos algo de trampa y utilizaremos alguna librería externa, pero ningún <strong>framework</strong>.</p>
+
+<h2 id="por-qué-no-usamos-un-framework">¿Por qué no usamos un framework?</h2>
+
+<p>Si bien es cierto que existen bastantes <strong>frameworks</strong> para crear <strong>APIs</strong> en <strong>Go</strong> en la mayoría de los casos no es necesario, pensad que cuando recurrimos a <strong>Go</strong> para realizar un proyecto es por el hecho de que es más ligero y rápido que otros lenguajes actuales, pero si le empezamos a añadir capas innecesarias, no nos estaremos beneficiando de este punto.</p>
+
+<h2 id="arquitectura-del-proyecto">Arquitectura del proyecto</h2>
+
+<p>Vamos a darle algo de forma a nuestro proyecto.</p>
+
+<pre><code>cmd
+	- gopherapi
+		-- main.go
+pkg
+	- server
+LICENSE
+README.md
+</code></pre>
+
+<p>Como en otras ocasiones nuestro <code>cmd/gopherapi/main.go</code> será el punto con el que arrancaremos nuestra aplicación en este caso una <strong>API</strong></p>
+
+<p>Dentro de <code>pkg</code> encapsularemos el resto del código, si habéis echado un vistazo a otros proyectos de <strong>GO</strong> muchas veces todo el código se encuentra a nivel del directorio raíz, esto es o bien porque son <strong>paquetes</strong> con lo cual se sobre entiende que estás dentro del <strong>paquete</strong> en sí, o son proyectos muy simples.</p>
+
+<p>El directorio <strong>pkg</strong>, es una manera de agrupar tu código cuando el directorio raíz contiene demasiados ficheros o directorios, haciendo sencillo ejecutar diversas <em>go tools</em>.</p>
+
+<p>Además si tu proyecto es público muchos developers esperan encontrar dentro del directorio <strong>pkg</strong> todo lo necesario para poder importar tu aplicación en sus proyectos.</p>
+
+<p>Dentro de <code>pkg/server</code> encontraremos todo lo necesario para que nuestro <strong>server HTTP</strong> funcione, así como los <em>handlers</em> correspondientes.</p>
+
+<h2 id="net-http-es-tu-amigo">net/http es tu amigo</h2>
+
+<p>Vamos a inicializar nuestro servidor, aquí seguro que esperaréis una explicación super compleja de como levantar nuestro <strong>servidor HTTP</strong>, bueno veamos como queda nuestro archivo <code>cmd/gopherapi/main.go</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+<p>Sí, sí, no os engaño, hagamos la prueba, arranquemos el proyecto en una terminal:</p>
+
+<pre><code>$ go run main.go
+</code></pre>
+
+<p>Y en otra terminal probad:</p>
+
+<pre><code>$ curl http://localhost:8080
+404 page not found
+</code></pre>
+
+<p>Como veis está funcionando correctamente, nos devuelve <em>404</em> porque no tenemos ningún <em>handler</em> asociado a nuestro servidor.</p>
+
+<h2 id="el-router-de-gorilla">El router de Gorilla</h2>
+
+<p>Como hemos visto anteriormente si lanzamos nuestro código así sin más, lo único que obtendremos es un <em>404</em>, pero nosotros hemos venido aquí a montar nuestra primera <strong>API Rest</strong>, así que, ¿cómo lo hago?</p>
+
+<p>Para empezar esta parte vamos a aprovecharnos de una librería realmente útil, <a href="https://github.com/gorilla/mux"><strong>Gorilla Mux</strong></a>, realmente podríamos realizar los <em>endpoints</em> sin ella, pero cuenta con ciertas funcionalidades que nos facilitarán mucho la vida.</p>
+
+<pre><code>$ go get -u github.com/gorilla/mux
+</code></pre>
+
+<p>Vamos a escribir nuestro fichero <code>pkg/server/api.go</code> normalmente, cada <em>handler</em> tendría su propio fichero, pero para mantenernos simples crearemos todos nuestros <em>endpoints</em> en <code>api.go</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">server</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/gorilla/mux&#34;</span>
+
+<span class="kd">type</span> <span class="nx">api</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">router</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Server</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">New</span><span class="p">()</span> <span class="nx">Server</span> <span class="p">{</span>
+	<span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">api</span><span class="p">{}</span>
+
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">mux</span><span class="p">.</span><span class="nf">NewRouter</span><span class="p">()</span>
+	<span class="nx">a</span><span class="p">.</span><span class="nx">router</span> <span class="p">=</span> <span class="nx">r</span>
+	<span class="k">return</span> <span class="nx">a</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">router</span>
+<span class="p">}</span></code></pre></div>
+<p>Ahora modificaremos nuestro fichero <code>cmd/gopherapi/main.go</code> para que tenga en cuenta la nueva configuración de <em>server</em> que hemos creado.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+
+	<span class="s">&#34;github.com/friendsofgo/gopher-api/pkg/server&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">server</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Router</span><span class="p">()))</span>
+<span class="p">}</span></code></pre></div>
+<h3 id="qué-hemos-hecho">¿Qué hemos hecho?</h3>
+
+<p>El paquete de <strong>Gorilla</strong> nos permite gestionar todos nuestros endpoints de una manera sencilla con un simple router, que es todo lo que necesita nuestro servidor para ser configurado.</p>
+
+<p>Pero si ejecutamos ahora nuestro código seguirá funcionando igual:</p>
+
+<pre><code>$ curl http://localhost:8080
+404 page not found
+</code></pre>
+
+<p>Y es que realmente tan sólo hemos añadido el <em>router</em> pero no hemos creado ningún <em>endpoint</em></p>
+
+<h2 id="nuestros-primeros-endpoints">Nuestros primeros endpoints</h2>
+
+<p>Ha llegado hora de darle vida a nuestra <strong>API</strong> que es por lo que estamos aquí, vamos a crear los siguientes endpoints:</p>
+
+<ul>
+<li>GET <code>/gophers</code> | Devuelve todos los gophers</li>
+<li>GET <code>/gophers/{gopher_id}</code> | Devuelve los datos del gopher seleccionado</li>
+</ul>
+
+<p>Así que deberemos escribir nuestros respectivos <em>handlers</em> en este tutorial obviaremos el acceso al storage, pero como siempre os daremos el repositorio con el que hemos hecho el artículo al final, para que podáis echarle un ojo.</p>
+
+<h3 id="creemos-las-rutas">Creemos las rutas</h3>
+
+<p>Primero que nada vamos a decirle a nuestro <em>router</em> las rutas que tiene que empezar a resolver.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">server</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;net/http&#34;</span>
+
+	<span class="s">&#34;github.com/gorilla/mux&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">api</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">router</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Server</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">New</span><span class="p">()</span> <span class="nx">Server</span> <span class="p">{</span>
+	<span class="nx">a</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">api</span><span class="p">{}</span>
+
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">mux</span><span class="p">.</span><span class="nf">NewRouter</span><span class="p">()</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/gophers&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fetchGophers</span><span class="p">).</span><span class="nf">Methods</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">)</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/gophers/{ID:[a-zA-Z0-9_]+}&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fetchGopher</span><span class="p">).</span><span class="nf">Methods</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">)</span>
+
+	<span class="nx">a</span><span class="p">.</span><span class="nx">router</span> <span class="p">=</span> <span class="nx">r</span>
+	<span class="k">return</span> <span class="nx">a</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">router</span>
+<span class="p">}</span></code></pre></div>
+<p>Gracias a <strong>Gorilla</strong> podemos usar expresiones regulares para asegurarnos de antemano que los parámetros pasados cumplen con la regla que queremos.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/gophers/{ID:[a-zA-Z0-9_]+}&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fetchGopher</span><span class="p">).</span><span class="nf">Methods</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">)</span></code></pre></div>
+<p>¿Qué pasa si ejecutamos nuestro código ahora?</p>
+
+<pre><code>$ go run cmd/gopherapi/main.go
+pkg/server/api.go:21:28: a.fetchGophers undefined (type *api has no field or method fetchGophers)
+pkg/server/api.go:22:47: a.fetchGopher undefined (type *api has no field or method fetchGopher)
+</code></pre>
+
+<p>¡Claro! Nos falta crear las respectivas funciones de los <em>handlers</em> de momento creémoslas vacías.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGopher</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{}</span>
+<span class="o">...</span></code></pre></div>
+<p>Si volvemos a ejecutar nuestro código funcionará, pero nuestros endpoints continuan estando vacíos, así que tampoco hay mucho que ver ¿no?</p>
+
+<p>Como podemos ver las funciones esperan dos parámetros <code>w</code> y <code>r</code> que son del tipo <code>http.ResponseWriter</code> y <code>http.Request</code> respectivamente. Estos dos parámetros tendrán datos una vez realicemos la petición al endpoint al cual hemos vinculado la función en cuestión.</p>
+
+<h2 id="empecemos-a-mostrar-datos">Empecemos a mostrar datos</h2>
+
+<p>Para este ejemplo hemos creado un simple struct que define a un <em>Gopher</em> dentro del fichero <code>pkg/gopher.go</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">gopher</span>
+
+<span class="c1">// Gopher defines the properties of a gopher to be listed
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Gopher</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID</span>    <span class="kt">string</span> <span class="s">`json:&#34;ID&#34;`</span>
+	<span class="nx">Name</span>  <span class="kt">string</span> <span class="s">`json:&#34;name,omitempty&#34;`</span>
+	<span class="nx">Image</span> <span class="kt">string</span> <span class="s">`json:&#34;image,omitempty&#34;`</span>
+	<span class="nx">Age</span>   <span class="kt">int</span>    <span class="s">`json:&#34;age,omitempty&#34;`</span>
+<span class="p">}</span></code></pre></div>
+<p>En nuestro <code>struct</code> podemos ver que después de declarar el tipo hay algo más, ¿qué es esa anotación? Pues son <code>tags</code>, con esto ahorraremos muchísimo código que en otros lenguajes tenemos que realizar muchas veces a mano.</p>
+
+<p>Lo que hará esta anotación de manera automática tanto cuando se ejecute la función <code>json.Marshal</code> como <code>json.Unmarshal</code> es transformar nuestro struct, ya sea desde <em>json</em> o hacia <em>json</em>, además nos permite indicarle como vemos, que pasa cuando el dato viene vacío. Se pueden realizar más acciones pero de momento con esto será suficiente.</p>
+
+<p>Como dijimos anteriormente, daremos por hecho que nuestra aplicación contiene un repositorio con datos a mostrar. Así pues veamos como implementamos los <em>handlers</em>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">gophers</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nf">FetchGophers</span><span class="p">()</span>
+
+	<span class="nx">w</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">)</span>
+	<span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="p">).</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">gophers</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGopher</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">vars</span> <span class="o">:=</span> <span class="nx">mux</span><span class="p">.</span><span class="nf">Vars</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+	<span class="nx">gopher</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nf">FetchGopherByID</span><span class="p">(</span><span class="nx">vars</span><span class="p">[</span><span class="s">&#34;ID&#34;</span><span class="p">])</span>
+	<span class="nx">w</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusNotFound</span><span class="p">)</span> <span class="c1">// We use not found for simplicity
+</span><span class="c1"></span>		<span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="p">).</span><span class="nf">Encode</span><span class="p">(</span><span class="s">&#34;Gopher Not found&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="p">).</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">gopher</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">...</span></code></pre></div>
+<p>Obviamente en un código real tendríamos una mejor implementación de las respuestas y errores, pero con estos ejemplos podréis ver como funcionan a grandes rasgos los <em>handlers</em>.</p>
+
+<p>Quizás os resulte algo raro el término <em>handler</em> o <em>request handler</em> que es como se les conoce en <strong>Go</strong>, pero seguro que si los llamo <em>controller</em> o <em>controladores</em>, que corresponde al controlador &copy; de la arquitectura <em>MVC</em>, pasaréis a comprender mejor que es lo que hemos realizado en el código anterior.</p>
+
+<p>Ahora vamos a probar nuestra aplicación:</p>
+
+<p>Primero recordemos en un terminal ejecutamos el server:</p>
+
+<pre><code>$ go run cmd/gopherapi/main.go
+</code></pre>
+
+<p>Y en otra probaremos las llamadas:</p>
+
+<pre><code>$ curl http://localhost:8080/gophers
+[
+	{&quot;ID&quot;:&quot;01D3XZ3ZHCP3KG9VT4FGAD8KDR&quot;,&quot;name&quot;:&quot;Jenny&quot;,&quot;image&quot;:&quot;https://storage.googleapis.com/gopherizeme.appspot.com/gophers/0ceb2c10fc0c30575c18ff1defa1ffd41501bc62.png&quot;,&quot;age&quot;:18},
+	{&quot;ID&quot;:&quot;01D3XZ7CN92AKS9HAPSZ4D5DP9&quot;,&quot;name&quot;:&quot;Billy&quot;,&quot;image&quot;:&quot;https://storage.googleapis.com/gopherizeme.appspot.com/gophers/13c7d425111a501600db8587b52bb292836c5bee.png&quot;,&quot;age&quot;:24},
+	{&quot;ID&quot;:&quot;01D3XZ89NFJZ9QT2DHVD462AC2&quot;,&quot;name&quot;:&quot;Rainbow&quot;,&quot;image&quot;:&quot;https://storage.googleapis.com/gopherizeme.appspot.com/gophers/b9e8d637c91c089fd56d7b159825fc9089377118.png&quot;,&quot;age&quot;:48},
+	{&quot;ID&quot;:&quot;01D3XZ8JXHTDA6XY05EVJVE9Z2&quot;,&quot;name&quot;:&quot;Bjorn&quot;,&quot;image&quot;:&quot;https://storage.googleapis.com/gopherizeme.appspot.com/gophers/fd01b36091560c2a128b8fddfb2c627d8bb7417c.png&quot;,&quot;age&quot;:32}
+]
+</code></pre>
+
+<p>¡Asombroso!</p>
+
+<pre><code>$ curl http://localhost:8080/gophers/01D3XZ3ZHCP3KG9VT4FGAD8KDR
+{&quot;ID&quot;:&quot;01D3XZ3ZHCP3KG9VT4FGAD8KDR&quot;,&quot;name&quot;:&quot;Jenny&quot;,&quot;image&quot;:&quot;https://storage.googleapis.com/gopherizeme.appspot.com/gophers/0ceb2c10fc0c30575c18ff1defa1ffd41501bc62.png&quot;,&quot;age&quot;:18}
+</code></pre>
+
+<p>¡Maravilloso!</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>Ahora el punto que deberíamos tratar sería como testear nuestra API, pero esto lo dejaremos para un siguiente artículo, que obviamente encontraréis en el blog.</p>
+
+<h2 id="conclusión">Conclusión</h2>
+
+<p>Has aprendido como realizar una API RESTful usando <strong>GO</strong>. De momento hemos tenido que mockear nuestros datos y hemos obviado la parte de como guardar en base de datos, y como realizar los tests, pero no perdáis de vista esta API porque seguiremos evolucionándola en próximos artículos.</p>
+
+<p>Aquí os dejamos el repositorio de la misma:
+<a href="https://github.com/friendsofgo/gopherapi/">https://github.com/friendsofgo/gopherapi/</a></p>
+
+<p>Además ya sabéis que me gustan mucho los retos, ¿quién se atreve a añadir los endpoints que nos faltan?</p>
+
+<ul>
+<li>POST <code>/gophers</code> | Crea un nuevo gopher</li>
+<li>PUT <code>/gophers/{gopher_id}</code> | Modifica un gopher existente</li>
+<li>DELETE <code>/gophers/{gopher_id}</code> | Elimina el gopher pasado por ID</li>
+</ul>
+
+<p>El repositorio ya tiene los métodos necesarios para realizar dichas acciones así que sólo tendríais que completar los <em>handlers</em>.</p>
+
+<p>Si os animáis haced un <strong>Pull Request</strong> con vuestra propuesta, la mejor será añadida en el repositorio.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+    <div class="left-column">      
+        <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+    </div>
+    <div class="main-content">
+      <h4>Adrián Pérez</h4> 
+      <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>     
+      <p class="social-author">
+          
+          <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+            <img alt="twitter" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png"> adrianpgl
+          </a>
+          
+          
+          <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+            <img alt="github" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png"> aperezg
+          </a>
+          
+      </p>
+    </div>
+  </div>
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Analizando el rendimiento de tus aplicaciones Go: Benchmarking</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>
