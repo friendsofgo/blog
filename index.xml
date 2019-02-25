@@ -6,10 +6,20 @@
     <description>Recent content on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 18 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analizando el rendimiento de tus aplicaciones Go: El determinismo de las pruebas</title>
+      <link>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/</link>
+      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/</guid>
+      <description>Entendemos por algoritmo determinista como aquél algoritmo qué, en términos informales, es completamente predictivo si se conocen sus entradas. Cuándo hablamos de pruebas (tests), entendemos que éstas son deterministas sí, dada una implementación concreta, el resultado de la prueba (OK o KO) es siempre el mismo. Lo mismo lo podemos extrapolar a pruebas de carga o estrés.
+ Seguimos con el jefe del proyecto preguntando por las mejoras de nuestra implementación, pues, a pesar de que vimos como comparar el rendimiento de nuestras implementaciones, aún no hemos sido capaces de encontrar qué es lo que hace qué nuestra implementación sea excesivamente lenta en comparación con la de la competencia.</description>
+    </item>
     
     <item>
       <title>¿Cómo crear una API Rest en Golang?</title>
