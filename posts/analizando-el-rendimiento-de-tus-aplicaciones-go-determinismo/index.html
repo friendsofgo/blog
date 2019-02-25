@@ -279,7 +279,7 @@ de <em>stubs</em> o de <em>fakes</em>, pues realmente <strong>no queremos atar n
 
 <h2 id="permitiendo-la-inyección-de-dependencias">Permitiendo la inyección de dependencias</h2>
 
-<p>Si hacemos memoria, en el último artículo veíamos código similar a éste:</p>
+<p>Si hacemos memoria, en <a href="/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking">el último artículo</a> veíamos código similar a éste:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">i</span> <span class="o">:=</span> <span class="nf">NewIntegrator</span><span class="p">()</span>
 <span class="nx">i</span><span class="p">.</span><span class="nf">Synchronize</span><span class="p">()</span></code></pre></div>
 <p>Sin embargo, <strong>éste código será difícil de probar,</strong> pues no tenemos forma de hacer uso de <em>test doubles</em> para dotar a nuestros
@@ -340,7 +340,7 @@ demasiado tedioso tener que hacer todas las implementaciones a mano.</p>
 <p>Veamos como hacerlo y como hipotéticamente podríamos implementar diferente lógica en función
 del cuerpo y la URL de la petición.</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fakeServer</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">rw</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Test request parameters:
+        <span class="c1">// Here we can use the following parameters to add business logic:
 </span><span class="c1"></span>        <span class="c1">// req.Body -&gt; to get the request body
 </span><span class="c1"></span>        <span class="c1">// req.URL.String() -&gt; to get the request path
 </span><span class="c1"></span>        <span class="c1">// Send response to be tested
@@ -349,7 +349,7 @@ del cuerpo y la URL de la petición.</p>
     
 <span class="nx">c</span> <span class="o">:=</span> <span class="nx">fakeServer</span><span class="p">.</span><span class="nf">Client</span><span class="p">()</span></code></pre></div></li>
 
-<li><p><strong>Usar el paquete <code>moq</code> sin hacer aserciones sobre las llamadas de los métodos:</strong></p>
+<li><p><strong>Usar el paquete <a href="https://github.com/matryer/moq"><code>moq</code></a> sin hacer aserciones sobre las llamadas de los métodos:</strong></p>
 
 <p>Este no es quizás el mejor ejemplo para debatir sobre el uso de <em>mocks</em>, pero, en una ocasión similar a ésta,
 resultaría imprescindible ser conscientes de éste aspecto, pues, imaginad que tenemos una API que tiene varias formas
@@ -391,7 +391,8 @@ librería específica como <code>httptest</code> que no recurrir .</p>
 
 <h2 id="inyectando-los-fakes-stubs-en-nuestros-benchmarks">Inyectando los <em>fakes/stubs</em> en nuestros benchmarks:</h2>
 
-<p>Finalmente, podríamos modificar el código que veíamos en el anterior artículo, por algo similar a ésto:</p>
+<p>Finalmente, podríamos modificar el código que veíamos en <a href="/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking">el anterior artículo</a>,
+por algo similar a ésto:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkSynchronize</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">// Assuming c variable has one of the previously seen possible values
 </span><span class="c1"></span>	<span class="nx">i</span> <span class="o">:=</span> <span class="nf">NewIntegrator</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
