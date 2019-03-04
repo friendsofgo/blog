@@ -22,12 +22,12 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="¿Cómo testear nuestra API en Golang?"/>
-<meta name="twitter:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
-¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora."/>
+<meta name="twitter:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y, como sabemos, testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
+¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora."/>
 
 <meta property="og:title" content="¿Cómo testear nuestra API en Golang?" />
-<meta property="og:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
-¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora." />
+<meta property="og:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y, como sabemos, testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
+¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/" />
 <meta property="article:published_time" content="2019-03-04T00:00:00&#43;00:00"/>
@@ -243,13 +243,13 @@
   <div class="post">
     
 
-<p>En un pasado artículo os explicábamos <a href="https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/">como crear una <strong>API Rest en Go</strong></a>, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.</p>
+<p>En un pasado artículo os explicábamos <a href="https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/">como crear una <strong>API Rest en Go</strong></a>, pero no llegamos a explicar como poder testear dicha API y, como sabemos, testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.</p>
 
-<p>¿Pero y cómo testeo los <em>handlers</em>? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, <a href="https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/"><strong>Empezando con los test automatizados en Go</strong></a>, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los <em>Unitarios</em> o <em>Units</em> que son los que veremos ahora.</p>
+<p>¿Pero y cómo testeo los <em>handlers</em>? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo <a href="https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/"><strong>Empezando con los test automatizados en Go</strong></a>, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los <em>Unitarios</em> o <em>Units</em> que son los que veremos ahora.</p>
 
 <h2 id="tests-unitarios-para-nuestros-handlers">Tests unitarios para nuestros handlers</h2>
 
-<p>Para este ejercicio utilizaremos la API que creamos juntos, <a href="https://github.com/friendsofgo/gopherapi/tree/v0.1">GopherApi</a>, nos basaremos en <strong>la tag v0.1</strong>, esto es muy importante porque al terminar este ejercicio subiremos una nueva realease, <strong>la v0.1.1</strong>, con todo lo que hayamos desarrollado.</p>
+<p>Para este ejercicio utilizaremos la API que creamos juntos: <a href="https://github.com/friendsofgo/gopherapi/tree/v0.1">GopherApi</a>, y nos basaremos en <strong>la tag v0.1</strong>. Esto es muy importante porque al terminar este ejercicio subiremos una nueva <em>realease</em>, <strong>la v0.1.1</strong>, con todo lo que hayamos desarrollado.</p>
 
 <p>Lo primero que tendremos que crear es nuestro fichero de test, en la siguiente ruta, <code>pkg/server/api_test.go</code>, recordar que los ficheros que <strong>Go</strong> entiende como testeables son aquellos que acaban en <code>_test.go</code>, de esta forma el compilador los ignorará y sólo los tendrá en cuenta cuando lancemos los comandos de tests.</p>
 
@@ -260,7 +260,7 @@
 		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not created request: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
-<p>Recordemos que en <strong>Go</strong> por defecto no tenemos assertions, sino que tenemos nosotros que decirle al test que esperamos de él explícitamente, así pues en la suite nos encontramos con los diferentes métodos:</p>
+<p>Recordemos que en <strong>Go</strong>, por defecto, no tenemos <em>assertions</em>, sino que somos nosotros los que tenemos que decirle al test que esperamos de él, explícitamente, así pues en la suite nos encontramos con los diferentes métodos:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Logf</span><span class="p">()</span></code></pre></div>
 <p>Con este método podemos printar logs en nuestros tests como si usáramos un Println o un Printf.</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">()</span></code></pre></div>
@@ -268,7 +268,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Fatal</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">()</span></code></pre></div>
 <p>Sería lo mismo que <em>error</em>, pero además corta la ejecución en ese momento.</p>
 
-<p>Una vez tenemos nuestra request deberemos testear nuestro <em>handler</em>:</p>
+<p>Una vez tenemos nuestra <em>request</em> deberemos testear nuestro <em>handler</em>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">gophers</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nf">FetchGophers</span><span class="p">()</span>
 
@@ -279,11 +279,11 @@
 
 <p>Vemos que para llamarlo necesitaremos una estructura de tipo <em>api</em>, y además el método espera un <em>http.ResponseWriter</em> y un <em>http.Request</em>, veamos cómo resolver esto.</p>
 
-<p>Si vemos nuestro código lo primero que veremos es que, <em>fetchGophers</em> es un método no exportado(o privado como se le llama en otros lenguajes), esto no debería ser problema, pero vemos que se llama desde el struct <em>api</em>, podríamos resolverlo fácilmente de esta manera:</p>
+<p>Si vemos nuestro código lo primero que veremos es que, <em>fetchGophers</em> es un método no exportado (o privado, como se le llama en otros lenguajes), esto no debería ser problema, pero vemos que se llama desde el struct <em>api</em>, podríamos resolverlo fácilmente de esta manera:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">repo</span> <span class="o">:=</span> <span class="nx">inmem</span><span class="p">.</span><span class="nf">NewGopherRepository</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
 <span class="nx">a</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span>
 <span class="nx">a</span><span class="p">.</span><span class="nx">repository</span> <span class="p">=</span> <span class="nx">repo</span></code></pre></div>
-<p>Pero, creo que estaréis de acuerdo conmigo en que esto <strong>huele un poco mal</strong>, recordemos que teníamos una interfaz, llamada <em>Server</em> la cual utilizábamos, para que el método <em>http.ListenAndServe</em> entendiera como levantar nuestro servidor. Así que hagamos un pequeño refactor en el fichero <code>pkg/server/api.go</code></p>
+<p>Pero, creo que estaréis de acuerdo conmigo en que esto <strong>huele un poco mal</strong>, recordemos que teníamos una interfaz, llamada <em>Server</em>, la cual utilizábamos, para que el método <em>http.ListenAndServe</em> entendiera como levantar nuestro servidor. Así que hagamos un pequeño refactor en el fichero <code>pkg/server/api.go</code></p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Server</span> <span class="kd">interface</span> <span class="p">{</span>
 	<span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
 	<span class="nf">FetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
@@ -295,7 +295,7 @@
 <p>Con este simple cambio podremos pasar de la inicialización anterior a la siguiente.</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">repo</span> <span class="o">:=</span> <span class="nx">inmem</span><span class="p">.</span><span class="nf">NewGopherRepository</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
 <span class="nx">s</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">repo</span><span class="p">)</span></code></pre></div>
-<p>Mucho más simple y ya no nos suena tan raro ¿verdad? Quizás os estaréis preguntando, porque hacemos este refactor en un capítulo sobre tests, y es que una parte fundamental que tenéis que tener en cuenta sobre los tests es que el código que escribamos debe de ser testeable, y eso es lo que hemos hecho.</p>
+<p>Mucho más simple y ya no nos suena tan raro ¿verdad? Quizás os estaréis preguntando porque hacemos este refactor en un capítulo sobre tests, y es que una parte fundamental que tenéis que tener en cuenta sobre los tests es que el código que escribamos debe de ser testeable, y eso es lo que hemos hecho.</p>
 
 <p>Ahora sí, veamos como queda nuestro código de test:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestFetchGophers</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
@@ -311,13 +311,13 @@
 
 	<span class="nx">s</span><span class="p">.</span><span class="nf">FetchGophers</span><span class="p">(</span><span class="nx">rec</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
 <span class="p">}</span></code></pre></div>
-<p>Ha aparecido en escena, algo nuevo, si el paquete <em>httptest</em>, recordemos que la firma del método además de un <em>http.Request</em> que era fácil de conseguir nos pedía un <em>http.ResponseWriter</em>, para ello <strong>Go</strong> nos facilita de este paquete, con el cual podemos crear un <em>recorder</em> que se encargara de la parte de <em>writer</em></p>
+<p>Ha aparecido algo nuevo en escena: el paquete <em>httptest</em>. Recordemos que la firma del método además de un <em>http.Request</em> que era fácil de conseguir nos pedía un <em>http.ResponseWriter</em>, para ello <strong>Go</strong> nos facilita de este paquete, con el cual podemos crear un <em>recorder</em> que se encargara de la parte de <em>writer</em></p>
 
 <p>Bien, si ejecutamos el test, veremos que pasa sin problemas, pero&hellip; ¿realmente nos aporta algo este test? simplemente sabemos que se llama a nuestro <em>FetchGophers</em> y que nada falla, podría bastarnos pero vamos un paso más allá, veamos como comprobar que la respuesta que nos da el <em>server</em> es la esperada.</p>
 
 <h3 id="comprobemos-que-la-respuesta-es-la-esperada">Comprobemos que la respuesta es la esperada</h3>
 
-<p>Hemos utilizado antes el <em>httptest.NewRecorder()</em> para poder pasar un <em>http.ResponseWriter</em>, en una ejecución normal de la api, nuestro <em>http.ResponseWriter</em> se encargaría de <strong>escribir</strong> el contenido, así que ¿poor qué no iba a hacerlo el del paquete <em>httptest</em>, veamos como queda en código.</p>
+<p>Hemos utilizado antes el <em>httptest.NewRecorder()</em> para poder pasar un <em>http.ResponseWriter</em>, en una ejecución normal de la api, nuestro <em>http.ResponseWriter</em> se encargaría de <strong>escribir</strong> el contenido, así que ¿por qué no iba a hacerlo el del paquete <em>httptest</em>, veamos como queda en código.</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
    <span class="nx">res</span> <span class="o">:=</span> <span class="nx">rec</span><span class="p">.</span><span class="nf">Result</span><span class="p">()</span>
 	<span class="k">defer</span> <span class="nx">res</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
@@ -373,7 +373,7 @@
 
 <p>Para no alargarnos mucho más hemos preferido no entrar en como testear el otro método de nuestra API, <em>FetchGopher</em>, pero tenéis el ejemplo en el código del repositorio, para este además hemos usado la técnica de <strong>Table Drive Design</strong>, gracias a esta técnica podemos probar todos los casos con un solo test.</p>
 
-<p>Y bueno seguimos queriendo que participéis más en la comunidad, por eso os recordamos que aún nos faltan dos endpoints por crear:</p>
+<p>Y bueno, como seguimos queriendo que participéis más en la comunidad, os recordamos que aún nos faltan dos endpoints por crear:</p>
 
 <ul>
 <li><code>/gophers</code> (POST) -&gt; Crea un nuevo gopher</li>
@@ -381,7 +381,7 @@
 <li><code>/gophers/{gopher_id}</code> (DELETE) -&gt; Elimina el gopher pasado por ID</li>
 </ul>
 
-<p>Y necesitaran de sus respectivos tests, así que no os cortéis queremos ver vuestras aportaciones, empezad a mandar vuestros PR (Pull Request) a nuestro repositorio: <a href="https://github.com/friendsofgo/gopherapi">https://github.com/friendsofgo/gopherapi</a> Es una buena forma de empezar a colaborar en proyectos open source.</p>
+<p>Y éstos, evidentemente, necesitarán de sus respectivos tests, así que no os cortéis, queremos ver vuestras aportaciones, empezad a mandar vuestros PR (Pull Request) a nuestro repositorio: <a href="https://github.com/friendsofgo/gopherapi">https://github.com/friendsofgo/gopherapi</a>. Es una buena forma de empezar a colaborar en proyectos <em>open source</em>.</p>
 
   </div>
   
