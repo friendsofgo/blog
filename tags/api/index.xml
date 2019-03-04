@@ -6,10 +6,20 @@
     <description>Recent content in Api on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 18 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/api/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>¿Cómo testear nuestra API en Golang?</title>
+      <link>https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/</guid>
+      <description>En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
+¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora.</description>
+    </item>
     
     <item>
       <title>¿Cómo crear una API Rest en Golang?</title>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>¿Cómo testear nuestra API en Golang? • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="¿Cómo testear nuestra API en Golang?"/>
+<meta name="twitter:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
+¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora."/>
+
+<meta property="og:title" content="¿Cómo testear nuestra API en Golang?" />
+<meta property="og:description" content="En un pasado artículo os explicábamos como crear una API Rest en Go, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.
+¿Pero y cómo testeo los handlers? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, Empezando con los test automatizados en Go, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los Unitarios o Units que son los que veremos ahora." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/" />
+<meta property="article:published_time" content="2019-03-04T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-03-04T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+        <div class="container ">
+          <div class="sidebar-about">
+            
+              
+              
+              
+              
+              <div class="author-image">
+                <a href="https://blog.friendsofgo.tech/">
+                <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+                </a>
+              </div>
+              
+            
+            
+            <p class="site__description">
+              
+            </p>
+          </div>
+          <div class="collapsible-menu">
+            <input type="checkbox" id="menuToggle">
+            <label for="menuToggle">Blog | Friends of GO</label>
+            <div class="menu-content">
+              <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+              
+              <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+            </div>
+          </div>
+          
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+</div>
+
+
+
+        </div>
+      </div>
+      
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1>¿Cómo testear nuestra API en Golang?</h1>
+    
+    
+<div class="post__meta">   
+    
+    
+    
+    <i class="fas fa-user-alt"></i> Adrián Pérez
+    
+    
+    
+      <i class="fas fa-calendar-alt"></i> 4 Mar, 2019
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/api">API</a>
+              •
+          
+              <a class="badge badge-category" href="/categories/testing">TESTING</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/go">go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/golang">golang</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/api">api</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/rest">rest</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/json">json</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/testing">testing</a>
+          
+      
+    
+    
+    <br/>    
+    <i class="fas fa-clock"></i> 6 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>En un pasado artículo os explicábamos <a href="https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/">como crear una <strong>API Rest en Go</strong></a>, pero no llegamos a explicar como poder testear dicha API y como sabemos testear nuestra aplicación es muy muy importante si queremos poder hacer refactors sin miedo, u obviamente evitar bugs.</p>
+
+<p>¿Pero y cómo testeo los <em>handlers</em>? Pues primeramente deberas estar familiarizado con la forma de testing en GO, cosa que ya os explicábamos en el artículo, <a href="https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/"><strong>Empezando con los test automatizados en Go</strong></a>, recordad que se le llama test automatizado a todo test que ha sido automatizado y no tenemos que realizar a mano, luego dentro encontramos distintos tipos como son los <em>Unitarios</em> o <em>Units</em> que son los que veremos ahora.</p>
+
+<h2 id="tests-unitarios-para-nuestros-handlers">Tests unitarios para nuestros handlers</h2>
+
+<p>Para este ejercicio utilizaremos la API que creamos juntos, <a href="https://github.com/friendsofgo/gopherapi/tree/v0.1">GopherApi</a>, nos basaremos en <strong>la tag v0.1</strong>, esto es muy importante porque al terminar este ejercicio subiremos una nueva realease, <strong>la v0.1.1</strong>, con todo lo que hayamos desarrollado.</p>
+
+<p>Lo primero que tendremos que crear es nuestro fichero de test, en la siguiente ruta, <code>pkg/server/api_test.go</code>, recordar que los ficheros que <strong>Go</strong> entiende como testeables son aquellos que acaban en <code>_test.go</code>, de esta forma el compilador los ignorará y sólo los tendrá en cuenta cuando lancemos los comandos de tests.</p>
+
+<p>Como se trata de un test hacia un endpoint de nuestra api, deberemos emular dicho comportamiento, por ello lo primero será crear una request que llame a nuestro endpoint.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestFetchGophers</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/gophers&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not created request: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Recordemos que en <strong>Go</strong> por defecto no tenemos assertions, sino que tenemos nosotros que decirle al test que esperamos de él explícitamente, así pues en la suite nos encontramos con los diferentes métodos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Logf</span><span class="p">()</span></code></pre></div>
+<p>Con este método podemos printar logs en nuestros tests como si usáramos un Println o un Printf.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">()</span></code></pre></div>
+<p>Es lo mismo que el <em>log</em>, pero informamos de que se ha producido un error y de que no pasamos los tests. Además continua con la ejecución.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nx">Fatal</span><span class="o">/</span><span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">()</span></code></pre></div>
+<p>Sería lo mismo que <em>error</em>, pero además corta la ejecución en ese momento.</p>
+
+<p>Una vez tenemos nuestra request deberemos testear nuestro <em>handler</em>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">fetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">gophers</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nf">FetchGophers</span><span class="p">()</span>
+
+	<span class="nx">w</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">)</span>
+	<span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="p">).</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">gophers</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<h3 id="hagamos-nuestro-código-testeable">Hagamos nuestro código testeable</h3>
+
+<p>Vemos que para llamarlo necesitaremos una estructura de tipo <em>api</em>, y además el método espera un <em>http.ResponseWriter</em> y un <em>http.Request</em>, veamos cómo resolver esto.</p>
+
+<p>Si vemos nuestro código lo primero que veremos es que, <em>fetchGophers</em> es un método no exportado(o privado como se le llama en otros lenguajes), esto no debería ser problema, pero vemos que se llama desde el struct <em>api</em>, podríamos resolverlo fácilmente de esta manera:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">repo</span> <span class="o">:=</span> <span class="nx">inmem</span><span class="p">.</span><span class="nf">NewGopherRepository</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
+<span class="nx">a</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">repository</span> <span class="p">=</span> <span class="nx">repo</span></code></pre></div>
+<p>Pero, creo que estaréis de acuerdo conmigo en que esto <strong>huele un poco mal</strong>, recordemos que teníamos una interfaz, llamada <em>Server</em> la cual utilizábamos, para que el método <em>http.ListenAndServe</em> entendiera como levantar nuestro servidor. Así que hagamos un pequeño refactor en el fichero <code>pkg/server/api.go</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Server</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Router</span><span class="p">()</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+	<span class="nf">FetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+	<span class="nf">FetchGopher</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">FetchGophers</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">api</span><span class="p">)</span> <span class="nf">FetchGopher</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span></code></pre></div>
+<p>Con este simple cambio podremos pasar de la inicialización anterior a la siguiente.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">repo</span> <span class="o">:=</span> <span class="nx">inmem</span><span class="p">.</span><span class="nf">NewGopherRepository</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
+<span class="nx">s</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">repo</span><span class="p">)</span></code></pre></div>
+<p>Mucho más simple y ya no nos suena tan raro ¿verdad? Quizás os estaréis preguntando, porque hacemos este refactor en un capítulo sobre tests, y es que una parte fundamental que tenéis que tener en cuenta sobre los tests es que el código que escribamos debe de ser testeable, y eso es lo que hemos hecho.</p>
+
+<p>Ahora sí, veamos como queda nuestro código de test:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestFetchGophers</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/gophers&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not created request: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">repo</span> <span class="o">:=</span> <span class="nx">inmem</span><span class="p">.</span><span class="nf">NewGopherRepository</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">repo</span><span class="p">)</span>
+
+	<span class="nx">rec</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nf">NewRecorder</span><span class="p">()</span>
+
+	<span class="nx">s</span><span class="p">.</span><span class="nf">FetchGophers</span><span class="p">(</span><span class="nx">rec</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Ha aparecido en escena, algo nuevo, si el paquete <em>httptest</em>, recordemos que la firma del método además de un <em>http.Request</em> que era fácil de conseguir nos pedía un <em>http.ResponseWriter</em>, para ello <strong>Go</strong> nos facilita de este paquete, con el cual podemos crear un <em>recorder</em> que se encargara de la parte de <em>writer</em></p>
+
+<p>Bien, si ejecutamos el test, veremos que pasa sin problemas, pero&hellip; ¿realmente nos aporta algo este test? simplemente sabemos que se llama a nuestro <em>FetchGophers</em> y que nada falla, podría bastarnos pero vamos un paso más allá, veamos como comprobar que la respuesta que nos da el <em>server</em> es la esperada.</p>
+
+<h3 id="comprobemos-que-la-respuesta-es-la-esperada">Comprobemos que la respuesta es la esperada</h3>
+
+<p>Hemos utilizado antes el <em>httptest.NewRecorder()</em> para poder pasar un <em>http.ResponseWriter</em>, en una ejecución normal de la api, nuestro <em>http.ResponseWriter</em> se encargaría de <strong>escribir</strong> el contenido, así que ¿poor qué no iba a hacerlo el del paquete <em>httptest</em>, veamos como queda en código.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+   <span class="nx">res</span> <span class="o">:=</span> <span class="nx">rec</span><span class="p">.</span><span class="nf">Result</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">res</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d, got: %d&#34;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">res</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not read response: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">got</span> <span class="p">[]</span><span class="o">*</span><span class="nx">gopher</span><span class="p">.</span><span class="nx">Gopher</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">got</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not unmarshall response %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">expected</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">got</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">expected</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d gophers, got: %d gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="o">...</span></code></pre></div>
+<p>Vayamos por partes, lo primero que vemos es <code>rec.Result()</code> este método nos devuelve una respuesta, gracias a esto podemos investigar que ha pasado en nuestra petición, desde comprobar el código de respuesta:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+	<span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d, got: %d&#34;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="nx">res</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="o">...</span></code></pre></div>
+<p>Hasta ir un paso más allá y comprobar que la respuesta es la que esperamos, como hacemos en los pasos siguiente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+	<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not read response: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">got</span> <span class="p">[]</span><span class="o">*</span><span class="nx">gopher</span><span class="p">.</span><span class="nx">Gopher</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">got</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;could not unmarshall response %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">expected</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">got</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">expected</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d gophers, got: %d gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+	<span class="p">}</span>
+
+<span class="o">...</span></code></pre></div>
+<p>Aunque parezca mucha cosa, es bastante sencillo de entender, por un lado leemos el <em>body</em> de la respuesta, luego realizamos un <em>json.Unmarshal</em> de la misma, ya que <strong>sabemos que siempre nos va a venir un json como respuesta</strong> y luego para no complicarnos en exceso, comprobamos que la cantidad de items, es la misma que en nuestro repositorio.</p>
+
+<h2 id="ahora-es-tu-turno">Ahora es tu turno</h2>
+
+<p>Para no alargarnos mucho más hemos preferido no entrar en como testear el otro método de nuestra API, <em>FetchGopher</em>, pero tenéis el ejemplo en el código del repositorio, para este además hemos usado la técnica de <strong>Table Drive Design</strong>, gracias a esta técnica podemos probar todos los casos con un solo test.</p>
+
+<p>Y bueno seguimos queriendo que participéis más en la comunidad, por eso os recordamos que aún nos faltan dos endpoints por crear:</p>
+
+<ul>
+<li><code>/gophers</code> (POST) -&gt; Crea un nuevo gopher</li>
+<li><code>/gophers/{gopher_id}</code> (PUT) -&gt; Modifica un gopher existente</li>
+<li><code>/gophers/{gopher_id}</code> (DELETE) -&gt; Elimina el gopher pasado por ID</li>
+</ul>
+
+<p>Y necesitaran de sus respectivos tests, así que no os cortéis queremos ver vuestras aportaciones, empezad a mandar vuestros PR (Pull Request) a nuestro repositorio: <a href="https://github.com/friendsofgo/gopherapi">https://github.com/friendsofgo/gopherapi</a> Es una buena forma de empezar a colaborar en proyectos open source.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+    <div class="left-column">      
+        <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+    </div>
+    <div class="main-content">
+      <h4>Adrián Pérez</h4> 
+      <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>     
+      <p class="social-author">
+          
+          <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+            <img alt="twitter" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png"> adrianpgl
+          </a>
+          
+          
+          <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+            <img alt="github" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png"> aperezg
+          </a>
+          
+      </p>
+    </div>
+  </div>
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Analizando el rendimiento de tus aplicaciones Go: El determinismo de las pruebas</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>
