@@ -338,7 +338,7 @@
 	<span class="nx">expected</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
 
 	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">got</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">expected</span> <span class="p">{</span>
-		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d gophers, got: %d gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %v gophers, got: %v gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="o">...</span></code></pre></div>
 <p>Vayamos por partes, lo primero que vemos es <code>rec.Result()</code> este método nos devuelve una respuesta, gracias a esto podemos investigar que ha pasado en nuestra petición, desde comprobar el código de respuesta:</p>
@@ -363,7 +363,7 @@
 	<span class="nx">expected</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">)</span>
 
 	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">got</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">expected</span> <span class="p">{</span>
-		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %d gophers, got: %d gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;expected %v gophers, got: %v gopher&#34;</span><span class="p">,</span> <span class="nx">sample</span><span class="p">.</span><span class="nx">Gophers</span><span class="p">,</span> <span class="nx">got</span><span class="p">)</span>
 	<span class="p">}</span>
 
 <span class="o">...</span></code></pre></div>
