@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/categories/deploy/</link>
+    <description>Recent content in Deploy on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/categories/deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Integración continua en Golang</title>
+      <link>https://blog.friendsofgo.tech/posts/integracion_continua_en_golang/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/integracion_continua_en_golang/</guid>
+      <description>En pasados artículos hemos estado interactuando con nuestra API, GopherApi, ya hemos desarrollado diferentes endpoints y además hemos incluido los test del mismo.
+Nuestra API además es de software libre y cualquier persona puede realizar PRs (Pull Request) sobre ella, con lo cuál necesitamos un sistema que nos verifique que los PRs cumplen con unos estándares puestos por nosotros para asegurarnos que al integrarlos en la rama master no se produzca ningún error.</description>
+    </item>
+    
+  </channel>
+</rss>
