@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>T3chFest 2019: una experiencia enriquecedora</title>
+      <link>https://blog.friendsofgo.tech/posts/t3chfest_2019_una_experiencia_enriquecedora/</link>
+      <pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/t3chfest_2019_una_experiencia_enriquecedora/</guid>
+      <description>Hoy es un lunes diferente, especial. Hoy es un lunes post T3chFest, y eso se nota en el ambiente. Esas buenas vibraciones que nos transmitió el eventazo, que se celebró durante los pasados jueves y viernes en el campus de Leganés de la UC3M, siguen recorriendo nuestros cuerpos. Así que hemos considerado ésta una razón más que suficiente para dejar de lado, por una semana, los artículos de Go, para hablar de todo aquello magnífico que nos dió la T3chFest.</description>
+    </item>
     
     <item>
       <title>Integración continua en Golang</title>
