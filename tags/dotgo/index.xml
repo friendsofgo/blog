@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dotgo on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/dotgo/</link>
+    <description>Recent content in Dotgo on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Wed, 27 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/dotgo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>dotGo 2019: la Dot más gopher</title>
+      <link>https://blog.friendsofgo.tech/posts/dotgo_2019_la_dot_mas_gopher/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/dotgo_2019_la_dot_mas_gopher/</guid>
+      <description>Si alguien nos hubiera dicho a Adrián y a mí, hace un par de meses, que, en breve, estaríamos saludando al grandísimo Dave Cheney, le hubiéramos tratado de loco. Sin embargo, así fue. Lunes estuvimos rodeados de un mar de talento gopher (Mat Ryer, Kat Zień, el propio Dave, …). Las dotConferences son un clásico en el mundo techie (dotJS, dotAI, dotSwift, …) y la experiencia nos demostró que tienen el reconocimiento que se merecen.</description>
+    </item>
+    
+  </channel>
+</rss>
