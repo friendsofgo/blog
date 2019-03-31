@@ -78,14 +78,14 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/api/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/api/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/api/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/api/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -120,25 +120,25 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/tags/command-line/</loc>
     <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -162,13 +162,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -186,14 +186,14 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -281,13 +281,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
     <lastmod>2019-03-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
     <lastmod>2019-03-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
