@@ -6,10 +6,20 @@
     <description>Recent content in Go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>¿Es Go un lenguaje orientado a objetos?</title>
+      <link>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</guid>
+      <description>Seguro que algún momento de tu vida como desarrollador Go o si estás empezando y vienes de otro lenguaje, te habrás hecho esta fabulosa pregunta. Y es que cuando uno empieza en Go todo parece muy distinto a lo que estamos acostumbrados, pero también hay cosas que nos resultan muy familiares.
+Si estás empezando con Go y me haces está pregunta, probablemente te diría que No, que no es un lenguaje orientado a objetos, ¿pero es esto realmente cierto?</description>
+    </item>
     
     <item>
       <title>Integración continua en Golang</title>
