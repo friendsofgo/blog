@@ -225,7 +225,7 @@
     
     
     <br/>    
-    <i class="fas fa-clock"></i> 6 min read
+    <i class="fas fa-clock"></i> 7 min read
 </div>
 
 
@@ -247,7 +247,7 @@ Al fin y al cabo, no debemos olvidar que Go es un lenguaje que lleva la simplici
 <a href="https://github.com/kubernetes/kubernetes">Kubernetes</a>, <a href="https://github.com/moby/moby">Moby</a>, <a href="https://github.com/cockroachdb/cockroach">CockroachDB</a>,
 <a href="https://github.com/gorilla/mux">Gorilla Mux</a>, <a href="https://github.com/hashicorp/packer">Packer</a>, entre otros, <strong>son proyectos con la madurez necesaria
 para ser tomados como ejemplo a la hora de estructurar nuestras aplicaciones.</strong> Más allá de simples <em>Hola Mundo</em> o proyectos personales, estos
-tienen un gran bagaje en entornos de producción con altas cargas. Asi que, echemos un vistazo a ver que conclusiones sacamos de estos proyectos.</p>
+tienen un gran bagaje en entornos de producción con altas cargas. Asi que, echemos un vistazo a ver qué conclusiones podemos sacar de estos proyectos.</p>
 
 <p>En primer lugar, si nos centramos en <strong>librerías</strong>, pensadas para ser usadas como paquetes (las dependencias de toda la vida), como, por ejemplo, las típicas
 de <a href="http://www.gorillatoolkit.org/">Gorilla</a> (<a href="https://github.com/gorilla/websocket">websocket</a>, <a href="https://github.com/gorilla/mux">mux</a>, etc), podemos ver que
@@ -270,8 +270,8 @@ de nuestra aplicación (CLI, API, etc) iría en el directorio <code>cmd</code>. 
 
 <h2 id="reflexión-qué-tipo-de-proyecto-estás-construyendo">Reflexión: ¿Qué tipo de proyecto estás construyendo?</h2>
 
-<p>Después de echar un vistazo por algunos de los proyectos escritos en Go más populares, nos podemos dar cuenta que no hemos sacado nada en claro.
-Sin embargo, parece que sí hemos llegado a una conclusión. Antes de plantearnos como estructurar nuestras aplicaciones, debemos pensar bien
+<p>Después de echar un vistazo por algunos de los proyectos escritos en Go más populares, nos podemos dar cuenta que no hemos sacado mucho en claro.
+Sin embargo, parece que sí hemos llegado a una conclusión. Antes de plantearnos cómo estructurar nuestras aplicaciones, debemos pensar bien
 la respuesta a la siguiente pregunta:</p>
 
 <p><strong>- ¿Qué tipo de proyecto vamos a construir?</strong></p>
@@ -287,29 +287,29 @@ la respuesta a la siguiente pregunta:</p>
 
 <p><code>Véase una aplicación que expondrá una API REST de nuestro negocio.</code></p></li>
 
-<li><p>Una aplicación, que además también tendrá funcionalidades expuestas como paquetes.</p>
+<li><p>¿Quizás una aplicación, que además también tendrá funcionalidades expuestas como paquetes?</p>
 
 <p><code>Véase una aplicación CLI de transformación de imágenes que también se podrá usar como librería en otros desarrollos.</code></p></li>
 </ul>
 
 <p>Como vemos, las posibles respuestas a dicha pregunta, son varias, sin embargo, parece que <strong>la mayor duda surge cuándo estamos dispuestos
-a construir una aplicación grande y compleja,</strong> no una &ldquo;simple&rdquo; librería. Pues, en ese último caso, como ya adelantemos anteriormente,
-lo que haremos será tener un único paquete con varios ficheros.</p>
+a construir una aplicación grande y compleja,</strong> no cuándo vamos a desarrollar una &ldquo;simple&rdquo; librería. Pues, en ese último caso,
+como ya adelantemos anteriormente, lo que haremos será tener un único paquete con varios ficheros.</p>
 
 <h2 id="cómo-estructurar-tus-aplicaciones-en-go">¿Cómo estructurar tus <strong>aplicaciones</strong> en Go?</h2>
 
 <p>Como hemos visto, parece que, a pesar de que hay decisiones ya estandarizadas, aún no hay ningún enfoque que se haya convertido en el referente absoluto.
 Es por eso que, <strong>desde <a href="https://friendsofgo.tech">Friends of Go</a>, queremos hacer nuestra propuesta sobre como estructurar vuestras aplicaciones en Go.</strong>
 Por su puesto, ésta no es más que una confluencia de varias de las estrategias que ya se siguen hoy día en la comunidad. Ya tenemos suficiente con mojarnos y
-dar nuestra opinión al respecto, solo nos faltaba decir que, además, la hemos inventado nosotros. Lo cuál no sería verdad.</p>
+dar nuestra opinión al respecto, solo nos faltaba decir que, además, la hemos inventado nosotros, lo cuál no sería verdad.</p>
 
 <p>Entonces, ¿qué proponemos? Veamos!</p>
 
 <pre><code>your-application-name
 ├── cmd
-|   ├── cli
+|   ├── your-application-name-cli
 |   |    └── main.go
-|   ├── api
+|   ├── your-application-name-api
 |   |    └── main.go
 ├── internal/
 |   ├── package01
@@ -333,21 +333,23 @@ dar nuestra opinión al respecto, solo nos faltaba decir que, además, la hemos 
 <p>Dónde cada carpeta (o estructura de carpetas), tendría su finalidad:</p>
 
 <ul>
-<li><p><strong><code>cmd</code></strong>, será la carpeta que va a contener todos los puntos de entrada de nuestra aplicación. Cada uno de ellos, será un paquete
-de la carpeta <code>cmd</code> y cada uno tendrá su <code>main.go</code> además del resto de código necesario (configuraciones, entornos, inyección de dependencias, etc).</p></li>
+<li><p><strong><code>/cmd</code></strong>, será la carpeta que va a contener todos los puntos de entrada de nuestra aplicación. Cada uno de ellos, será un paquete
+de la carpeta <code>cmd</code> y cada uno tendrá su <code>main.go</code> además del resto de código necesario (configuraciones, entornos, inyección de dependencias, etc).
+Es importante recordar que, los paquetes dentro de <code>cmd</code> se corresponderán con el nombre de los puntos de entrada, es decir, con el
+nombre de los binarios de las aplicaciones correspondientes.</p></li>
 
-<li><p><strong><code>internal</code></strong>, será la carpeta que va a contener todos los paquetes que representan los componentes de nuestra aplicación, que no serán expuestos
+<li><p><strong><code>/internal</code></strong>, será la carpeta que va a contener todos los paquetes que representan los componentes de nuestra aplicación, que no serán expuestos
 y que no van a tener por qué funcionar fuera de ella.</p></li>
 
-<li><p><strong><code>pkg</code></strong>, será la carpeta que va a contener todos aquellos componentes de nuestra aplicación que sí queremos exponer, y que van a tener que
+<li><p><strong><code>/pkg</code></strong>, será la carpeta que va a contener todos aquellos componentes de nuestra aplicación que sí queremos exponer, y que van a tener que
 poder funcionar fuera de ella (reutilización).</p></li>
 
-<li><p><strong><code>vendor</code></strong>, (opcional) será la carpeta que va a contener todas las dependencias de terceros en caso de que aún no hayamos <a href="/posts/migrar-a-go-modules-facilmente/">migrado
+<li><p><strong><code>/vendor</code></strong>, (opcional) será la carpeta que va a contener todas las dependencias de terceros en caso de que aún no hayamos <a href="/posts/migrar-a-go-modules-facilmente/">migrado
 a Go Modules</a> o que aún sigamos una estrategia de <em>vendoring</em>.</p></li>
 </ul>
 
 <p>Como podemos ver, ésta estrategia nos permite cubrir los distintos casos planteados anteriormente, pero no solo eso, sinó que además, estamos
-indicando, con nuestra organización, qué paquetes van a ser expuestos y cuáles no, de forma fácil y intuitiva. Sobretodo, si tenemos en cuenta
+indicando, con nuestra estructura de carpetas, qué paquetes van a ser expuestos y cuáles no, de forma fácil e intuitiva. Sobretodo, si tenemos en cuenta
 que los paquetes dentro del directorio <code>internal</code> directamente no van a poder ser importados desde fuera de nuestro proyecto (por defecto).</p>
 
 <h2 id="kit-el-shared-kernel-más-gopher">Kit, el <em>Shared Kernel</em> más <em>gopher</em></h2>
