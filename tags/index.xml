@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Architecture</title>
+      <link>https://blog.friendsofgo.tech/tags/architecture/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Benchmarking</title>
       <link>https://blog.friendsofgo.tech/tags/benchmarking/</link>
       <pubDate>Mon, 11 Feb 2019 00:00:00 +0000</pubDate>
@@ -66,6 +75,15 @@
     </item>
     
     <item>
+      <title>Convention</title>
+      <link>https://blog.friendsofgo.tech/tags/convention/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/convention/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Cryptocurrencies</title>
       <link>https://blog.friendsofgo.tech/tags/cryptocurrencies/</link>
       <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
@@ -80,6 +98,15 @@
       <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/dep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Directory Structure</title>
+      <link>https://blog.friendsofgo.tech/tags/directory-structure/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/directory-structure/</guid>
       <description></description>
     </item>
     
@@ -113,7 +140,7 @@
     <item>
       <title>Friends of Go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
@@ -140,7 +167,7 @@
     <item>
       <title>Go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
@@ -158,7 +185,7 @@
     <item>
       <title>Golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
       <description></description>

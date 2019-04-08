@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arquitectura on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/categories/arquitectura/</link>
+    <description>Recent content in Arquitectura on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/categories/arquitectura/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>¿Cómo estructurar tus proyectos en Go?</title>
+      <link>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</link>
+      <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</guid>
+      <description>¿Cuántas veces has empezado un nuevo proyecto en Go y te han surgido dudas sobre cómo organizar tú código? Por suerte, o por desgracia, la mayoría de los que estamos metidos en esto venimos de entornos como Java, PHP o C#, dónde el uso de namespaces está extendido como una práctica habitual. Sin embargo, cuándo uno empieza a programar en Go y descubre cómo funciona su sistema de paquetes, tiende a quedarse bloqueado.</description>
+    </item>
+    
+  </channel>
+</rss>

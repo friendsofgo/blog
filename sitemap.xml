@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</loc>
     <lastmod>2019-04-01T00:00:00+00:00</lastmod>
   </url>
@@ -95,6 +100,18 @@
   </url>
   
   <url>
+    <loc>https://blog.friendsofgo.tech/tags/architecture/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/arquitectura/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/tags/benchmarking/</loc>
     <lastmod>2019-02-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -102,7 +119,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -149,6 +166,12 @@
   </url>
   
   <url>
+    <loc>https://blog.friendsofgo.tech/tags/convention/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/tags/cryptocurrencies/</loc>
     <lastmod>2019-02-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -163,6 +186,12 @@
   <url>
     <loc>https://blog.friendsofgo.tech/categories/deploy/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/directory-structure/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -192,7 +221,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -222,7 +251,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -234,7 +263,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -276,7 +305,7 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
