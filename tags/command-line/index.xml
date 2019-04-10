@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Command Line on Blog | Friends of GO</title>
+    <title>command line on Blog | Friends of GO</title>
     <link>https://blog.friendsofgo.tech/tags/command-line/</link>
-    <description>Recent content in Command Line on Blog | Friends of GO</description>
+    <description>Recent content in command line on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
     <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>

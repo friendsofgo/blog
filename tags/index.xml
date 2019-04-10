@@ -6,22 +6,13 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Api</title>
-      <link>https://blog.friendsofgo.tech/tags/api/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/api/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Architecture</title>
+      <title>architecture</title>
       <link>https://blog.friendsofgo.tech/tags/architecture/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -30,52 +21,7 @@
     </item>
     
     <item>
-      <title>Benchmarking</title>
-      <link>https://blog.friendsofgo.tech/tags/benchmarking/</link>
-      <pubDate>Mon, 11 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/benchmarking/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Circleci</title>
-      <link>https://blog.friendsofgo.tech/tags/circleci/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/circleci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cli</title>
-      <link>https://blog.friendsofgo.tech/tags/cli/</link>
-      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/cli/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Command Line</title>
-      <link>https://blog.friendsofgo.tech/tags/command-line/</link>
-      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/command-line/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Conferences</title>
-      <link>https://blog.friendsofgo.tech/tags/conferences/</link>
-      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/conferences/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Convention</title>
+      <title>convention</title>
       <link>https://blog.friendsofgo.tech/tags/convention/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -84,25 +30,7 @@
     </item>
     
     <item>
-      <title>Cryptocurrencies</title>
-      <link>https://blog.friendsofgo.tech/tags/cryptocurrencies/</link>
-      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/cryptocurrencies/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dep</title>
-      <link>https://blog.friendsofgo.tech/tags/dep/</link>
-      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/dep/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Directory Structure</title>
+      <title>directory structure</title>
       <link>https://blog.friendsofgo.tech/tags/directory-structure/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -111,34 +39,7 @@
     </item>
     
     <item>
-      <title>Docker</title>
-      <link>https://blog.friendsofgo.tech/tags/docker/</link>
-      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dotgo</title>
-      <link>https://blog.friendsofgo.tech/tags/dotgo/</link>
-      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/dotgo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Flag</title>
-      <link>https://blog.friendsofgo.tech/tags/flag/</link>
-      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/flag/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Friends of Go</title>
+      <title>friends of go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -147,25 +48,7 @@
     </item>
     
     <item>
-      <title>Gestion Dependencias</title>
-      <link>https://blog.friendsofgo.tech/tags/gestion-dependencias/</link>
-      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/gestion-dependencias/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Glide</title>
-      <link>https://blog.friendsofgo.tech/tags/glide/</link>
-      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/glide/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Go</title>
+      <title>go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -174,16 +57,7 @@
     </item>
     
     <item>
-      <title>Go Modules</title>
-      <link>https://blog.friendsofgo.tech/tags/go-modules/</link>
-      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/go-modules/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
+      <title>golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -192,25 +66,7 @@
     </item>
     
     <item>
-      <title>Integración Continua</title>
-      <link>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Json</title>
-      <link>https://blog.friendsofgo.tech/tags/json/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/json/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Oo</title>
+      <title>oo</title>
       <link>https://blog.friendsofgo.tech/tags/oo/</link>
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -219,7 +75,7 @@
     </item>
     
     <item>
-      <title>Oop</title>
+      <title>oop</title>
       <link>https://blog.friendsofgo.tech/tags/oop/</link>
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -228,7 +84,7 @@
     </item>
     
     <item>
-      <title>Orientación a Objetos</title>
+      <title>orientación a objetos</title>
       <link>https://blog.friendsofgo.tech/tags/orientaci%C3%B3n-a-objetos/</link>
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -237,7 +93,7 @@
     </item>
     
     <item>
-      <title>Poo</title>
+      <title>poo</title>
       <link>https://blog.friendsofgo.tech/tags/poo/</link>
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -246,34 +102,25 @@
     </item>
     
     <item>
-      <title>Rest</title>
-      <link>https://blog.friendsofgo.tech/tags/rest/</link>
-      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      <title>conferences</title>
+      <link>https://blog.friendsofgo.tech/tags/conferences/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.friendsofgo.tech/tags/rest/</guid>
+      <guid>https://blog.friendsofgo.tech/tags/conferences/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Sem Ver</title>
-      <link>https://blog.friendsofgo.tech/tags/sem-ver/</link>
-      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      <title>dotgo</title>
+      <link>https://blog.friendsofgo.tech/tags/dotgo/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.friendsofgo.tech/tags/sem-ver/</guid>
+      <guid>https://blog.friendsofgo.tech/tags/dotgo/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Semantic Versioning</title>
-      <link>https://blog.friendsofgo.tech/tags/semantic-versioning/</link>
-      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/semantic-versioning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>T3chfest</title>
+      <title>t3chfest</title>
       <link>https://blog.friendsofgo.tech/tags/t3chfest/</link>
       <pubDate>Mon, 18 Mar 2019 00:00:00 +0000</pubDate>
       
@@ -282,11 +129,164 @@
     </item>
     
     <item>
-      <title>Testing</title>
+      <title>api</title>
+      <link>https://blog.friendsofgo.tech/tags/api/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>circleci</title>
+      <link>https://blog.friendsofgo.tech/tags/circleci/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/circleci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>integración continua</title>
+      <link>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>json</title>
+      <link>https://blog.friendsofgo.tech/tags/json/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/json/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rest</title>
+      <link>https://blog.friendsofgo.tech/tags/rest/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/rest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>testing</title>
       <link>https://blog.friendsofgo.tech/tags/testing/</link>
       <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cryptocurrencies</title>
+      <link>https://blog.friendsofgo.tech/tags/cryptocurrencies/</link>
+      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/cryptocurrencies/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>benchmarking</title>
+      <link>https://blog.friendsofgo.tech/tags/benchmarking/</link>
+      <pubDate>Mon, 11 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/benchmarking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gestion dependencias</title>
+      <link>https://blog.friendsofgo.tech/tags/gestion-dependencias/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/gestion-dependencias/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sem ver</title>
+      <link>https://blog.friendsofgo.tech/tags/sem-ver/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/sem-ver/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>semantic versioning</title>
+      <link>https://blog.friendsofgo.tech/tags/semantic-versioning/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/semantic-versioning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cli</title>
+      <link>https://blog.friendsofgo.tech/tags/cli/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/cli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>command line</title>
+      <link>https://blog.friendsofgo.tech/tags/command-line/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/command-line/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>flag</title>
+      <link>https://blog.friendsofgo.tech/tags/flag/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/flag/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dep</title>
+      <link>https://blog.friendsofgo.tech/tags/dep/</link>
+      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/dep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>glide</title>
+      <link>https://blog.friendsofgo.tech/tags/glide/</link>
+      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/glide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go modules</title>
+      <link>https://blog.friendsofgo.tech/tags/go-modules/</link>
+      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/go-modules/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://blog.friendsofgo.tech/tags/docker/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/docker/</guid>
       <description></description>
     </item>
     

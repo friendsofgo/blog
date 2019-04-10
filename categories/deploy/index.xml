@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Deploy on Blog | Friends of GO</title>
+    <title>deploy on Blog | Friends of GO</title>
     <link>https://blog.friendsofgo.tech/categories/deploy/</link>
-    <description>Recent content in Deploy on Blog | Friends of GO</description>
+    <description>Recent content in deploy on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
     <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>

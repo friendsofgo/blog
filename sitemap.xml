@@ -3,117 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</loc>
-    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/dotgo_2019_la_dot_mas_gopher/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/t3chfest_2019_una_experiencia_enriquecedora/</loc>
-    <lastmod>2019-03-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/integracion_continua_en_golang/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/</loc>
-    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</loc>
-    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/semantic-versioning/</loc>
-    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/newsletter/</loc>
-    <lastmod>2019-02-01T00:05:04+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/crear-tu-primer-cli-en-go/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/</loc>
-    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/dockerizando-tu-aplicacion-en-go/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/api/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/api/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/architecture/</loc>
-    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/categories/arquitectura/</loc>
     <lastmod>2019-04-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/benchmarking/</loc>
-    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -125,43 +16,24 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/circleci/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/posts/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/cli/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/command-line/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/architecture/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -172,50 +44,8 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/cryptocurrencies/</loc>
-    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/dep/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/deploy/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/tags/directory-structure/</loc>
     <lastmod>2019-04-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
-    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/dotgo/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/flag/</loc>
-    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -226,38 +56,8 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/gestion-dependencias/</loc>
-    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</loc>
-    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/glide/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
     <lastmod>2019-04-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/go-modules/</loc>
-    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -268,14 +68,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</loc>
+    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/json/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</loc>
+    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -304,19 +103,155 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-04-08T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</loc>
+    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</loc>
-    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/dotgo_2019_la_dot_mas_gopher/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/dotgo/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/t3chfest_2019_una_experiencia_enriquecedora/</loc>
+    <lastmod>2019-03-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/t3chfest/</loc>
+    <lastmod>2019-03-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/integracion_continua_en_golang/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/api/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/circleci/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/deploy/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/integraci%C3%B3n-continua/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/json/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/api/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/rest/</loc>
     <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/como_testear_nuestra_api_en_go/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/</loc>
+    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/tooling/</loc>
+    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/cryptocurrencies/</loc>
+    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/</loc>
+    <lastmod>2019-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-benchmarking/</loc>
+    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/benchmarking/</loc>
+    <lastmod>2019-02-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</loc>
+    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/semantic-versioning/</loc>
+    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/gestion-dependencias/</loc>
+    <lastmod>2019-02-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -333,32 +268,97 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/t3chfest/</loc>
-    <lastmod>2019-03-18T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/newsletter/</loc>
+    <lastmod>2019-02-01T00:05:04+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/command-line/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/posts/crear-tu-primer-cli-en-go/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/cli/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/testing/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/command-line/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/testing/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/tags/flag/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/tooling/</loc>
-    <lastmod>2019-02-25T00:00:00+00:00</lastmod>
+    <loc>https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/</loc>
+    <lastmod>2019-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/migrar-a-go-modules-facilmente/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/dep/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/glide/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/go-modules/</loc>
+    <lastmod>2019-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/docker/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/dockerizando-tu-aplicacion-en-go/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/docker/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

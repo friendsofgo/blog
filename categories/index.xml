@@ -6,19 +6,10 @@
     <description>Recent content in Categories on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Api</title>
-      <link>https://blog.friendsofgo.tech/categories/api/</link>
-      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/api/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Arquitectura</title>
@@ -30,16 +21,16 @@
     </item>
     
     <item>
-      <title>Command Line</title>
-      <link>https://blog.friendsofgo.tech/categories/command-line/</link>
-      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      <title>Programación Orientada a Objetos</title>
+      <link>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.friendsofgo.tech/categories/command-line/</guid>
+      <guid>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Conferences</title>
+      <title>conferences</title>
       <link>https://blog.friendsofgo.tech/categories/conferences/</link>
       <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
       
@@ -48,7 +39,7 @@
     </item>
     
     <item>
-      <title>Deploy</title>
+      <title>deploy</title>
       <link>https://blog.friendsofgo.tech/categories/deploy/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
@@ -57,38 +48,11 @@
     </item>
     
     <item>
-      <title>Docker</title>
-      <link>https://blog.friendsofgo.tech/categories/docker/</link>
-      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      <title>API</title>
+      <link>https://blog.friendsofgo.tech/categories/api/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.friendsofgo.tech/categories/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Friends of Go</title>
-      <link>https://blog.friendsofgo.tech/categories/friends-of-go/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/friends-of-go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gestión De Dependencias</title>
-      <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</link>
-      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programación Orientada a Objetos</title>
-      <link>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</guid>
+      <guid>https://blog.friendsofgo.tech/categories/api/</guid>
       <description></description>
     </item>
     
@@ -107,6 +71,42 @@
       <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/categories/tooling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gestión de dependencias</title>
+      <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-dependencias/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Command Line</title>
+      <link>https://blog.friendsofgo.tech/categories/command-line/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/command-line/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://blog.friendsofgo.tech/categories/docker/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Friends of Go</title>
+      <link>https://blog.friendsofgo.tech/categories/friends-of-go/</link>
+      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/friends-of-go/</guid>
       <description></description>
     </item>
     
