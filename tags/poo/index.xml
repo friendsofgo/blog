@@ -6,10 +6,20 @@
     <description>Recent content in poo on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/poo/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Orientación a Objetos: Structs</title>
+      <link>https://blog.friendsofgo.tech/posts/orientacion_a_objetos_structs/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/orientacion_a_objetos_structs/</guid>
+      <description>En un artículo previo nos preguntamos si Go podía ser un lenguaje orientado a objetos, y llegamos a la conclusión de que sí, pero que debía ser utilizado de la manera correcta y no llevando el modo en que aplicamos la OO en los otros lenguajes.
+En este artículo queremos explicar como funcionan los structs y como utilizarlos de la manera correcta, para muchos puede parece algo básico, pero no está demás repasar un poco.</description>
+    </item>
     
     <item>
       <title>¿Es Go un lenguaje orientado a objetos?</title>

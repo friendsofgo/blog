@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 08 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Programación Orientada a Objetos</title>
+      <link>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Arquitectura</title>
@@ -17,15 +26,6 @@
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/categories/arquitectura/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programación Orientada a Objetos</title>
-      <link>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/programaci%C3%B3n-orientada-a-objetos/</guid>
       <description></description>
     </item>
     
