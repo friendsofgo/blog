@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Orientación a Objetos: Composición</title>
+      <link>https://blog.friendsofgo.tech/posts/orientacion_a_objectos_composicion/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/orientacion_a_objectos_composicion/</guid>
+      <description>El gran dilema de la programación orientada a objetos ¿herencia o composición?, es un debate que suele ocurrir constantemente, pero que Go, para bien o para mal (creo que para bien) ha decidido que no ocurra en su lenguaje, y es que en Go la herencia no existe, sólo la composición.
+La composición significa utilizar objetos dentro de otros objetos. Y en Go no puede hacerse más sencillo.
+Composición por structs incrustados(embedding structs) Una de las formas de composición que ofrece Go es a través de incrustar un typed struct dentro de otro.</description>
+    </item>
+    
+    <item>
       <title>Orientación a Objetos: Structs</title>
       <link>https://blog.friendsofgo.tech/posts/orientacion_a_objetos_structs/</link>
       <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
@@ -28,16 +39,6 @@ En este artículo queremos explicar como funcionan los structs y como utilizarlo
       
       <guid>https://blog.friendsofgo.tech/posts/como_estructurar_tus_aplicaciones_go/</guid>
       <description>¿Cuántas veces has empezado un nuevo proyecto en Go y te han surgido dudas sobre cómo organizar tú código? Por suerte, o por desgracia, la mayoría de los que estamos metidos en esto venimos de entornos como Java, PHP o C#, dónde el uso de namespaces está extendido como una práctica habitual. Sin embargo, cuándo uno empieza a programar en Go y descubre cómo funciona su sistema de paquetes, tiende a quedarse bloqueado.</description>
-    </item>
-    
-    <item>
-      <title>¿Es Go un lenguaje orientado a objetos?</title>
-      <link>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</link>
-      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</guid>
-      <description>Seguro que algún momento de tu vida como desarrollador Go o si estás empezando y vienes de otro lenguaje, te habrás hecho esta fabulosa pregunta. Y es que cuando uno empieza en Go todo parece muy distinto a lo que estamos acostumbrados, pero también hay cosas que nos resultan muy familiares.
-Si estás empezando con Go y me haces está pregunta, probablemente te diría que No, que no es un lenguaje orientado a objetos, ¿pero es esto realmente cierto?</description>
     </item>
     
     <item>
