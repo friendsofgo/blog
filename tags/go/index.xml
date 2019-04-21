@@ -12,17 +12,6 @@
     
     
     <item>
-      <title>Orientación a Objetos: Composición</title>
-      <link>https://blog.friendsofgo.tech/posts/orientacion_a_objectos_composicion/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/posts/orientacion_a_objectos_composicion/</guid>
-      <description>El gran dilema de la programación orientada a objetos ¿herencia o composición?, es un debate que suele ocurrir constantemente, pero que Go, para bien o para mal (creo que para bien) ha decidido que no ocurra en su lenguaje, y es que en Go la herencia no existe, sólo la composición.
-La composición significa utilizar objetos dentro de otros objetos. Y en Go no puede hacerse más sencillo.
-Composición por structs incrustados(embedding structs) Una de las formas de composición que ofrece Go es a través de incrustar un typed struct dentro de otro.</description>
-    </item>
-    
-    <item>
       <title>Orientación a Objetos: Structs</title>
       <link>https://blog.friendsofgo.tech/posts/orientacion_a_objetos_structs/</link>
       <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
