@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es-ES">
     
-    
 
 
-    <head>
+
+<head>
     <link href="https://gmpg.org/xfn/11" rel="profile">
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,8 +30,8 @@ Si estás empezando con Go y me haces está pregunta, probablemente te diría qu
 Si estás empezando con Go y me haces está pregunta, probablemente te diría que No, que no es un lenguaje orientado a objetos, ¿pero es esto realmente cierto?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/" />
-<meta property="article:published_time" content="2019-04-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-04-01T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2019-04-22T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-22T00:00:00&#43;00:00"/>
 
 
     
@@ -71,30 +71,30 @@ Si estás empezando con Go y me haces está pregunta, probablemente te diría qu
     <body class="theme-base-0d ">
     
 <div class="sidebar">
-        <div class="container ">
-          <div class="sidebar-about">
-            
-              
-              
-              
-              
-              <div class="author-image">
-                <a href="https://blog.friendsofgo.tech/">
-                <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
-                </a>
-              </div>
-              
-            
-            
-            <p class="site__description">
-              
-            </p>
-          </div>
-          <div class="collapsible-menu">
-            <input type="checkbox" id="menuToggle">
-            <label for="menuToggle">Blog | Friends of GO</label>
-            <div class="menu-content">
-              <div>
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
 	<ul class="sidebar-nav">
 		 
 		 
@@ -133,8 +133,8 @@ Si estás empezando con Go y me haces está pregunta, probablemente te diría qu
 		</li>
 	</ul>
 </div>
-              
-              <section class="social">
+
+        <section class="social">
 	
 	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
 	
@@ -157,22 +157,25 @@ Si estás empezando con Go y me haces está pregunta, probablemente te diría qu
 	
 </section>
 
-            </div>
-          </div>
-          
+      </div>
+    </div>
+    
 <div class="copyright">
   &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
   
 </div>
 
 
 
-        </div>
-      </div>
-      
+  </div>
+</div>
+
         <div class="content container">
             
-    <article>
+<article>
   <header>
     <h1>¿Es Go un lenguaje orientado a objetos?</h1>
     
@@ -185,7 +188,7 @@ Si estás empezando con Go y me haces está pregunta, probablemente te diría qu
     
     
     
-      <i class="fas fa-calendar-alt"></i> 1 Apr, 2019
+      <i class="fas fa-calendar-alt"></i> 22 Apr, 2019
     
     
     
@@ -330,7 +333,7 @@ Alan Key, OOPSLA 97</p>
 
 <ul>
 <li><a href="/posts/orientacion_a_objetos_structs">Diferencia entre clases y structs, ¿cómo funcionan los structs?</a></li>
-<li>Composición vs Herencia, ¿cómo funciona la composición?</li>
+<li><a href="/posts/orientacion_a_objetos_composicion">Composición vs Herencia, ¿cómo funciona la composición?</a></li>
 <li>Polimorfismo</li>
 </ul>
 
@@ -366,14 +369,14 @@ Alan Key, OOPSLA 97</p>
 
 <div class="navigation navigation-single">
     
-    <a href="/posts/dotgo_2019_la_dot_mas_gopher/" class="navigation-prev">
+    <a href="/posts/orientacion_a_objetos_structs/" class="navigation-prev">
       <i aria-hidden="true" class="fa fa-chevron-left"></i>
-      <span class="navigation-tittle">dotGo 2019: la Dot más gopher</span>
+      <span class="navigation-tittle">Orientación a Objetos: Structs</span>
     </a>
     
     
-    <a href="/posts/como_estructurar_tus_aplicaciones_go/" class="navigation-next">
-      <span class="navigation-tittle">¿Cómo estructurar tus proyectos en Go?</span>
+    <a href="/posts/orientacion-a-objectos-composicion/" class="navigation-next">
+      <span class="navigation-tittle">Orientación a Objetos: Composición</span>
       <i aria-hidden="true" class="fa fa-chevron-right"></i>
     </a>
     
@@ -402,7 +405,7 @@ Alan Key, OOPSLA 97</p>
 
         </div>
         
-    
+
   
   
 <script type="application/javascript">
@@ -434,8 +437,34 @@ if (!doNotTrack) {
 
 
 
-    
 
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
 
 
     </body>

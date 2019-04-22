@@ -6,10 +6,31 @@
     <description>Recent content in oop on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 22 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/oop/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Orientación a Objetos: Composición</title>
+      <link>https://blog.friendsofgo.tech/posts/orientacion-a-objectos-composicion/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/orientacion-a-objectos-composicion/</guid>
+      <description>El gran dilema de la programación orientada a objetos ¿herencia o composición?, es un debate que suele ocurrir constantemente, pero que Go, para bien o para mal (creo que para bien) ha decidido que no ocurra en su lenguaje, y es que en Go la herencia no existe, sólo la composición.
+La composición significa utilizar objetos dentro de otros objetos. Y en Go no puede hacerse más sencillo.
+Composición por structs incrustados(embedding structs) Una de las formas de composición que ofrece Go es a través de incrustar un typed struct dentro de otro.</description>
+    </item>
+    
+    <item>
+      <title>¿Es Go un lenguaje orientado a objetos?</title>
+      <link>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</guid>
+      <description>Seguro que algún momento de tu vida como desarrollador Go o si estás empezando y vienes de otro lenguaje, te habrás hecho esta fabulosa pregunta. Y es que cuando uno empieza en Go todo parece muy distinto a lo que estamos acostumbrados, pero también hay cosas que nos resultan muy familiares.
+Si estás empezando con Go y me haces está pregunta, probablemente te diría que No, que no es un lenguaje orientado a objetos, ¿pero es esto realmente cierto?</description>
+    </item>
     
     <item>
       <title>Orientación a Objetos: Structs</title>

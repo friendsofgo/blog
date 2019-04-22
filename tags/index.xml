@@ -6,24 +6,24 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 22 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>clases</title>
-      <link>https://blog.friendsofgo.tech/tags/clases/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <title>composicion</title>
+      <link>https://blog.friendsofgo.tech/tags/composicion/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.friendsofgo.tech/tags/clases/</guid>
+      <guid>https://blog.friendsofgo.tech/tags/composicion/</guid>
       <description></description>
     </item>
     
     <item>
       <title>friends of go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
@@ -32,7 +32,7 @@
     <item>
       <title>go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
@@ -41,7 +41,7 @@
     <item>
       <title>golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
       <description></description>
@@ -50,7 +50,7 @@
     <item>
       <title>oo</title>
       <link>https://blog.friendsofgo.tech/tags/oo/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/oo/</guid>
       <description></description>
@@ -59,7 +59,7 @@
     <item>
       <title>oop</title>
       <link>https://blog.friendsofgo.tech/tags/oop/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/oop/</guid>
       <description></description>
@@ -68,7 +68,7 @@
     <item>
       <title>orientación a objetos</title>
       <link>https://blog.friendsofgo.tech/tags/orientaci%C3%B3n-a-objetos/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/orientaci%C3%B3n-a-objetos/</guid>
       <description></description>
@@ -77,9 +77,18 @@
     <item>
       <title>poo</title>
       <link>https://blog.friendsofgo.tech/tags/poo/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/poo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>clases</title>
+      <link>https://blog.friendsofgo.tech/tags/clases/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/clases/</guid>
       <description></description>
     </item>
     
