@@ -85,11 +85,6 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</loc>
-    <lastmod>2019-04-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/privacidad/</loc>
     <lastmod>2019-04-21T00:05:04+01:00</lastmod>
   </url>
@@ -109,6 +104,11 @@
     <loc>https://blog.friendsofgo.tech/tags/structs/</loc>
     <lastmod>2019-04-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</loc>
+    <lastmod>2019-04-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
