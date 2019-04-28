@@ -35,7 +35,7 @@ En este artículo queremos explicar como funcionan los structs y como utilizarlo
     <item>
       <title>¿Es Go un lenguaje orientado a objetos?</title>
       <link>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/posts/es_go_un_lenguaje_orientado_a_objetos/</guid>
       <description>Seguro que algún momento de tu vida como desarrollador Go o si estás empezando y vienes de otro lenguaje, te habrás hecho esta fabulosa pregunta. Y es que cuando uno empieza en Go todo parece muy distinto a lo que estamos acostumbrados, pero también hay cosas que nos resultan muy familiares.
