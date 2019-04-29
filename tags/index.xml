@@ -6,24 +6,15 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 22 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>composicion</title>
-      <link>https://blog.friendsofgo.tech/tags/composicion/</link>
-      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/composicion/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>friends of go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
@@ -32,7 +23,7 @@
     <item>
       <title>go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
@@ -41,9 +32,36 @@
     <item>
       <title>golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nullability</title>
+      <link>https://blog.friendsofgo.tech/tags/nullability/</link>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/nullability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nullable types</title>
+      <link>https://blog.friendsofgo.tech/tags/nullable-types/</link>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/nullable-types/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>composicion</title>
+      <link>https://blog.friendsofgo.tech/tags/composicion/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/composicion/</guid>
       <description></description>
     </item>
     

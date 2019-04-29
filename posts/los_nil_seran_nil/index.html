@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.3" />
+
+    
+    
+    
+
+<title>Los nil serán nil • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Los nil serán nil"/>
+<meta name="twitter:description" content="En marzo de 2012, la cantante mexicana Paulina Rubio publicó un nuevo single llamado &ldquo;Boys Will Be Boys&rdquo;, título que podríamos traducir a &ldquo;Los chicos serán chicos&rdquo;. En ella, Paulina habla de una historia de amor a la vez que cuenta algunas de las particularidades de los chicos, desde su punto de vista. Hoy, con &ldquo;Los nil serán nil&rdquo;, os queremos contar nuestra historia de amor con Go y, más concretamente, las particularidades de los nil."/>
+
+<meta property="og:title" content="Los nil serán nil" />
+<meta property="og:description" content="En marzo de 2012, la cantante mexicana Paulina Rubio publicó un nuevo single llamado &ldquo;Boys Will Be Boys&rdquo;, título que podríamos traducir a &ldquo;Los chicos serán chicos&rdquo;. En ella, Paulina habla de una historia de amor a la vez que cuenta algunas de las particularidades de los chicos, desde su punto de vista. Hoy, con &ldquo;Los nil serán nil&rdquo;, os queremos contar nuestra historia de amor con Go y, más concretamente, las particularidades de los nil." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/los_nil_seran_nil/" />
+<meta property="article:published_time" content="2019-04-29T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-29T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/fogo_v2_xs.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Los nil serán nil</h1>
+    
+    
+<div class="post__meta">   
+    
+    
+    
+    <i class="fas fa-user-alt"></i> Joan López de la Franca
+    
+    
+    
+      <i class="fas fa-calendar-alt"></i> 29 Apr, 2019
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/sistema-de-tipos">SISTEMA DE TIPOS</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/go">go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/golang">golang</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/nullability">nullability</a>
+           
+      
+          <a class="badge badge-tag" href="/tags/nullable-types">nullable types</a>
+          
+      
+    
+    
+    <br/>    
+    <i class="fas fa-clock"></i> 6 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<blockquote>
+<p>En marzo de 2012, la cantante mexicana <a href="http://paulinarubio.com">Paulina Rubio</a> publicó un nuevo <em>single</em> llamado
+<a href="https://www.youtube.com/watch?v=XXywgkY2O5U">&ldquo;Boys Will Be Boys&rdquo;</a>, título que podríamos traducir a &ldquo;Los chicos serán chicos&rdquo;. En ella, Paulina habla de una historia
+de amor a la vez que cuenta algunas de las particularidades de los chicos, desde su punto de vista. Hoy, con
+&ldquo;Los nil serán nil&rdquo;, os queremos contar nuestra historia de amor con Go y, más concretamente, las particularidades de
+los <em>nil</em>.</p>
+</blockquote>
+
+<p>En Go, <strong><code>nil</code> es el valor cero para punteros, interfaces, mapas, <em>slices</em>, canales y funciones;</strong> y corresponde a la
+representación de un valor no inicializado. Pero ojo, es muy importante no confundir valor &ldquo;no inicializado&rdquo; con estado
+indeterminado, pues <code>nil</code> no es más que otro posible valor válido. Si, por ejemplo, hablamos de la interfaz
+<a href="https://golang.org/pkg/builtin/#error">error</a>, el valor <code>nil</code> será el equivalente a decir que no hay error. Otra
+cosa muy diferente sería decir que no sabemos si hay o no error (estado indeterminado).</p>
+
+<h2 id="entendiendo-la-nulabilidad">Entendiendo la nulabilidad</h2>
+
+<p>Es muy habitual hablar de &ldquo;tipos nulables&rdquo; en lenguajes como C#, PHP o Kotlin, para hacer referencia a tipos que
+pueden tener un valor inicializado o simplemente no tenerlo. Por ejemplo, podríamos ver las siguientes funciones:</p>
+
+<pre><code>fun foo(): Fooable? // Kotlin
+public Nullable&lt;Fooable&gt; Foo() // C#
+function foo(): ?Fooable; // PHP
+</code></pre>
+
+<p>Sin embargo, sobretodo cuándo hablamos de lenguajes compilados y fuertemente tipados, <strong>es habitual que no todos los tipos
+sean nulables,</strong> o lo que sería lo mismo, <strong>el valor <code>null</code> o <code>nil</code> no es un valor válido para todos los tipos.</strong> Eso es, si,
+por ejemplo, hablamos del tipo entero, o del tipo <em>string</em>, y pensamos en el dominio de posibles valores que estos tipos
+pueden tener, veremos que el valor <code>null</code> o <code>nil</code> no tiene cabida. En su defecto, <strong>la representación de una variable (de estos tipos)
+que no esté inicializada, se suele asociar a determinados valores válidos.</strong> Por ejemplo, para los enteros se suele usar el
+cero (0) y para los <em>string</em> se suele usar la cadena vacía (&ldquo;&rdquo;).</p>
+
+<p>Hasta aquí todo parece claro, pero, por desgracia, seguimos sin tener forma de definir cuándo un valor no está inicializado.
+Lo comentado anteriormente nos puede salvar en determinadas circunstancias, sin embargo, habrá veces dónde vamos a querer
+que cero o la cadena vacía sean valores válidos que representen una variable <strong>sí</strong> inicializada.</p>
+
+<p>Entonces, ¿cómo lo hacemos?</p>
+
+<h2 id="la-nulabilidad-en-go">La nulabilidad en Go</h2>
+
+<p>Como ya dijimos anteriormente, el valor <code>nil</code> es un valor válido para algunos de los tipos soportados por el lenguaje Go.
+Pero, si habéis prestado atención, seguramente os habéis dado cuenta de que entre esos tipos que permiten <code>nil</code> como un
+valor válido no había ningún tipo básico (enteros, coma flotante, boleanos, etc) ni tampoco un tipo tan habitual como lo
+son los <a href="/posts/orientacion_a_objetos_structs"><em>structs</em></a>.</p>
+
+<p>Así, <strong>¿cómo solucionamos la representación de variables no inicializadas de estos tipos?</strong></p>
+
+<p>Los punteros y las interfaces son la respuesta.</p>
+
+<p>De modo que, cuándo tengamos que definir una variable de un tipo no nulable, y tengamos la necesidad de definir que esa
+variable podrá estar o no inicializada, lo que haremos será usar (mayormente) un puntero del mismo tipo que la variable.</p>
+
+<p>Veamos un pequeño ejemplo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Gopher</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Name</span>  <span class="kt">string</span>
+	<span class="nx">Color</span> <span class="kt">string</span>
+	<span class="nx">Size</span>  <span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">gopher</span> <span class="nx">Gopher</span>
+	<span class="kd">var</span> <span class="nx">gopherP</span> <span class="o">*</span><span class="nx">Gopher</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">gopher</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">gopherP</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello, playground&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Si intentáis ejecutar este ejemplo en el <a href="https://play.golang.org/p/nMUHTWzySQp">Playground</a> veréis que os <strong>da un error
+de compilación.</strong></p>
+
+<p><strong>La razón:</strong> el tipo <code>Gopher</code> (que es un <em>typed struct</em>) de la variable <code>gopher</code> no permite <code>nil</code> como un posible valor válido.</p>
+
+<p>Sin embargo, <strong>ese mismo problema no lo tendríamos con la variable <code>gopherP</code>,</strong> pues, como podemos ver, es un puntero a un
+tipo <code>Gopher</code>, y, como vimos anteriormente, los punteros sí que permiten <code>nil</code> como un valor válido.</p>
+
+<p><strong>En caso de que no queramos exponer nuestras estructuras de datos y solo firmar los contratos con los consumidores de nuestro
+paquete,</strong> entonces podremos recurrir a las interfaces como forma de representación de ese estado &ldquo;no inicializado&rdquo;. El mejor
+ejemplo de esto, es el ya comentado anteriormente: <a href="https://golang.org/pkg/builtin/#error">error</a>.</p>
+
+<p>A quién no le suena esto:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="c1">// error handling	
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>En ésta ocasión, la mayoría de veces estamos haciendo referencia a la <a href="https://golang.org/src/builtin/builtin.go?s=11246:11286#L251">interfaz <em>error</em></a>
+sin tener la necesidad de conocer en detalle la estructura de datos que representa el error, y, a su vez, pudiendo determinar
+si tenemos o no error.</p>
+
+<h2 id="recuerda-los-nil-son-solo-un-valor-más">Recuerda: los nil son solo un valor más</h2>
+
+<p>En efecto, <strong>no debemos olvidar en ningún momento que <code>nil</code> no es más que otro posible valor</strong> para algunos de los tipos.
+De hecho, si recordamos que una variable suele tener asociado un tipo y valor, entonces podremos hacer la
+<a href="https://play.golang.org/p/a0IlUS-FZpa">siguiente</a> prueba:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">integer</span> <span class="o">*</span><span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">empty</span> <span class="kd">interface</span><span class="p">{}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">integer</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// Prints: true
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">empty</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// Prints: true
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">integer</span> <span class="o">==</span> <span class="nx">empty</span><span class="p">)</span> <span class="c1">// Prints: false
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>Ambas variables (<code>integer</code> y <code>empty</code>) tienen el valor <code>nil</code> sin embargo sus tipos son distintos (<code>*int</code> y <code>interface{}</code> respectivamente).</p>
+
+<p>Este mismo ejemplo, lo podemos hacer <a href="https://play.golang.org/p/wsDJQKbJ1xx">un poco más complejo aún</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">integer</span> <span class="o">*</span><span class="kt">int</span>
+	<span class="kd">var</span> <span class="nx">empty</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="nx">integer</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">integer</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>   <span class="c1">// Prints: true
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">empty</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>     <span class="c1">// Prints: false
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">integer</span> <span class="o">==</span> <span class="nx">empty</span><span class="p">)</span> <span class="c1">// Prints: true
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p><strong>¿Qué es lo que ocurre ahora?</strong></p>
+
+<p>Seguramente os esté pareciendo raro el resultado, pero, aún os lo parecerá más si probáis
+de ejecutar la siguiente linea a continuación:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;a=(%T,%v)\n&#34;</span><span class="p">,</span> <span class="nx">empty</span><span class="p">,</span> <span class="nx">empty</span><span class="p">)</span> <span class="o">//</span> <span class="nx">Prints</span><span class="p">:</span> <span class="nx">a</span><span class="p">=(</span><span class="o">*</span><span class="kt">int</span><span class="p">,&lt;</span><span class="kc">nil</span><span class="p">&gt;)</span></code></pre></div>
+<p><strong>¡Sorprendente, eh!</strong></p>
+
+<p>El valor de la variable es efectivamente <code>nil</code> sin embargo la comparación con dicho valor no nos dice lo mismo. Y ésta es,
+precisamente, la magia del compilador, a la hora de gestionar las particularidades del <code>nil</code> que explicamos anteriormente.
+Pues, en esta ocasión, la variable <code>empty</code> puede tener <code>nil</code> como un valor válido, porqué es un puntero, pero, más adelante
+en nuestro código, podríamos asignar nuestra variable <code>empty</code> a una variable de un tipo que no acepte <code>nil</code> como valor
+válido. Es por eso que, en tiempo de compilación, éste debe asumir determinados aspectos para tomar una decisión.</p>
+
+<p>Así que, id con cuidado y recordad: <strong><code>nil</code> es solo un valor más, pero no es un valor válido para todos los tipos</strong>.<br />
+<br/>
+<br/></p>
+
+<p>Y vosotros, <strong>¿ya teníais claro cuál es el funcionamiento de los <code>nil</code>?</strong></p>
+
+<p>Como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+    <div class="left-column">      
+        <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+    </div>
+    <div class="main-content">
+      <h4>Joan López de la Franca</h4> 
+      <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>     
+      <p class="social-author">
+          
+          <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+            <img alt="twitter" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png"> joanjan14
+          </a>
+          
+          
+          <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+            <img alt="github" class="icon-img" height="22" width="22" src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png"> joanlopez
+          </a>
+          
+      </p>
+    </div>
+  </div>
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/orientacion-a-objectos-composicion/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Orientación a Objetos: Composición</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
