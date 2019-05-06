@@ -6,10 +6,20 @@
     <description>Recent content in go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 29 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Orientación a Objetos: Polimorfismo</title>
+      <link>https://blog.friendsofgo.tech/posts/orientacion-a-objetos-polimorfismo/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/orientacion-a-objetos-polimorfismo/</guid>
+      <description>Llegamos a nuestro último artículo sobre Go enfocado a programación orientada a objetos, en este artículo tocaremos un aspecto muy importante de la OO, nada más y nada menos que el polimorfismo y como utilizarlo en GO
+¿Qué es el polimorfismo? Cómo casi todos los términos que hay en programación parece algo más complicado de lo que es, pero una vez te lo explique verás que te queda muy claro e incluso puede que ya lo estuvieras aplicando sin ni siquiera conocer como se llamaba, esto suele pasar mucho en nuestro trabajo.</description>
+    </item>
     
     <item>
       <title>Los nil serán nil</title>
