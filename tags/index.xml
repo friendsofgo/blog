@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 06 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>friends of go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
@@ -32,9 +32,27 @@
     <item>
       <title>golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>metaprogramación</title>
+      <link>https://blog.friendsofgo.tech/tags/metaprogramaci%C3%B3n/</link>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/metaprogramaci%C3%B3n/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reflection</title>
+      <link>https://blog.friendsofgo.tech/tags/reflection/</link>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/reflection/</guid>
       <description></description>
     </item>
     

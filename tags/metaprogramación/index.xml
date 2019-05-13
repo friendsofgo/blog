@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>metaprogramación on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/metaprogramaci%C3%B3n/</link>
+    <description>Recent content in metaprogramación on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 13 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/metaprogramaci%C3%B3n/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>¿Cómo usar reflection en Golang?</title>
+      <link>https://blog.friendsofgo.tech/posts/como-usar-reflection-en-golang/</link>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/como-usar-reflection-en-golang/</guid>
+      <description>¿Qué es reflection? Reflection es la habilidad que tiene un programa para examinar y modificar su propia estructura y comportamiento en tiempo de ejecución. El propósito que tiene reflection es la de permitir a los programadores crear código genérico, además es la clave para poder realizar metaprogramación
+Cada lenguaje tiene su propia forma de realizar reflection y Go no iba a ser menos, pero cada forma de aplicarlo es distinta ya que ésta se utiliza sobre el sistema de tipos del propio lenguaje.</description>
+    </item>
+    
+  </channel>
+</rss>
