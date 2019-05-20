@@ -6,10 +6,20 @@
     <description>Recent content in golang on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 13 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gestión de Errores en Golang</title>
+      <link>https://blog.friendsofgo.tech/posts/gestion-de-errores-en-golang/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/gestion-de-errores-en-golang/</guid>
+      <description>La gestión de errores es una de las cosas con las que los programadores nos encontramos todos los días y hay que darle la importancia que merece. En este articulo hablaremos de las diferentes formas que tenemos de crear un error en Go, como capturarlo y personalizarlo. Todo esto con un toque de Juego de Tronos, para que no sea tan aburrido.
+Go, un lenguaje sin excepciones Actualmente, la mayoría de los lenguages de programación lo hacen con excepciones, pero este no es el caso de Go.</description>
+    </item>
     
     <item>
       <title>¿Cómo usar reflection en Golang?</title>
