@@ -11,7 +11,7 @@
 <meta http-equiv="Cache-Control" content="public" />
 <!-- Enable responsiveness on mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.55.3" />
+<meta name="generator" content="Hugo 0.55.6" />
 
     
     
@@ -333,15 +333,13 @@ Es por este motivo que, la primera opción suele estar desaconsejada, pues tiend
 Además, esta aproximación nos introduce el concepto de <a href="https://golang.org/pkg/testing/#hdr-Subtests_and_Sub_benchmarks">subtests</a>, lo que tiene varias implicaciones:</p>
 
 <ul>
-<li>Por un lado, <strong>los subtests nos permiten hacer ejecuciones parciales de nuestros tests</strong>. En el ejemplo anterior, podríamos querer lanzar solo los tests que correspondan a algún animal en particular:</li>
-</ul>
+<li><p>Por un lado, <strong>los subtests nos permiten hacer ejecuciones parciales de nuestros tests</strong>. En el ejemplo anterior, podríamos querer lanzar solo los tests que correspondan a algún animal en particular:</p>
 
 <pre><code>go test -run TestIsSuperAnimal/gopher      # solo ejecuta los tests de gophers
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Por otro lado, podemos hacer que, la ejecución de cada uno de los casos, se realice de forma <strong>concurrente</strong>.
-Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</li>
+<li><p>Por otro lado, podemos hacer que, la ejecución de cada uno de los casos, se realice de forma <strong>concurrente</strong>.
+Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</p></li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nf">Parallel</span><span class="p">()</span></code></pre></div>
 <h2 id="assertions">Assertions</h2>
