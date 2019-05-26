@@ -79,6 +79,17 @@
   </url>
   
   <url>
+    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/la_expansion_de_friends_of_go/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/categories/metaprogramaci%C3%B3n/</loc>
     <lastmod>2019-05-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -479,12 +490,6 @@
   <url>
     <loc>https://blog.friendsofgo.tech/posts/bienvienidos-a-friends-of-go/</loc>
     <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/categories/friends-of-go/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

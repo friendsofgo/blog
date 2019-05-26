@@ -6,10 +6,20 @@
     <description>Recent content in Friends of Go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/categories/friends-of-go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>La expansión de Friends of Go</title>
+      <link>https://blog.friendsofgo.tech/posts/la_expansion_de_friends_of_go/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/la_expansion_de_friends_of_go/</guid>
+      <description>En Friends of Go nos gustan las emociones fuertes y, con tal de tenerlas, no nos importa desarrollar nuestro propio Mock Server con nombre de villano de Marvel, grabar un curso con los maravillosos chicos de CodelyTV o hacer cuatro horas de avión para ir a Moscú a dar una charla.
+Y es gracias a esa actitud, que las tareas en nuestro backlog de &amp;ldquo;expansión&amp;rdquo; se deshacen como un azucarillo en una taza de café.</description>
+    </item>
     
     <item>
       <title>Bienvenidos a Friends of Go</title>
