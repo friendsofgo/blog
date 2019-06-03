@@ -6,10 +6,20 @@
     <description>Recent content in golang on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 27 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gestión de dependencias en Golang</title>
+      <link>https://blog.friendsofgo.tech/posts/gestion-de-dependencias-en-golang/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/gestion-de-dependencias-en-golang/</guid>
+      <description>Supongo que no os coge de nuevo el tema de gestión de dependencias, pues lo llevamos realizando desde mucho tiempo en distintos lenguajes de programación. Véase Java o Php, entre otros. y además todos estos lenguajes nos ofrecían herramientas para poder gestionar dichas dependencias de una manera sencilla y desacoplada de nuestra aplicación en sí.
+En Go supongo que os resultará realmente familiar encontrarnos con un main similar al de GopherApi:</description>
+    </item>
     
     <item>
       <title>La expansión de Friends of Go</title>

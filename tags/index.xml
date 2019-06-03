@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 27 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,16 +14,25 @@
     <item>
       <title>friends of go</title>
       <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>gestion de dependencias</title>
+      <link>https://blog.friendsofgo.tech/tags/gestion-de-dependencias/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/gestion-de-dependencias/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>go</title>
       <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/go/</guid>
       <description></description>
@@ -32,9 +41,18 @@
     <item>
       <title>golang</title>
       <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wire</title>
+      <link>https://blog.friendsofgo.tech/tags/wire/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/wire/</guid>
       <description></description>
     </item>
     
