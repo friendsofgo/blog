@@ -268,8 +268,9 @@ Este conjunto de propuestas se encapsuló bajo lo que denominaron la segunda ver
 
 <p>Como decíamos, <strong><a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md">una de estas propuestas</a> buscaba mejorar la gestión de errores.</strong>
 Esto lo pretendían hacer <strong>añadiendo un par de funciones <code>handle</code> y <code>check</code></strong> que nos permitirían identificar las funciones que devuelven un error y,
-posteriormente, hacer la gestión del mismo (<a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md#draft-design">ver ejemplo</a>).<br />
-Ahorrándonos así la gestión de los errores en el punto en que estos eran generados y permitiéndonos reducir la cantidad de veces que repetíamos el patrón
+posteriormente, hacer la gestión del mismo (<a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md#draft-design">ver ejemplo</a>).</p>
+
+<p>Ahorrándonos así la gestión de los errores en el punto en que estos eran generados y permitiéndonos reducir la cantidad de veces que repetíamos el patrón
 que veíamos anteriormente.</p>
 
 <p>Por suerte, o por desgracia, <strong>la comunidad Go es muy exigente,</strong> y en ese contexto es complicado llegar a consensos.
@@ -279,12 +280,12 @@ Por esa razón, la propuesta de lanzar una nueva versión del lenguaje sigue aú
 
 <h2 id="try-la-propuesta">Try: la propuesta</h2>
 
-<p>Ese es el motivo por el que surgen propuestas como la que queremos presentar hoy, cuyo principal objetivo es precisamente eso que veníamos comentando,
+<p>Ese es el motivo por el que siguen surgiendo propuestas como la que queremos presentar hoy, cuyo principal objetivo es precisamente eso que veníamos comentando,
 eliminar todo el <em>boilerplate</em> que representa una repetición abusiva de:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 	<span class="c1">// error handling
 </span><span class="c1"></span><span class="p">}</span></code></pre></div>
-<p><strong>Lo que nos proponen es la incorporación de una función &lsquo;try&rsquo;</strong> (que a algunos os sonará a algo, pero no juzguéis antes de hora),
+<p><strong>Lo que nos proponen es la incorporación de una función &lsquo;try&rsquo;</strong> (que a algunos os sonará de algo, pero no juzguéis antes de hora),
 mediante la cuál podemos evitar dicha repetición, a la vez que añadimos muy poca complejidad al lenguaje, una de las principales premisas de los creadores del mismo.</p>
 
 <p><strong>La firma de la función que proponen es:</strong></p>
@@ -306,7 +307,7 @@ entonces obtendremos un error de compilación.</p>
 
 <h2 id="un-ejemplo">Un ejemplo</h2>
 
-<p>Vale, sí, necesitáis ver un ejemplo de código dónde usarla para poder opinar. Véamos. Vamos a suponer que <strong>partimos de éste código:</strong></p>
+<p>Vale, sí, necesitáis ver un ejemplo de código dónde usarla para poder opinar. Véamos. Vamos a suponer que <strong>partimos del siguiente código:</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
 	<span class="nx">r</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
@@ -359,7 +360,7 @@ entonces obtendremos un error de compilación.</p>
 <span class="p">}</span></code></pre></div>
 <p>Y ¡voilà! ¡Ahí lo tenemos!</p>
 
-<p>Sin embargo, seguro que ésta no es del gusto de todos. De hecho,  <strong>esta sigue siendo, como su propio nombre indica, una propuesta.</strong>
+<p>Sin embargo, seguro que esta no es del gusto de todos. De hecho,  <strong>esta sigue siendo, como su propio nombre indica, una propuesta.</strong>
 Pero una que intenta recoger el <em>feedback</em> de las críticas obtenidas en la propuesta anterior.
 Por supuesto, en la comunidad ya han salido muchos detractores, pues, como decíamos antes, hay quién ya tienen suficiente con lo que hay.</p>
 
