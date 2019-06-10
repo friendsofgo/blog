@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gestión de Errores</title>
+      <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-errores/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-errores/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Propuestas</title>
+      <link>https://blog.friendsofgo.tech/categories/propuestas/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/categories/propuestas/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Gestión de dependencias</title>
@@ -26,15 +44,6 @@
       <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/categories/friends-of-go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gestión de Errores</title>
-      <link>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-errores/</link>
-      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/categories/gesti%C3%B3n-de-errores/</guid>
       <description></description>
     </item>
     

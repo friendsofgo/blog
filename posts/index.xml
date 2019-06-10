@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Try: la propuesta para mejorar la gestión de errores</title>
+      <link>https://blog.friendsofgo.tech/posts/try-la-propuesta-para-mejorar-la-gestion-de-errores/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/try-la-propuesta-para-mejorar-la-gestion-de-errores/</guid>
+      <description>La gestión de errores en Go es un tema que está en boca de todos: gophers o no, favorables al lenguaje o no. Y es precisamente esa la razón por la que David López Carrascal nos deleitó con una gran introducción al tema.
+Sin embargo, parece que la decisión de prescindir de las excepciones (como tal, panics a parte) es algo que sigue contrariando a una parte considerable de la comunidad.</description>
+    </item>
     
     <item>
       <title>Gestión de dependencias en Golang</title>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>Try: la propuesta para mejorar la gestión de errores • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Try: la propuesta para mejorar la gestión de errores"/>
+<meta name="twitter:description" content="La gestión de errores en Go es un tema que está en boca de todos: gophers o no, favorables al lenguaje o no. Y es precisamente esa la razón por la que David López Carrascal nos deleitó con una gran introducción al tema.
+Sin embargo, parece que la decisión de prescindir de las excepciones (como tal, panics a parte) es algo que sigue contrariando a una parte considerable de la comunidad."/>
+
+<meta property="og:title" content="Try: la propuesta para mejorar la gestión de errores" />
+<meta property="og:description" content="La gestión de errores en Go es un tema que está en boca de todos: gophers o no, favorables al lenguaje o no. Y es precisamente esa la razón por la que David López Carrascal nos deleitó con una gran introducción al tema.
+Sin embargo, parece que la decisión de prescindir de las excepciones (como tal, panics a parte) es algo que sigue contrariando a una parte considerable de la comunidad." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/try-la-propuesta-para-mejorar-la-gestion-de-errores/" />
+<meta property="article:published_time" content="2019-06-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-10T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Try: la propuesta para mejorar la gestión de errores</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 10 Jun, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/gesti%C3%B3n-de-errores">GESTIÓN DE ERRORES</a>
+  •
+  
+  <a class="badge badge-category" href="/categories/propuestas">PROPUESTAS</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/error-handling">error handling</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/errores">errores</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/errors">errors</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/proposals">proposals</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 5 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p><strong>La <a href="/categories/gestión-de-errores/">gestión de errores</a> en Go es un tema que está en boca de todos:</strong> gophers o no, favorables al lenguaje o no.
+Y es precisamente esa la razón por la que <a href="/authors/davidlcarrascal/">David López Carrascal</a> nos deleitó con una gran <a href="/posts/gestion-de-errores-en-golang/">introducción al tema</a>.</p>
+
+<p>Sin embargo, parece que la decisión de prescindir de las excepciones (como tal, <code>panics</code> a parte) es algo que sigue contrariando
+a una parte considerable de la comunidad. <strong>El siguiente pedazo de código es demasiado habitual en nuestros desarrollos:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>Y, aunque hay algunas estrategias para abordar esa problemática y reducir la cantidad de repeticiones de ese patrón,
+sigue habiendo casos dónde no nos queda otra que tirar del mismo.</p>
+
+<p>Poner de manifiesto ese tipo de problemáticas da lugar a potenciales mejoras.
+Y estas se suelen presentar en forma de propuestas que, posteriormente, puede ser aprobadas o no.</p>
+
+<h2 id="go-v2-el-borrador">Go v2: el borrador</h2>
+
+<p>Los que nos seguís desde hace tiempo, recordaréis que <strong>compartimos un <a href="https://go.googlesource.com/proposal/+/master/design/go2draft.md">conjunto de borradores</a>,
+publicados por el equipo de Go,</strong> y dónde se recogían las principales problemáticas de la versión actual del lenguaje: <strong>los genéricos y la gestión de errores.</strong>
+Este conjunto de propuestas se encapsuló bajo lo que denominaron la segunda versión del lenguaje (Go v2), con todo lo que ello implicaba (véase Python).</p>
+
+<p>Como decíamos, <strong><a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md">una de estas propuestas</a> buscaba mejorar la gestión de errores.</strong>
+Esto lo pretendían hacer <strong>añadiendo un par de funciones <code>handle</code> y <code>check</code></strong> que nos permitirían identificar las funciones que devuelven un error y,
+posteriormente, hacer la gestión del mismo (<a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md#draft-design">ver ejemplo</a>).<br />
+Ahorrándonos así la gestión de los errores en el punto en que estos eran generados y permitiéndonos reducir la cantidad de veces que repetíamos el patrón
+que veíamos anteriormente.</p>
+
+<p>Por suerte, o por desgracia, <strong>la comunidad Go es muy exigente,</strong> y en ese contexto es complicado llegar a consensos.
+En lo que a gestión de errores se refiere, <strong>hay quiénes ya están contentos con los recursos que nos ofrece la versión actual del lenguaje,
+y hay a quiénes les parece muy engorroso.</strong> Ambos bandos con una presencia igual de importante.
+Por esa razón, la propuesta de lanzar una nueva versión del lenguaje sigue aún en <em>stand-by</em>, sin embargo, la gestión de errores sigue en tela de juicio.</p>
+
+<h2 id="try-la-propuesta">Try: la propuesta</h2>
+
+<p>Ese es el motivo por el que surgen propuestas como la que queremos presentar hoy, cuyo principal objetivo es precisamente eso que veníamos comentando,
+eliminar todo el <em>boilerplate</em> que representa una repetición abusiva de:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p><strong>Lo que nos proponen es la incorporación de una función &lsquo;try&rsquo;</strong> (que a algunos os sonará a algo, pero no juzguéis antes de hora),
+mediante la cuál podemos evitar dicha repetición, a la vez que añadimos muy poca complejidad al lenguaje, una de las principales premisas de los creadores del mismo.</p>
+
+<p><strong>La firma de la función que proponen es:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">try</span><span class="p">(</span><span class="nx">t1</span> <span class="nx">T1</span><span class="p">,</span> <span class="nx">t2</span> <span class="nx">T2</span><span class="p">,</span> <span class="err">…</span> <span class="nx">tn</span> <span class="nx">Tn</span><span class="p">,</span> <span class="nx">te</span> <span class="kt">error</span><span class="p">)</span> <span class="p">(</span><span class="nx">T1</span><span class="p">,</span> <span class="nx">T2</span><span class="p">,</span> <span class="err">…</span> <span class="nx">Tn</span><span class="p">)</span></code></pre></div>
+<p>Y ésta <strong>viene a hacer de <em>handler</em> de cualquier función que tenga entre sus variables retornadas, una de tipo <em>error</em>, concretamente la última.</strong>
+Por eso, es importante tener en cuenta que, si llamamos a la función <code>try</code> encapsulando una función que no devuelva un <em>error</em>,
+entonces obtendremos un error de compilación.</p>
+
+<p>Con esta encapsulación <strong>lo que conseguimos</strong> es:</p>
+
+<ul>
+<li>actualizar el valor de las variables receptoras en caso correcto.</li>
+<li>no actualizar el valor de las mismas en caso de error.</li>
+</ul>
+
+<p>Y, por supuesto, <strong>de esta forma nos podríamos ahorrar la gestión de errores en cada punto dónde llamemos a una función que pueda retornar uno de ellos.</strong></p>
+
+<p>Bueno, ¿qué os parece?</p>
+
+<h2 id="un-ejemplo">Un ejemplo</h2>
+
+<p>Vale, sí, necesitáis ver un ejemplo de código dónde usarla para poder opinar. Véamos. Vamos a suponer que <strong>partimos de éste código:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">r</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;copy %s %s: %v&#34;</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="nx">w</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;copy %s %s: %v&#34;</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;copy %s %s: %v&#34;</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;copy %s %s: %v&#34;</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>y recordamos que <strong>queremos evitar el siguiente patrón:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="c1">// error handling
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p><strong>mediante el uso de la función <code>try</code>:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CopyFile</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                        <span class="nx">err</span> <span class="p">=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;copy %s %s: %v&#34;</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+                <span class="p">}</span>
+        <span class="p">}()</span>
+
+        <span class="nx">r</span> <span class="o">:=</span> <span class="nf">try</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span>
+        <span class="k">defer</span> <span class="nx">r</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+        <span class="nx">w</span> <span class="o">:=</span> <span class="nf">try</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">dst</span><span class="p">))</span>
+        <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">w</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                        <span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span> <span class="c1">// only if a “try” fails
+</span><span class="c1"></span>                <span class="p">}</span>
+        <span class="p">}()</span>
+
+        <span class="nf">try</span><span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nf">Copy</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">))</span>
+        <span class="nf">try</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nf">Close</span><span class="p">())</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></div>
+<p>Y ¡voilà! ¡Ahí lo tenemos!</p>
+
+<p>Sin embargo, seguro que ésta no es del gusto de todos. De hecho,  <strong>esta sigue siendo, como su propio nombre indica, una propuesta.</strong>
+Pero una que intenta recoger el <em>feedback</em> de las críticas obtenidas en la propuesta anterior.
+Por supuesto, en la comunidad ya han salido muchos detractores, pues, como decíamos antes, hay quién ya tienen suficiente con lo que hay.</p>
+
+<p><br/></p>
+
+<p>Y vosotros, <strong>¿qué pensáis de la gestión de errores actual y de propuestas como las comentadas en este artículo?</strong></p>
+
+<p>Si queréis leer más en detalle y ver la opinión de la comunidad, os animamos a entrar en <a href="https://github.com/golang/proposal/blob/master/design/32437-try-builtin.md">la propuesta</a>.</p>
+
+<p>Y, como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+  </div>
+  
+  <div class="main-content">
+    <h4>Joan López de la Franca</h4>
+    <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        joanjan14
+      </a>
+      
+      
+      <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        joanlopez
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/gestion-de-dependencias-en-golang/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Gestión de dependencias en Golang</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
