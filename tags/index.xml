@@ -6,10 +6,82 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>concurrencia</title>
+      <link>https://blog.friendsofgo.tech/tags/concurrencia/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/concurrencia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>friends of go</title>
+      <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://blog.friendsofgo.tech/tags/go/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://blog.friendsofgo.tech/tags/golang/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gorrutina</title>
+      <link>https://blog.friendsofgo.tech/tags/gorrutina/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/gorrutina/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gorutine</title>
+      <link>https://blog.friendsofgo.tech/tags/gorutine/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/gorutine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>paralelismo</title>
+      <link>https://blog.friendsofgo.tech/tags/paralelismo/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/paralelismo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>paso de mensajes</title>
+      <link>https://blog.friendsofgo.tech/tags/paso-de-mensajes/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/paso-de-mensajes/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>error handling</title>
@@ -35,33 +107,6 @@
       <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/errors/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>friends of go</title>
-      <link>https://blog.friendsofgo.tech/tags/friends-of-go/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/friends-of-go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://blog.friendsofgo.tech/tags/go/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://blog.friendsofgo.tech/tags/golang/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/golang/</guid>
       <description></description>
     </item>
     

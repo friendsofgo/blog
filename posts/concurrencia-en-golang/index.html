@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>Concurrencia en Golang • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Concurrencia en Golang"/>
+<meta name="twitter:description" content="No es ningún misterio que una de las principales características por las que la gente se interesa por Go es la concurrencia. La premisa de Go con la concurrencia es hacerla sencilla y manejable para todos, cosa que no podemos decir de otros lenguajes, donde incluso ni existe la concurrencia y tenemos que buscarnos la vida de otras maneras.
+Pero antes de meternos de llenos a picar, deberíamos entender bien que es la concurrencia y en qué se diferencia del paralelismo, ya que muchas veces estos términos tienden a confundirse."/>
+
+<meta property="og:title" content="Concurrencia en Golang" />
+<meta property="og:description" content="No es ningún misterio que una de las principales características por las que la gente se interesa por Go es la concurrencia. La premisa de Go con la concurrencia es hacerla sencilla y manejable para todos, cosa que no podemos decir de otros lenguajes, donde incluso ni existe la concurrencia y tenemos que buscarnos la vida de otras maneras.
+Pero antes de meternos de llenos a picar, deberíamos entender bien que es la concurrencia y en qué se diferencia del paralelismo, ya que muchas veces estos términos tienden a confundirse." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/concurrencia-en-golang/" />
+<meta property="article:published_time" content="2019-06-17T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-17T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Concurrencia en Golang</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 17 Jun, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/concurrencia">CONCURRENCIA</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/concurrencia">concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/paso-de-mensajes">paso de mensajes</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/gorrutina">gorrutina</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/gorutine">gorutine</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/paralelismo">paralelismo</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 8 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>No es ningún misterio que una de las principales características por las que la gente se interesa por <strong>Go</strong> es <strong>la concurrencia</strong>. La premisa de <strong>Go</strong> con la concurrencia es hacerla sencilla y manejable para todos, cosa que no podemos decir de otros lenguajes, donde incluso ni existe la concurrencia y tenemos que buscarnos la vida de otras maneras.</p>
+
+<p>Pero antes de meternos de llenos a picar, deberíamos entender bien que es <strong>la concurrencia y en qué se diferencia del paralelismo</strong>, ya que muchas veces estos términos tienden a confundirse.</p>
+
+<h2 id="diferencias-entre-concurrencia-y-paralelismo">Diferencias entre concurrencia y paralelismo</h2>
+
+<p>La <strong>concurrencia</strong> es cuando dos o más tareas pueden empezar, ejecutarse y completarse en períodos de tiempos superpuestos. Esto no quiere decir que ambos procesos corran a la misma vez. Mientras que en el <strong>paralelismo</strong> las tareas se ejecutarán literalmente a la misma vez, esto solo es posible cuando tenemos más de un procesador de otra manera es imposible realizar tareas en paralelo y posiblemente hablemos de tareas ejecutándose <strong>concurrentemente</strong>.</p>
+
+<h2 id="gorrutinas">Gorrutinas</h2>
+
+<p>En <strong>Go</strong>, una tarea que se ejecuta de manera independiente se le conoce por <strong>gorrutina</strong>. Empezar una <strong>gorrutina</strong> es muy sencillo, basta con añadir la palabra reservada <code>go</code> delante de una función:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="c1">// do something concurrently
+</span><span class="c1"></span>	<span class="p">}()</span>
+<span class="p">}</span></code></pre></div>
+<p>Cada vez que usamos la palabra reservada <code>go</code> estaremos ejecutando una <strong>gorrutina</strong> podríais pensar que cada <strong>gorrutina</strong> se está ejecutando a la vez, pero esto no tiene porque ser así ya que los ordenadores sólo tienen un número limitado de unidades de procesamiento.</p>
+
+<p>De hecho, estos procesadores suelen pasar un tiempo en cada <strong>gorrutina</strong> antes de pasar a otra, esta técnica es conocida como <em>time sharing</em>. Por esto además hay que asumir que cada tarea o <strong>gorrutina</strong> se ejecutará en cualquier orden.</p>
+
+<p>Podemos verlo en un simple ejemplo con los empleados de la Estrella de la Muerte, que recordemos si tuvo los problemas de seguridad que tuvo, es porque pasaban más tiempo durmiendo que trabajando:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The Stormtrooper, number %d, is snoring\n&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>¿Cuándo ejecutemos este programa cuál será el resultado? Seguro que estás esperando ver algo como esto:
+<pre>
+The Stormtrooper, number 0, is snoring
+The Stormtrooper, number 1, is snoring
+The Stormtrooper, number 2, is snoring
+The Stormtrooper, number 3, is snoring
+The Stormtrooper, number 4, is snoring
+</pre></p>
+
+<p>¿Y si te decimos que lo que realmente devolverá es algo cómo esto?
+<pre>
+The Stormtrooper, number 1, is snoring
+The Stormtrooper, number 0, is snoring
+The Stormtrooper, number 4, is snoring
+The Stormtrooper, number 3, is snoring
+The Stormtrooper, number 2, is snoring
+</pre></p>
+
+<p>¿No nos crees? Pruébalo tu mismo: <a href="https://play.golang.org/p/s3WoI5jLbSn">https://play.golang.org/p/s3WoI5jLbSn</a></p>
+
+<h2 id="usando-canales-con-nuestras-gorrutinas">Usando canales con nuestras gorrutinas</h2>
+
+<p>Obviamente sabemos que la programación no siempre es tan sencilla, y tendremos que realizar programas más complicados con concurrencia, un caso muy común que nos encontraremos es el de comunicar dos <strong>gorrutinas</strong>, para esto en <strong>Go</strong> tenemos lo que se llaman <code>channels</code> o <code>canales</code>.</p>
+
+<p>Los <strong>canales pueden ser utilizados como variables</strong> como cualquier otro tipo en <strong>Go</strong>, es decir podremos pasarlos a las funciones y ser propiedades de nuestros <code>structs</code>.</p>
+
+<p>Para inicializar un canal haremos uso de la función <code>make</code> al igual que la utilizamos en los <code>maps</code> y <code>slices</code>. Además tendremos que especificar el tipo de datos que va a recibir el canal a la hora de crearlos.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span></code></pre></div>
+<p>Con nuestro canal creado ya estamos listo para mandar o recibir mensajes, para ello utilizaremos el operador <code>&lt;-</code>, veamos como funciona:</p>
+
+<p>Si queremos mandar datos a nuestro canal:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">c</span> <span class="o">&lt;-</span> <span class="s">&#34;Hello, Darth Vader&#34;</span></code></pre></div>
+<p>Y si queremos recibirlos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">m</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="nx">c</span></code></pre></div>
+<p>Algo que tenéis que tener muy presente es que las operaciones con canales son bloqueantes, así que mientras un canal este abierto y haya alguna parte de nuestro código esperando recibir valores, no se ejecutará nada por debajo o en el caso de una <strong>gorrutina</strong> la mantendrá bloqueada.</p>
+
+<p>Vamos a verlo mejor con nuestro ejemplo anterior, hagamos que los Stormtroopers se despierten y se pongan a trabajar.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">stormtrooper</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The Stormtrooper, number %d, is awake!\n&#34;</span><span class="p">,</span> <span class="nx">stormtrooper</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The StormTrooper, number %d, is snoring\n&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+	<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">id</span>
+<span class="p">}</span></code></pre></div>
+<p>Playground: <a href="https://play.golang.org/p/2IK4buoiIoz">https://play.golang.org/p/2IK4buoiIoz</a></p>
+
+<p>Algo que debería llamarnos fuertemente la atención en el ejemplo anterior, además del uso de canales es que ha desaparecido la sentencia <code>time.Sleep(4 * time.Second)</code> que había tras nuestro primer <code>for</code> donde ejecutábamos las <strong>gorrutinas</strong>, esto se debe a como dijimos a que <code>stormtrooper := &lt;-c</code> es bloqueante, estaremos ahí parados hasta recibir algo en nuestro canal.</p>
+
+<p>¿Qué queremos decir con bloqueante? Pues en este caso hemos declarado un canal, <code>c := make(chan int)</code> que quiere decir que espera enviar y recibir un elemento cada vez, <code>unbuffered channel</code>, en otro artículo ya explicaremos los <code>buffered channels</code> donde podremos enviar más de un elemento, pero de momento mantengámonos básicos, al declarar que vamos a enviar y recibir un elemento, si éste no fuera enviado <code>c &lt;- id</code> se nos produciría un deadlock, con su consiguiente panic, <code>fatal error: all goroutines are asleep - deadlock!</code> ya que nuestro programa se quedaría bloqueado en ese punto eternamente y no podríamos continuar nuestra ejecución.</p>
+
+<p>En este ejemplo se ve muy sencillo pero los deadlocks son uno de los errores más comunes cuando trabajamos con concurrencia, pero no hay nada que unos buenos tests, no arreglen.</p>
+
+<p>Hemos añadido además el cierre de nuestro canal al final de la ejecución del último <code>for</code>, aunque en este caso no sería estrictamente necesario, ya que sabemos de antemano cuantas <strong>gorrutinas</strong> y cuando terminaremos de procesarlas.</p>
+
+<h2 id="complicando-los-canales">Complicando los canales</h2>
+
+<p>Hay veces que queremos hacer diferentes ejecuciones dependiendo de lo que suceda con las <strong>gorrutinas</strong>, y como no vamos a llenar nuestro código de <code>if/else</code>, <strong>Go</strong> nos provee de un <code>switch</code> especial diseñado especialmente para canales.</p>
+
+<p>Imaginad a Darth Vader en la Estrella de la Muerte, ¿de verdad pensáis que esperaría a que todos los Stormtroopers se despertaran? o ¿perdería la paciencia mucho antes?</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">darthVaderPatience</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">stormtrooper</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">:</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The Stormtrooper, number %d, is awake!\n&#34;</span><span class="p">,</span> <span class="nx">stormtrooper</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">darthVaderPatience</span><span class="p">:</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;You&#39;ve exhaust my patience&#34;</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The StormTrooper, number %d, is snoring\n&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+	<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">id</span>
+<span class="p">}</span></code></pre></div>
+<p>Playground: <a href="https://play.golang.org/p/K77E24sXPqC">https://play.golang.org/p/K77E24sXPqC</a></p>
+
+<p>Lo primero que hemos hecho es declarar la paciencia de nuestro querido Darth Vader, <code>darthVaderPatience := time.After(2 * time.Second)</code>, la función <code>time.After()</code> devuelve un canal, el cual será rellenado una vez se alcancé el tiempo especificado, es decir una vez pasen los <em>2 segundos</em> ese canal recibirá información y podremos actuar en consecuencia.</p>
+
+<p>Gracias al <code>select</code> podremos definir diferentes casos y decidir que queremos hacer en cada uno de ellos, en este ejemplo lo que hacemos es cortar la ejecución de nuestras <strong>gorrutinas</strong> pasado <em>2 segundos</em>, esto es muy útil si tenemos un proceso muy lento y queremos pararlo pasado un tiempo determinado. Así pues en el ejemplo anterior, veremos que la paciencia de Darth Vader acaba mucho antes de que cualquier Stormtrooper se despierte, ¿seguirán con vida&hellip;?</p>
+
+<h2 id="no-se-cuando-acabarán-mis-gorrutinas">No se cuando acabarán mis gorrutinas</h2>
+
+<p>Muchas veces no podremos controlar cuando acabarán nuestras <strong>gorrutinas</strong>, pero necesitamos saberlo para poder actuar en consecuencia.</p>
+
+<p>Para este caso podemos resolverlo de varias maneras, os vamos a explicar uno muy útil y sencillo que es el de beneficiarnos de dos <strong>gorrutinas</strong>, del <code>select</code> y un bucle infinito.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+	<span class="nx">quit</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
+
+	<span class="kd">var</span> <span class="nx">counter</span> <span class="kt">int</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">quit</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">counter</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">{</span>
+			<span class="k">select</span> <span class="p">{</span>
+			<span class="k">case</span> <span class="nx">stormtrooper</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">:</span>
+				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The Stormtrooper, number %d, is awake!\n&#34;</span><span class="p">,</span> <span class="nx">stormtrooper</span><span class="p">)</span>
+
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+	<span class="o">&lt;-</span><span class="nx">quit</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;All the Stormtroopers are awake&#34;</span><span class="p">)</span>
+	<span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+	<span class="nb">close</span><span class="p">(</span><span class="nx">quit</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">sleepyStormtrooper</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">quit</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">counter</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The StormTrooper, number %d, is snoring\n&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+	<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">id</span>
+	<span class="o">*</span><span class="nx">counter</span><span class="o">++</span>
+	<span class="k">if</span> <span class="o">*</span><span class="nx">counter</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="p">{</span>
+		<span class="nx">quit</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+<span class="p">}</span></code></pre></div>
+<p>Playground: <a href="https://play.golang.org/p/K6dX4LPlFU5">https://play.golang.org/p/K6dX4LPlFU5</a></p>
+
+<p>El ejemplo es algo forzado, pero se entiende lo que queremos explicar, en este caso nuestro programa se estará ejecutando hasta que se cumpla la condición de que <code>counter &gt;= 5</code>. Como hemos explicado <code>&lt;-quit</code> es una acción bloqueante y se estará esperando a recibir algo para continuar, por ello hasta que no se cumpla la condición jamás se imprimirá el mensaje de que todos los Stormtroopers están despiertos. Esto puede llegar a provocar un <code>deadlock</code> ya que si fallara algo y no llegamos a publicar en el canal <code>quit</code> nunca terminariamos, pero en artículos venideros explicaremos como mejorar esta gestión con los <code>buffered channels</code>.</p>
+
+<p>A todo lo que hemos explicado del trato con canales, se le conoce como <em>paso por mensajes</em>, pero cuando nuestros objetos son muy muy grandes, este patrón puede ser no muy útil y se pasaría a utilizar <em>memoria compartida</em>, pero esto ya lo veremos en otro artículo.</p>
+
+<p>Esperamos haber cubierto vuestras ansías de concurrencia por un tiempo y pongáis en práctica lo aprendido, ya sabéis que podéis dejarnos cualquier duda en los comentarios, o vía Twitter <a href="https://twitter.com/friendsofgotech">@FriendsofGoTech</a></p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+  </div>
+  
+  <div class="main-content">
+    <h4>Adrián Pérez</h4>
+    <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        adrianpgl
+      </a>
+      
+      
+      <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        aperezg
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/try-la-propuesta-para-mejorar-la-gestion-de-errores/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Try: la propuesta para mejorar la gestión de errores</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>

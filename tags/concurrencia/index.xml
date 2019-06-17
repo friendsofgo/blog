@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>concurrencia on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/concurrencia/</link>
+    <description>Recent content in concurrencia on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Mon, 17 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/tags/concurrencia/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Concurrencia en Golang</title>
+      <link>https://blog.friendsofgo.tech/posts/concurrencia-en-golang/</link>
+      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/concurrencia-en-golang/</guid>
+      <description>No es ningún misterio que una de las principales características por las que la gente se interesa por Go es la concurrencia. La premisa de Go con la concurrencia es hacerla sencilla y manejable para todos, cosa que no podemos decir de otros lenguajes, donde incluso ni existe la concurrencia y tenemos que buscarnos la vida de otras maneras.
+Pero antes de meternos de llenos a picar, deberíamos entender bien que es la concurrencia y en qué se diferencia del paralelismo, ya que muchas veces estos términos tienden a confundirse.</description>
+    </item>
+    
+  </channel>
+</rss>
