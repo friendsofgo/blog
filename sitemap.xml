@@ -4,66 +4,89 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/concurrencia/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/repasando-el-modelo-de-actores-en-go/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/concurrencia/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/go/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/gorrutina/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/modelo-de-actores/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/modelo-de-concurrencia/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/paso-de-mensajes/</loc>
+    <lastmod>2019-06-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/concurrencia-en-golang/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/concurrencia/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/gorrutina/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -74,12 +97,6 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/paralelismo/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/paso-de-mensajes/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -325,13 +342,13 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>Repasando el modelo de actores en Go • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Repasando el modelo de actores en Go"/>
+<meta name="twitter:description" content="La mayoría de nosotros, cuándo oímos hablar del modelo de actores (o actor model en inglés), o bien no sabemos de qué estamos hablando, o bien nos viene a la cabeza el framework Akka (para la JVM, entre cuyas funcionalidades destaca el soporte para el modelo de actores).
+Para los primeros, el modelo de actores es un modelo de concurrencia sobre el que centraremos el artículo de hoy. Para los segundos, hoy veremos una posible implementación del mismo en el ecosistema Go."/>
+
+<meta property="og:title" content="Repasando el modelo de actores en Go" />
+<meta property="og:description" content="La mayoría de nosotros, cuándo oímos hablar del modelo de actores (o actor model en inglés), o bien no sabemos de qué estamos hablando, o bien nos viene a la cabeza el framework Akka (para la JVM, entre cuyas funcionalidades destaca el soporte para el modelo de actores).
+Para los primeros, el modelo de actores es un modelo de concurrencia sobre el que centraremos el artículo de hoy. Para los segundos, hoy veremos una posible implementación del mismo en el ecosistema Go." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/repasando-el-modelo-de-actores-en-go/" />
+<meta property="article:published_time" content="2019-06-25T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-25T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Repasando el modelo de actores en Go</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 25 Jun, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/concurrencia">CONCURRENCIA</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/concurrencia">concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/paso-de-mensajes">paso de mensajes</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/gorrutina">gorrutina</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/modelo-de-concurrencia">modelo de concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/modelo-de-actores">modelo de actores</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 5 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>La mayoría de nosotros, cuándo oímos hablar del modelo de actores (o <a href="https://en.wikipedia.org/wiki/Actor_model">actor model</a> en inglés), o bien no sabemos de qué estamos hablando,
+o bien nos viene a la cabeza el framework <a href="https://akka.io/">Akka</a> (para la <a href="https://es.wikipedia.org/wiki/M%C3%A1quina_virtual_Java">JVM</a>,
+entre cuyas funcionalidades destaca el soporte para el modelo de actores).</p>
+
+<p>Para los primeros, el modelo de actores es un modelo de concurrencia sobre el que centraremos el artículo de hoy.
+Para los segundos, hoy veremos una posible implementación del mismo en el ecosistema Go.</p>
+
+<h1 id="pero-qué-es-el-modelo-de-actores">Pero, ¿qué es el modelo de actores?</h1>
+
+<p>Como introducíamos antes, <strong>el modelo de actores es un <a href="https://es.wikipedia.org/wiki/Modelo_matem%C3%A1tico">modelo matemático</a>
+de <a href="https://es.wikipedia.org/wiki/Concurrencia_(inform%C3%A1tica)">concurrencia</a>:</strong>
+una definición de un sistema (concurrente) con conceptos matemáticos; o una estrategia bien definida para implementar un sistema concurrente.</p>
+
+<p>[<strong>Si tenéis dudas acerca de las diferencias entre concurrencia y paralelismo, podéis revisar nuestro artículo de <a href="/posts/concurrencia-en-golang/">introducción a la concurrencia en Go</a></strong>]</p>
+
+<p>Pero bueno, dejémonos de tecnicismos y veamos cómo funciona dicho modelo.</p>
+
+<p>La <strong>pieza central</strong> (la primitiva universal) del modelo son los <strong>actores,</strong> cuya definición les caracteriza por:</p>
+
+<ul>
+<li><strong>Pueden tener un estado interno.</strong></li>
+<li><strong>Son capaces de recibir mensajes y actuar en consecuencia</strong> (cambiar su estado interno, crear más actores, responder con más mensajes, etc).</li>
+</ul>
+
+<p>Por lo tanto, nos podríamos imaginar un pseudocódigo similar a:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Inicializamos un actor
+</span><span class="c1"></span><span class="nx">actor</span> <span class="o">:=</span> <span class="nx">actors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;actorName&#34;</span><span class="p">)</span>
+
+<span class="c1">// Definimos las acciones a realizar al recibir un mensaje de un determinado tipo
+</span><span class="c1"></span><span class="nx">actor</span><span class="p">.</span><span class="nf">On</span><span class="p">(</span><span class="s">&#34;Something&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do whatever
+</span><span class="c1"></span><span class="p">})</span>
+
+<span class="nx">actor2</span> <span class="o">:=</span> <span class="nx">actors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;actorName 2&#34;</span><span class="p">)</span>
+<span class="nx">actor2</span><span class="p">.</span><span class="nf">On</span><span class="p">(</span><span class="s">&#34;Something 2&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do whatever
+</span><span class="c1"></span><span class="p">})</span>
+
+<span class="c1">// Enviamos un mensaje entre dos actores
+</span><span class="c1"></span><span class="nx">actor</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="s">&#34;Something&#34;</span><span class="p">,</span> <span class="nx">actor2</span><span class="p">)</span></code></pre></div>
+<h2 id="el-modelo-en-go">El modelo en Go</h2>
+
+<p>A diferencia de lenguajes como <a href="https://es.wikipedia.org/wiki/Erlang">Erlang</a> (o <a href="https://es.wikipedia.org/wiki/Elixir_(lenguaje_de_programaci%C3%B3n)">Elixir</a>),
+cuyo modelo de concurrencia está basado precisamente en el modelo de actores,
+<strong>el modelo de concurrencia de Go está basado en el <a href="https://es.wikipedia.org/wiki/Comunicaci%C3%B3n_de_procesos_secuenciales">modelo de comunicación de procesos secuenciales</a> (CSP).</strong></p>
+
+<p>Sin embargo, hacer una implementación del modelo de actores en Go no debería ser excesivamente complicado. De hecho, si nos paramos a pensar un poco sobre la definición que hicimos anteriormente, veremos que para hacer una implementación del mismo necesitamos más bien poco:</p>
+
+<ul>
+<li>Para el <strong>estado interno,</strong> podemos tener una estructura de datos (structs) a nuestra conveniencia.</li>
+<li>Para el <strong>envío de mensajes entre actores,</strong> podemos hacer uso de canales.</li>
+<li>Para la <strong>ejecución de múltiples procesos,</strong> podemos hacer uso de gorrutinas.</li>
+</ul>
+
+<p>Si, solo con ese pequeño listado de recursos con los que estamos acostumbrados a trabajar en nuestro día a día,
+ya tendríamos una implementación simple del modelo de actores.</p>
+
+<p>Veamos una implementación muy muy simple:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">actor</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">actor</span><span class="p">)</span> <span class="nf">Send</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">a</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">n</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">actor</span><span class="p">)</span> <span class="nf">Start</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">actor</span><span class="p">)</span> <span class="nf">Stop</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nb">close</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Aunque esto lo podríamos complicar tanto como quisiéramos. Además, tendríamos que tomar algunas decisiones relativamente complejas, como por ejemplo, el tamaño del canal.
+Es por esta razón, que normalmente los desarrolladores buscamos <em>frameworks</em> o librerías que nos permitan ahorrarnos este tipo de gestiones una y otra vez.</p>
+
+<h2 id="un-framework-de-actores-para-go">Un framework de actores para Go</h2>
+
+<p>Por suerte o por desgracia, y como ya dijimos anteriormente, <strong><a href="https://akka.io/">el framework Akka</a></strong> está enfocado a la <a href="https://es.wikipedia.org/wiki/M%C3%A1quina_virtual_Java">JVM</a> y,
+por lo tanto, <strong>no está disponible para Go.</strong> Sin embargo, si lo que buscamos es un framework de actores para Go, tenemos alguna que otra alternativa que veremos a continuación.</p>
+
+<p>Pues, como hemos visto, implementar el modelo de actores por encima de <a href="https://es.wikipedia.org/wiki/Comunicaci%C3%B3n_de_procesos_secuenciales">CSP</a>,
+es de lo más sencillo. Pero no nos engañemos, dicha implementación puede ser tan compleja cómo queramos (distribuida, tolerante a fallos, etc).</p>
+
+<p>En esa línea, nos gusta mucho la propuesta de <a href="https://github.com/teivah/gosiris">gosiris</a>, el cuál es efectivamente un <em>framework</em> de actores en Go.</p>
+
+<p><strong>Entre sus características resaltan:</strong></p>
+
+<ul>
+<li><strong>Integración para sistemas distribuidos</strong> (mediante <a href="https://es.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol">AMQP</a> o <a href="https://kafka.apache.org/">Kafka</a>).</li>
+<li><strong>Integración para trazabilidad</strong> (mediante <a href="https://zipkin.io/">Zipkin</a>).</li>
+<li><strong>Gestión de jerarquías de actores</strong> (estado interno, <em>mailbox</em>, actores secundarios, etc).</li>
+<li><strong>Implementación de patrones de actores</strong> (enviar y recibir, supervisión parental, etc).</li>
+</ul>
+
+<h3 id="ping-pong">Ping Pong</h3>
+
+<p>De entrada, pinta bien. Sin embargo, lo mejor es que <strong>veamos el ejemplo que hemos preparado, representando el Ping Pong (ejemplo habitual en Akka)</strong>.
+En esta ocasión, dos procesos (padre e hijo) se van haciendo ping (y pong) indefinidamente. Usamos <code>time.Sleep(1 * time.Second)</code> para poder observar
+el comportamiento de ambos actores (ver <em>logs</em> de la ejecución) sin tener que entrar en el detalle del ciclo de vida de los actores, aspecto que dejaremos
+pendiente de profundizar en otro artículo.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;github.com/teivah/gosiris/gosiris&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Welcome to the Ping Pong gosiris demo&#34;</span><span class="p">)</span>
+
+	<span class="c1">// Initialize a local actor system
+</span><span class="c1"></span>	<span class="nx">gosiris</span><span class="p">.</span><span class="nf">InitActorSystem</span><span class="p">(</span><span class="nx">gosiris</span><span class="p">.</span><span class="nx">SystemOptions</span><span class="p">{</span>
+		<span class="nx">ActorSystemName</span><span class="p">:</span> <span class="s">&#34;ActorSystem&#34;</span><span class="p">,</span>
+	<span class="p">})</span>
+
+	<span class="c1">// Create the &#34;ping&#34; actor (parent)
+</span><span class="c1"></span>	<span class="nx">pingActor</span> <span class="o">:=</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nx">Actor</span><span class="p">{}</span>
+	<span class="k">defer</span> <span class="nx">pingActor</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// Create the &#34;pong&#34; actor (child)
+</span><span class="c1"></span>	<span class="nx">pongActor</span> <span class="o">:=</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nx">Actor</span><span class="p">{}</span>
+	<span class="k">defer</span> <span class="nx">pongActor</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="c1">// Register a reaction to event types (&#34;message&#34; in this case)
+</span><span class="c1"></span>	<span class="nx">pongActor</span><span class="p">.</span><span class="nf">React</span><span class="p">(</span><span class="s">&#34;ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">context</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">context</span><span class="p">.</span><span class="nx">Self</span><span class="p">.</span><span class="nf">LogInfo</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="s">&#34;Ping received from: %s\n&#34;</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Sender</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+		<span class="nx">context</span><span class="p">.</span><span class="nx">Sender</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="nx">gosiris</span><span class="p">.</span><span class="nx">EmptyContext</span><span class="p">,</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Self</span><span class="p">)</span>
+	<span class="p">})</span>
+
+	<span class="c1">// Register a reaction to &#34;pong&#34; messages
+</span><span class="c1"></span>	<span class="nx">pingActor</span><span class="p">.</span><span class="nf">React</span><span class="p">(</span><span class="s">&#34;pong&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">context</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">context</span><span class="p">.</span><span class="nx">Self</span><span class="p">.</span><span class="nf">LogInfo</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="s">&#34;pong received from: %s\n&#34;</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Sender</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+		<span class="nx">context</span><span class="p">.</span><span class="nx">Sender</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="nx">gosiris</span><span class="p">.</span><span class="nx">EmptyContext</span><span class="p">,</span> <span class="s">&#34;ping&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Self</span><span class="p">)</span>
+	<span class="p">})</span>
+
+	<span class="c1">// Register the actors into the system
+</span><span class="c1"></span>	<span class="nx">gosiris</span><span class="p">.</span><span class="nf">ActorSystem</span><span class="p">().</span><span class="nf">RegisterActor</span><span class="p">(</span><span class="s">&#34;pingActor&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">pingActor</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="nx">gosiris</span><span class="p">.</span><span class="nf">ActorSystem</span><span class="p">().</span><span class="nf">SpawnActor</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">pingActor</span><span class="p">,</span> <span class="s">&#34;pongActor&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">pongActor</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+
+	<span class="c1">// Retrieve actor references
+</span><span class="c1"></span>	<span class="nx">pingActorRef</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nf">ActorSystem</span><span class="p">().</span><span class="nf">ActorOf</span><span class="p">(</span><span class="s">&#34;pingActor&#34;</span><span class="p">)</span>
+	<span class="nx">pongActorRef</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">gosiris</span><span class="p">.</span><span class="nf">ActorSystem</span><span class="p">().</span><span class="nf">ActorOf</span><span class="p">(</span><span class="s">&#34;pongActor&#34;</span><span class="p">)</span>
+
+	<span class="c1">// Send a message from one actor to another (from pingActor to pongActor)
+</span><span class="c1"></span>	<span class="nx">pongActorRef</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="nx">gosiris</span><span class="p">.</span><span class="nx">EmptyContext</span><span class="p">,</span> <span class="s">&#34;ping&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">pingActorRef</span><span class="p">)</span>
+
+	<span class="c1">// Just for the example purposes
+</span><span class="c1"></span>	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Y ¡voilà! ¡Ahí lo tenemos!</p>
+
+<p>Pero la cosa no queda aquí. <strong>También tenemos otras alternativas, como la implementación para Go de la librería <a href="https://github.com/AsynkronIT/protoactor-go">Proto Actor</a>,</strong>
+cuyo enfoque es también muy interesante. Por el momento, os dejamos a vosotros investigar y, en todo caso, lo vemos en artículos futuros.</p>
+
+<p><br/></p>
+
+<p>Y vosotros, <strong>¿ya sabíais lo que es el modelo de actores? ¿ya lo habíais usado?</strong></p>
+
+<p>Como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+  </div>
+  
+  <div class="main-content">
+    <h4>Joan López de la Franca</h4>
+    <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        joanjan14
+      </a>
+      
+      
+      <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        joanlopez
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/concurrencia-en-golang/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Concurrencia en Golang</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
