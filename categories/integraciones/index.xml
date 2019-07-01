@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Integraciones on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/categories/integraciones/</link>
+    <description>Recent content in Integraciones on Blog | Friends of GO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sun, 30 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.friendsofgo.tech/categories/integraciones/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Crear un bot de Slack en Go</title>
+      <link>https://blog.friendsofgo.tech/posts/crear-un-bot-de-slack-en-go/</link>
+      <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/crear-un-bot-de-slack-en-go/</guid>
+      <description>Slack es una herramienta de comunicación en equipo que se lanzó al mercado en agosto del 2013. Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos. Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.
+Como decíamos, las integraciones de la comunidad de servicios a terceros son una de las funcionalidades más exitosas de Slack, sin embargo, si tuviéramos que destacar dos de ellas, nos quedaríamos con los bots y los slash commands.</description>
+    </item>
+    
+  </channel>
+</rss>

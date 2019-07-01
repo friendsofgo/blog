@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>Crear un bot de Slack en Go • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Crear un bot de Slack en Go"/>
+<meta name="twitter:description" content="Slack es una herramienta de comunicación en equipo que se lanzó al mercado en agosto del 2013. Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos. Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.
+Como decíamos, las integraciones de la comunidad de servicios a terceros son una de las funcionalidades más exitosas de Slack, sin embargo, si tuviéramos que destacar dos de ellas, nos quedaríamos con los bots y los slash commands."/>
+
+<meta property="og:title" content="Crear un bot de Slack en Go" />
+<meta property="og:description" content="Slack es una herramienta de comunicación en equipo que se lanzó al mercado en agosto del 2013. Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos. Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.
+Como decíamos, las integraciones de la comunidad de servicios a terceros son una de las funcionalidades más exitosas de Slack, sin embargo, si tuviéramos que destacar dos de ellas, nos quedaríamos con los bots y los slash commands." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/crear-un-bot-de-slack-en-go/" />
+<meta property="article:published_time" content="2019-06-30T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-30T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Crear un bot de Slack en Go</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 30 Jun, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/api">API</a>
+  •
+  
+  <a class="badge badge-category" href="/categories/integraciones">INTEGRACIONES</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/slack">slack</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/bots">bots</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/api">api</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 7 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p><strong><a href="https://slack.com/">Slack</a> es una herramienta de comunicación en equipo</strong> que se lanzó al mercado en agosto del 2013.
+Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos.
+Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.</p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_450/v1561928797/fogo/blog/thumb_2192_0x200_0_0_auto.png"/></p>
+
+<p>Como decíamos, las integraciones de la comunidad de servicios a terceros son una de las funcionalidades más exitosas de Slack,
+sin embargo, si tuviéramos que destacar dos de ellas, nos quedaríamos con <strong>los bots y los <em>slash commands</em>.</strong>
+Los primeros son <strong>programas que se conectan a Slack igual que tú</strong> (Slack ve a los bots como usuarios),
+<strong>tienen acceso a los mensajes que pasan a través de los servidores de Slack e interactúan con ellos.</strong>
+Los bots son excelentes si necesitas desarrollar una integración con Slack con un alto grado de interactividad, o si deseas poder procesar el flujo de mensajes.
+<strong>Los <em>slash commands</em>,</strong> por su lado, <strong>son comandos de Slack invocados con el carácter &ldquo;/&rdquo; seguido del nombre del comando.</strong>
+Éstos son excelentes cuando tenemos un conjunto fijo de interacciones, y deben iniciarse en nombre del usuario o informar al mismo.</p>
+
+<h2 id="slack-y-go">Slack y Go</h2>
+
+<p>Evidentemente, tanto los bots como los <em>slash commands</em>, al ser programas que se integran con Slack, <strong>son programas que
+tendremos que desarrollar nosotros con nuestra propia lógica de negocio.</strong> Por lo tanto, lo primero será escoger un lenguaje
+de programación para dichos desarrollos. Como no podía ser de otra forma, <strong>para esta ocasión usaremos Go.</strong> Otro caso de
+uso del mundo real para el que la elección de Go es una buena elección.</p>
+
+<p>En particular <strong>usaremos el paquete <a href="https://github.com/nlopes/slack">&ldquo;nlopes/slack&rdquo;</a> de <a href="https://github.com/nlopes">Norberto Lopes</a>,</strong>
+cuya documentación la podemos encontrar <a href="https://godoc.org/github.com/nlopes/slack">aquí</a>. Y más concretamente, lo que vamos a desarrollar,
+por un lado, es una <a href="https://es.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_de_aplicaciones">API</a>.
+Por eso, <strong>si aún no habéis desarrollado ninguna API en Go,</strong> os recomendamos encarecidamente leer nuestro
+<a href="/posts/como_crear_una_api_rest_en_golang/">artículo sobre como crear una API REST en Go</a>.</p>
+
+<p>De hecho, el funcionamiento de ambos es mediante una API. Por un lado, los <em>slash commands</em> no dejan de ser un <em>trigger</em> que harán una petición
+a la URL que nosotros indiquemos. Y, por otro lado, los bots se suscribirán a eventos (mensaje enviado, mención, canal creado, etc) que,
+ una vez sucedan, también se <em>triggerearan</em> a la URL indicada para actuar en consecuencia.</p>
+
+<h2 id="creando-una-slack-app">Creando una <em>Slack app</em></h2>
+
+<p>Como es habitual, la forma de desarrollar una integración con una aplicación web del estilo (Facebook, Twitter, etc) es mediante la creación
+de una aplicación en dicha plataforma, lo cuál suele ir asociado a la obtención de las credenciales necesarias para nuestros desarrollos.</p>
+
+<p>En Slack, concretamente, <strong>lo que primero que deberemos hacer para empezar a crear nuestros bots y nuestros slash commands</strong>
+es acceder a la web de <a href="https://api.slack.com/apps">Slack API</a> y rellenar el formulario de creación de una nueva aplicación:</p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561934511/fogo/blog/slack_create_app.png"/></p>
+
+<p>Una vez creada, tendremos acceso a las credenciales de la misma:</p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561934842/fogo/blog/slack_app_credentials.png"/></p>
+
+<p><strong>¡Ahora ya estamos listos para empezar!</strong></p>
+
+<h2 id="creando-un-slash-command">Creando un <em>slash command</em></h2>
+
+<p>Como decíamos, <strong>para habilitar un nuevo <em>slash command</em> en nuestra aplicación, lo que deberemos hacer es <em>deployar</em> una API capaz de reaccionar a la misma,</strong>
+posteriormente configuraremos dicho comando en la web de la <a href="https://api.slack.com/apps">Slack API</a>.</p>
+
+<p>Entonces, <strong>¿qué pinta tendrá el <em>handler</em> que responderá a nuestros comandos?</strong></p>
+
+<p>Vamos a suponer que queremos crear un comando <code>/last</code>que nos devuelva el enlace al último articulo publicado en <a href="https://blog.friendsofgo.tech/">nuestro blog</a>.
+Para ello vamos a suponer que disponemos de un método (<code>func getLastBlogPost() string</code>) para obtener dicho enlace.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">lastHandler</span><span class="p">(</span><span class="nx">response</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">slashCommand</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">processIncomingRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">signingSecret</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// See which slash command the message contains
+</span><span class="c1"></span>    <span class="k">switch</span> <span class="nx">slashCommand</span><span class="p">.</span><span class="nx">Command</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s">&#34;/last&#34;</span><span class="p">:</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nf">getLastBlogPost</span><span class="p">()))</span>
+    
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Como podemos ver, <strong>lo que hacemos básicamente es:</strong></p>
+
+<ol>
+<li>Identificar el comando solicitado con los datos de la petición HTTP.</li>
+<li>En caso de que sea el comando <code>/last</code>, entonces respondemos con el enlace.</li>
+</ol>
+
+<p>Si nos fijamos, al método <code>processIncomingRequest</code> le pasamos la <code>signingSecret</code>. Ésta la podemos obtener del apartado
+que veíamos anteriormente, el cuál contiene todas las credenciales de nuestra aplicación.</p>
+
+<p>Pero, <strong>¿qué pinta tiene el método <code>processIncomingRequest</code>?</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">processIncomingRequest</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">signingSecret</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">slashCommand</span> <span class="nx">slack</span><span class="p">.</span><span class="nx">SlashCommand</span><span class="p">,</span> <span class="nx">errs</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">verifier</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">slack</span><span class="p">.</span><span class="nf">NewSecretsVerifier</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Header</span><span class="p">,</span> <span class="nx">signingSecret</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">r</span><span class="p">.</span><span class="nx">Body</span> <span class="p">=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">NopCloser</span><span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nf">TeeReader</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">verifier</span><span class="p">))</span>
+	<span class="nx">slashCommand</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">slack</span><span class="p">.</span><span class="nf">SlashCommandParse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">slashCommand</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Verify that the request came from Slack
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">verifier</span><span class="p">.</span><span class="nf">Ensure</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusUnauthorized</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">slashCommand</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">slashCommand</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></div>
+<p>Como podemos ver, lo que hacemos básicamente es una pequeña gestión de errores para los casos en los que las credenciales son incorrectas
+o en los que la petición no nos llega desde Slack y, en caso contrario, devolvemos el <em>slash command</em> que nos ha llegado en la petición.</p>
+
+<p>Una vez tenemos deployada la API en nuestro servidor, solo nos falta <strong>ir al apartado de <em>Slash Commands</em> de la <a href="https://api.slack.com/apps">Slack API</a>
+y crear un nuevo comando:</strong></p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561936235/fogo/blog/slack_new_command.png"/></p>
+
+<p>Como podemos ver, <strong>en dicha sección podremos configurar el comando en cuestión.</strong> Es importante recordar que en <code>SERVER_URL</code> pondríamos
+el enlace al servidor que respondería con el <em>handler</em> que desarrollamos previamente, y que, en caso de necesidad, podríamos ajustar
+las configuraciones de <em>hint</em> y autocompletado.</p>
+
+<h2 id="creando-un-bot">Creando un bot</h2>
+
+<p>Vale, ya hemos creado nuestro primer comando de Slack, pero ahora queremos ir un poco más allá, y queremos ver como desarrollar nuestro primer bot.
+<strong>Para desarrollar nuestro bot también tenemos que desarrollar una API.</strong> Con el pequeño matiz, como comentábamos anteriormente, de que
+<strong>nuestro bot, lo que hará será responder a eventos que sucedan en el <em>workspace</em> dónde tengamos nuestra aplicación instalada.</strong></p>
+
+<p>Para ello, deberemos crear un bot asociado a los eventos que queramos que responda.
+<strong>Lo primero será configurar el nombre y el identificador de usuario de nuestro bot:</strong></p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561936722/fogo/blog/slack_bot_user.png"/></p>
+
+<p>Una vez configurado nuestro usuario bot, lo que haremos será realizar la <strong>subscripción a los eventos a los que queramos que éste responda:</strong></p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561936966/fogo/blog/slack_event_subscriptions.png"/></p>
+
+<p>De nuevo, deberemos configurar una URL (<code>SERVER_URL</code>) que se corresponderá con la del servidor que contenga el <em>handler</em> que de respuesta a dichos eventos.
+En esta ocasión la lógica cambiará un poco, pues, <strong>por un lado, tendremos que satisfacer un pequeño <em>challenge</em> que nos propone la gente de Slack
+para validar nuestra URL y, por otro lado, deberemos inicializar una sesión de nuestro bot vía protocolo <a href="https://api.slack.com/rtm">RTM</a>.</strong>
+Además, en esta ocasión, en lugar de identificar el <em>slash command</em> recibido, deberemos detectar cuál es el evento que se ha producido.</p>
+
+<p>Veamos como hacerlo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">eventsHandler</span><span class="p">(</span><span class="nx">response</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">request</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+	<span class="nx">buf</span><span class="p">.</span><span class="nf">ReadFrom</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+	<span class="nx">body</span> <span class="o">:=</span> <span class="nx">buf</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+	<span class="nx">eventsAPIEvent</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">slackevents</span><span class="p">.</span><span class="nf">ParseEvent</span><span class="p">(</span>
+		<span class="nx">json</span><span class="p">.</span><span class="nf">RawMessage</span><span class="p">(</span><span class="nx">body</span><span class="p">),</span> 
+		<span class="nx">slackevents</span><span class="p">.</span><span class="nf">OptionVerifyToken</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">slackevents</span><span class="p">.</span><span class="nx">TokenComparator</span><span class="p">{</span><span class="nx">VerificationToken</span><span class="p">:</span> <span class="nx">verificationToken</span><span class="p">}),</span>
+	<span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">response</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">eventsAPIEvent</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">slackevents</span><span class="p">.</span><span class="nx">URLVerification</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">slackevents</span><span class="p">.</span><span class="nx">ChallengeResponse</span>
+		<span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">body</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">r</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">response</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">response</span><span class="p">.</span><span class="nf">Header</span><span class="p">().</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s">&#34;text&#34;</span><span class="p">)</span>
+		<span class="nx">response</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Challenge</span><span class="p">))</span>
+	<span class="p">}</span>
+	
+	<span class="k">if</span> <span class="nx">eventsAPIEvent</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">slackevents</span><span class="p">.</span><span class="nx">CallbackEvent</span> <span class="p">{</span>
+		<span class="nx">innerEvent</span> <span class="o">:=</span> <span class="nx">eventsAPIEvent</span><span class="p">.</span><span class="nx">InnerEvent</span>
+		<span class="k">switch</span> <span class="nx">ev</span> <span class="o">:=</span> <span class="nx">innerEvent</span><span class="p">.</span><span class="nx">Data</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">slackevents</span><span class="p">.</span><span class="nx">AppMentionEvent</span><span class="p">:</span>
+			<span class="nx">api</span><span class="p">.</span><span class="nf">PostMessage</span><span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">Channel</span><span class="p">,</span> <span class="nx">slack</span><span class="p">.</span><span class="nf">MsgOptionText</span><span class="p">(</span><span class="s">&#34;Friends of Go is the best #golang community ever.&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">))</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Si lo analizamos en detalle, veremos que en el bloque:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">eventsAPIEvent</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">slackevents</span><span class="p">.</span><span class="nx">URLVerification</span></code></pre></div>
+<p><strong>devolvemos la respuesta que nos permite superar el <em>challenge</em> de verificación de la URL,</strong> y en el bloque:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">eventsAPIEvent</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">slackevents</span><span class="p">.</span><span class="nx">CallbackEvent</span></code></pre></div>
+<p><strong>actuamos en consecuencia en función del evento que se ha producido. En esta ocasión, concretamente, al evento que
+se produce cuándo hacemos una mención (<code>slackevents.AppMentionEvent</code>).</strong></p>
+
+<p>Como podemos ver, <strong>el paquete <a href="https://github.com/nlopes/slack">&ldquo;nlopes/slack&rdquo;</a> nos proporciona toda la magia necesaria
+para desarrollar nuestros bots y nuestros <em>slash commands</em>.</strong> Sin embargo, hay algo de magia que aún no hemos explicado.</p>
+
+<p>¿Os habíais fijado en la siguiente línea?</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">api</span><span class="p">.</span><span class="nf">PostMessage</span><span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">Channel</span><span class="p">,</span> <span class="nx">slack</span><span class="p">.</span><span class="nf">MsgOptionText</span><span class="p">(</span><span class="s">&#34;Friends of Go is the best #golang community ever.&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">))</span></code></pre></div>
+<p>¿De dónde surge dicha <code>api</code>? ¿Y cómo indicamos que es nuestro bot el que publica el mensaje?</p>
+
+<p>Pues bien, dicha variable surge de la inicialización que realizamos unas líneas más arriba, fuera <em>scope</em> del <em>handler</em>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">api</span> <span class="p">=</span> <span class="nx">slack</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">oAuthToken</span><span class="p">)</span></code></pre></div>
+<p>dónde la constante <code>oAuthToken</code> se corresponde con los datos que podemos obtener en la sección OAuth de nuestra aplicación de Slack,
+y que más concretamente se corresponden con el <em>OAuthToken</em> de nuestro bot:</p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_550/v1561938007/fogo/blog/slack_oauth.png"/></p>
+
+<h2 id="instalando-la-aplicación">Instalando la aplicación</h2>
+
+<p>Ya casi lo tenemos. Ya hemos desarrollado nuestro primer bot y nuestro primer <em>slash command</em> y ahora solo nos falta instalar
+dicha aplicación en nuestro <em>workspace</em> para poder empezar a usar ambas funcionalidades.</p>
+
+<p>Para ello, solo tendremos que ir al menú de <strong>&ldquo;Install App&rdquo;</strong> e instalarla:</p>
+
+<p><img style="margin:0 auto;" src="https://res.cloudinary.com/fogo/image/upload/v1561938191/fogo/blog/slack_install_app_menu.png"/></p>
+
+<p><strong>Y ¡voilà! ¡Ya lo tendremos!</strong> Ya tendremos en funcionamiento nuestro primer bot y nuestro primer <em>slash command</em> desarrollados en Go.</p>
+
+<p><br/></p>
+
+<p>Y vosotros, <strong>¿os animáis a desarrollar vuestros propios bots o <em>slash commands</em>?</strong>
+Y, <strong>¿a compartirlos con nosotros?</strong></p>
+
+<p>Como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+  </div>
+  
+  <div class="main-content">
+    <h4>Joan López de la Franca</h4>
+    <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        joanjan14
+      </a>
+      
+      
+      <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        joanlopez
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/repasando-el-modelo-de-actores-en-go/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Repasando el modelo de actores en Go</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
