@@ -6,7 +6,7 @@
     <description>Recent content in bots on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Sun, 30 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/bots/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Crear un bot de Slack en Go</title>
       <link>https://blog.friendsofgo.tech/posts/crear-un-bot-de-slack-en-go/</link>
-      <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/posts/crear-un-bot-de-slack-en-go/</guid>
       <description>Slack es una herramienta de comunicación en equipo que se lanzó al mercado en agosto del 2013. Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos. Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.
