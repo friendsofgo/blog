@@ -307,7 +307,7 @@ dar una respuesta más rápida al usuario final.</p>
 <p>Como podemos ver, hemos preparado un pequeño <em>boilerplate</em> con un par de elementos:</p>
 
 <ul>
-<li><p>En primer lugar, una función <code>doHttpRequest</code> que hará una petición contra uno de nuestros proveedores, o contra uno
+<li><p>En primer lugar, una función <code>DoHttpRequest</code> que hará una petición contra uno de nuestros proveedores, o contra uno
 de nuestros propios servidores, y nos devolverá la respuesta de la petición.</p></li>
 
 <li><p>En segundo lugar, una función <code>main</code> sencilla dónde se hace un cálculo del tiempo
@@ -323,9 +323,9 @@ de ejecución de la petición HTTP, y dónde se muestra la respuesta de la misma
 	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 	<span class="k">return</span> <span class="s">&#34;Hello World&#34;</span>
 <span class="p">}</span></code></pre></div>
-<p><em>(aunque os recomendamos encarecidamente que hagáis la misma prueba con vuestro código de producción)</em></p>
+<p><em>(aunque os recomendamos encarecidamente que hagáis la misma prueba con vuestro código de producción o con una petición HTTP real)</em></p>
 
-<p>os daréis cuenta de que <strong>los tiempos de ejecución tienden a ser bastante altos para la mayoría de ocasiones.</strong></p>
+<p>os daréis cuenta de que <strong>los tiempos de ejecución tienden a ser bastante altos para un número elevado de ocasiones.</strong></p>
 
 <h2 id="distribuyendo-nuestras-tareas">Distribuyendo nuestras tareas</h2>
 
@@ -525,7 +525,7 @@ del <code>select</code>.</p>
 
 <p>Y, si en lugar de dos peticiones, tenemos tres, ¿qué? ¿Y con cuatro? ¿Diez? ¿Y si quisiéramos compartir datos entre peticiones?</p>
 
-<p>La cosa se empieza a complicar y es dónde vamos a dar paso a nuestro patrón de concurrencia del hoy: <strong>el patrón <em>context</em>,
+<p>La cosa se empieza a complicar y es dónde vamos a dar paso a nuestro patrón de concurrencia de hoy: <strong>el patrón <em>context</em>,
 o contexto en español. El cuál nos permitirá hacer todas esas gestiones que estábamos comentando</strong>.</p>
 
 <h2 id="el-paquete-context">El paquete <em>context</em></h2>
@@ -563,7 +563,7 @@ como veremos a continuación. Dónde <strong>la primera nos permite crear un nue
 definir un <em>timeout</em> (tiempo máximo para la ejecución) y un <em>deadline</em> (fecha y hora máxima para la ejecución) respectivamente.</strong></p>
 
 <p>Finalmente, <strong>si necesitamos añadir nuevas variables a nuestros contextos, también disponemos de la función <a href="https://golang.org/pkg/context/#WithValue"><code>context.WithValue</code></a>,</strong>
-cuya función es crear un nuevo contexto con una nueva variable definida.</p>
+cuya función es crear un nuevo contexto con una nueva variable definida en él.</p>
 
 <h2 id="implementando-el-patrón-context-en-nuestro-ejemplo">Implementando el patrón <em>context</em> en nuestro ejemplo</h2>
 
@@ -617,9 +617,10 @@ interno, sinó que como consumidores de dicha función <strong>ahora podremos ca
 
 <p><strong>¿Y si queremos añadir añadir un <em>timeout</em> global?</strong></p>
 
-<p>Anteriormente, cómo ya dijimos, tendríamos que añadir un nuevo parámetro, a nuestro método para pasarle el canal responsable del <em>timeout</em> global.
+<p>Anteriormente, cómo ya dijimos, tendríamos que añadir un nuevo parámetro a nuestro método para pasarle el canal responsable del <em>timeout</em> global.
 Sin embargo, <strong>en esta ocasión, no es necesario tocar nuestro método y tendremos suficiente con definir que nuestro contexto tiene un <em>timeout</em>.</strong>
-Entonces, a partir de ahora, dicho contexto tendría dos posibles formas de finalizar: la función <code>cancel()</code> o cuándo se supere el <em>timeout</em>.</p>
+Entonces, a partir de ahora, dicho contexto tendría dos posibles formas de finalizar: la función <code>cancel()</code> o cuándo se supere el <em>timeout</em>
+(gestionado internamente por el propio contexto).</p>
 
 <p>Veamos entonces cómo queda nuestro ejemplo de código limpio de anotaciones:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
@@ -726,7 +727,7 @@ Entonces, a partir de ahora, dicho contexto tendría dos posibles formas de fina
 <p>Como podéis ver, ahora ya <strong>hemos conseguido lograr todos los objetivos que nos fijamos inicialmente, de una forma bastante senzilla y clara:</strong></p>
 
 <ul>
-<li>Las rutinas más lentas serán canceladas (evitando que queden paradas indefinidamente).</li>
+<li>Las rutinas más lentas serán canceladas (evitando que queden bloqueadas indefinidamente).</li>
 <li>Tenemos la posibilidad de definir un <em>timeout</em> o un <em>deadline</em> común para todo el proceso.</li>
 <li>Podemos usar el contexto como un contenedor de variables, para mantener la firma de nuestros métodos intacta.</li>
 </ul>
