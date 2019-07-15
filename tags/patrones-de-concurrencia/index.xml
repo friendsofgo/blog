@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>modelo de concurrencia on Blog | Friends of GO</title>
-    <link>https://blog.friendsofgo.tech/tags/modelo-de-concurrencia/</link>
-    <description>Recent content in modelo de concurrencia on Blog | Friends of GO</description>
+    <title>patrones de concurrencia on Blog | Friends of GO</title>
+    <link>https://blog.friendsofgo.tech/tags/patrones-de-concurrencia/</link>
+    <description>Recent content in patrones de concurrencia on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
     <lastBuildDate>Mon, 15 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.friendsofgo.tech/tags/modelo-de-concurrencia/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.friendsofgo.tech/tags/patrones-de-concurrencia/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,16 +18,6 @@
       
       <guid>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-context/</guid>
       <description>Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar un mayor interés es por la gestión de la concurrencia en el mismo. Sin embargo, es importante recordar que Go no es un lenguaje que destaque estrictamente por esa característica, pues al final estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python. Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación.</description>
-    </item>
-    
-    <item>
-      <title>Repasando el modelo de actores en Go</title>
-      <link>https://blog.friendsofgo.tech/posts/repasando-el-modelo-de-actores-en-go/</link>
-      <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/posts/repasando-el-modelo-de-actores-en-go/</guid>
-      <description>La mayoría de nosotros, cuándo oímos hablar del modelo de actores (o actor model en inglés), o bien no sabemos de qué estamos hablando, o bien nos viene a la cabeza el framework Akka (para la JVM, entre cuyas funcionalidades destaca el soporte para el modelo de actores).
-Para los primeros, el modelo de actores es un modelo de concurrencia sobre el que centraremos el artículo de hoy. Para los segundos, hoy veremos una posible implementación del mismo en el ecosistema Go.</description>
     </item>
     
   </channel>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>Patrones de concurrencia: context • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Patrones de concurrencia: context"/>
+<meta name="twitter:description" content="Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar un mayor interés es por la gestión de la concurrencia en el mismo. Sin embargo, es importante recordar que Go no es un lenguaje que destaque estrictamente por esa característica, pues al final estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python. Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación."/>
+
+<meta property="og:title" content="Patrones de concurrencia: context" />
+<meta property="og:description" content="Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar un mayor interés es por la gestión de la concurrencia en el mismo. Sin embargo, es importante recordar que Go no es un lenguaje que destaque estrictamente por esa característica, pues al final estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python. Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-context/" />
+<meta property="article:published_time" content="2019-07-15T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-07-15T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Patrones de concurrencia: context</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 15 Jul, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/concurrencia">CONCURRENCIA</a>
+  •
+  
+  <a class="badge badge-category" href="/categories/patrones-de-concurrencia">PATRONES DE CONCURRENCIA</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/concurrencia">concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/patrones">patrones</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/patrones-de-concurrencia">patrones de concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/gorrutina">gorrutina</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/modelo-de-concurrencia">modelo de concurrencia</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 12 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar
+un mayor interés es por la <strong>gestión de la <a href="https://es.wikipedia.org/wiki/Concurrencia_(inform%C3%A1tica)">concurrencia</a></strong>
+en el mismo. Sin embargo, es importante recordar que <strong>Go no es un lenguaje que destaque estrictamente por esa característica,</strong>
+pues al final <strong>estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python.</strong>
+Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación. Además,
+como ya vimos en anteriores artículos, <strong>el <em>core</em> de Go nos proporciona un sinfín de herramientas como muy pocos otros lenguajes.</strong>
+Es por esta razón, por la que cuándo empezamos con <a href="https://friendsofgo.tech/">Friends of Go</a>, decidimos dejar de lado la concurrencia.</p>
+
+<p>Sin embargo, llegó la hora de hablar de dicho tema y empezamos con una <a href="/posts/concurrencia-en-golang/">introducción a la concurrencia en Go</a>,
+vimos <a href="/posts/repasando-el-modelo-de-actores-en-go/">cómo implementar el modelo de actores</a> con los recursos que habíamos visto
+en dicha introducción, y continuamos con la <a href="/posts/concurrencia-en-golang-waitgroups/">sincronización de gorrutinas mediante <em>WaitGroups</em></a>.</p>
+
+<p>Por suerte, esto aún no se acaba, por eso estamos aquí. Y, es que después del <em>feedback</em> recibido sobre el último artículo,
+nos dimos cuenta de que <strong>la sincronización de gorrutinas</strong> podía dar lugar a un sinfín de situaciones que aún no habíamos
+explicado como resolver. Por esa razón, <strong>aprovechamos para dar paso al primero de los patrones de concurrencia que iremos
+viendo en futuros artículos: el patrón <em>context</em>.</strong></p>
+
+<p>Pero, antes de definir un patrón que aplicaremos en determinadas situaciones, lo más importante de todo es identificar
+un problema a resolver. Una vez identificado un tipo de problema, veremos qué enfoque o patrón podremos aplicar para solucionarlo.</p>
+
+<h2 id="de-optimizaciones-va-la-cosa">De optimizaciones va la cosa</h2>
+
+<p>Si hay algo <strong>común en todas las situaciones dónde desarrollamos código concurrente,</strong> ese es el hecho de <strong>perseguir una
+optimización o mejora de rendimiento.</strong> Ya sea para realizar una tarea de una forma más rápida, o para realizar más tareas
+en un mismo intervalo de tiempo.</p>
+
+<p>Por ejemplo, hoy en día que son muy habituales las integraciones entre servicios (el auge de los microservicios es una realidad),
+<strong>es muy común hacer varias peticiones concurrentes para conseguir un rendimiendo más óptimo.</strong> Ya sea para peticionar
+de forma múltiple a diferentes de nuestros servidores y, así, sacar partido de aquellos que estén menos cargados, o para
+hacer peticiones a diferentes proveedores, y quedarnos con los datos del proveedor que nos responda antes, con el fin de
+dar una respuesta más rápida al usuario final.</p>
+
+<p>Veamos algo de código:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="nx">response</span> <span class="o">:=</span> <span class="nf">DoHttpRequest</span><span class="p">()</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP request took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Request your own server or your provider
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>Como podemos ver, hemos preparado un pequeño <em>boilerplate</em> con un par de elementos:</p>
+
+<ul>
+<li><p>En primer lugar, una función <code>doHttpRequest</code> que hará una petición contra uno de nuestros proveedores, o contra uno
+de nuestros propios servidores, y nos devolverá la respuesta de la petición.</p></li>
+
+<li><p>En segundo lugar, una función <code>main</code> sencilla dónde se hace un cálculo del tiempo
+de ejecución de la petición HTTP, y dónde se muestra la respuesta de la misma.</p></li>
+</ul>
+
+<p>Si ejecutamos dicho código, con, por ejemplo, ésta implementación de prueba:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">())</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+	<span class="k">return</span> <span class="s">&#34;Hello World&#34;</span>
+<span class="p">}</span></code></pre></div>
+<p><em>(aunque os recomendamos encarecidamente que hagáis la misma prueba con vuestro código de producción)</em></p>
+
+<p>os daréis cuenta de que <strong>los tiempos de ejecución tienden a ser bastante altos para la mayoría de ocasiones.</strong></p>
+
+<h2 id="distribuyendo-nuestras-tareas">Distribuyendo nuestras tareas</h2>
+
+<p>Como decíamos antes, una <strong>opción interesante</strong> sería realizar esa misma petición múltiples veces de forma concurrente
+con la esperanza de que, para alguna de ellas, el balanceador nos guíe hacia un servidor con poco tráfico.</p>
+
+<p>Veamos cómo adaptar el código que teníamos antes:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="nx">response</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP request took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>	<span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span>
+<span class="p">}</span></code></pre></div>
+<p>Si repasamos los conceptos que vimos en artículos anteriores, rápidamente vamos a identificar como vamos a lanzar múltiples
+gorrutinas que internamente van a hacer una petición HTTP y cuándo terminen van a publicar la respuesta por el canal que
+les pasamos como argumento. Además, en la función <code>main</code>, vamos a esperar a que alguna de ellas (solo una) termine.</p>
+
+<p>Hasta aquí todo correcto. Aunque con matices. Si añadimos una pequeña anotación a nuestro código:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP request took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	
+    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>	<span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Goroutine finished #%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Veremos que, por mucho <code>time.Sleep</code> que pongamos, <strong>sólo una de ellas va a terminar su ejecución correctamente</strong>,
+mientras que <strong>el resto se quedarán bloqueadas de forma indefinida</strong>, intentando publicar por un canal de respuestas del
+que ya nunca nadie más va a leer.</p>
+
+<h2 id="los-timeouts-al-rescate">Los <em>timeouts</em> al rescate</h2>
+
+<p><strong>Una forma de resolver éste problema sería,</strong> por ejemplo, <strong>definiendo un <em>timeout</em> máximo</strong> para nuestras peticiones,
+por ejemplo de un segundo. Veamos cómo hacerlo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP request took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>	<span class="k">select</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Goroutine finished #%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Goroutine finished #%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Efectivamente, ahora podemos ver como mediante el uso del <code>select</code> y de la función <code>time.After</code>, nuestras rutinas ya
+no se quedarán bloqueadas de forma indefinida. <strong>¡Problema solucionado!</strong></p>
+
+<p>Por desgracia, las situaciones con las que nos encontramos en nuestro día a día, no son tan simples. De hecho, es habitual
+tener que concatenar varias de éstas peticiones.</p>
+
+<h2 id="complicando-el-ejemplo">Complicando el ejemplo</h2>
+
+<p>Vamos a suponer, entonces, que ahora tenemos que hacer dos peticiones HTTP, una detrás de la otra (eliminamos ahora
+las anotaciones por simplificar):</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+
+	<span class="nx">result2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result2</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result2</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result2</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result2</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result2</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="nx">msg2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result2</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP requests took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg2</span><span class="p">)</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoFirstHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>	<span class="k">select</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// DoSecondHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously using msg
+</span><span class="c1"></span>	<span class="k">select</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>La cosa se va complicando, ¡eh! Y <strong>¿qué ocurre sí ahora queremos tener también un <em>timeout</em> global?</strong></p>
+
+<p>Tendríamos que modificar el ejemplo anterior para definir un <code>time.After</code> al inicio de la función <code>main</code> y que éste
+se fuera propagando por cada una de las llamadas para que internamente fuera tratado tambień como un caso más dentro
+del <code>select</code>.</p>
+
+<p>Y, si en lugar de dos peticiones, tenemos tres, ¿qué? ¿Y con cuatro? ¿Diez? ¿Y si quisiéramos compartir datos entre peticiones?</p>
+
+<p>La cosa se empieza a complicar y es dónde vamos a dar paso a nuestro patrón de concurrencia del hoy: <strong>el patrón <em>context</em>,
+o contexto en español. El cuál nos permitirá hacer todas esas gestiones que estábamos comentando</strong>.</p>
+
+<h2 id="el-paquete-context">El paquete <em>context</em></h2>
+
+<p><strong>El patrón de concurrencia <em>context</em> también da nombre al <a href="https://golang.org/pkg/context/">paquete</a> que contiene todos
+los mecanismos para implementar dicho patrón.</strong></p>
+
+<p>De hecho, como podéis imaginar, el patrón no consistirá en nada más que <strong>dotar a nuestras rutinas de un contexto</strong>
+(<a href="https://golang.org/pkg/context/#Context"><em>Context</em></a>) mediante el cuál podremos cancelar operaciones, establecer <em>timeouts</em>
+e incluso compartir variables específicas para cada contexto.</p>
+
+<p>Para lograrlo, <strong><a href="https://golang.org/pkg/context/">el paquete <em>context</em></a> nos proporciona diferentes recursos.</strong></p>
+
+<h3 id="context-background">context.Background</h3>
+
+<p><strong>La función <a href="https://golang.org/pkg/context/#Background"><code>context.Background()</code></a> será con la que vamos a inicializar un contexto estándar.</strong>
+Sin variables especificas, sin cancelación, sin <em>timeouts</em>&hellip;
+Su uso será muy generalista, para aquellas ocasiones en que vayamos a necesitar un contexto, pero ninguna de las funcionalidades
+anteriormente descritas (véase para el punto de entrada, las inicializaciones, los tests, etc).</p>
+
+<p>Sin embargo, si aún no tenemos claro qué contexto usar, tendremos una forma de explicitarlo, y eso lo haremos mediante la función
+<a href="https://golang.org/pkg/context/#TODO"><code>context.TODO()</code></a>, la cuál es equivalente a la anterior, pero esta vez indicando que dicho parámetro no es definitivo.</p>
+
+<h3 id="context-withcancel-timeout-y-deadline">context.WithCancel, Timeout y Deadline</h3>
+
+<p>Como decíamos antes, los usos del contexto de <em>background</em> son limitados, ya que <strong>en la mayoría de ocasiones lo que vamos a querer será poder cancelar
+nuestros contextos o definirles un <em>timeout</em>.</strong></p>
+
+<p>Si recordamos el ejemplo anterior, lo que queríamos era poder cancelar el resto de las rutinas una vez hubiese terminado la primera de ellas.
+Después, además, también queríamos definir un <em>timeout</em> global.</p>
+
+<p><strong>Todo eso lo podríamos lograr con las funciones <a href="https://golang.org/pkg/context/#WithCancel"><code>context.WithCancel</code></a>,
+<a href="https://golang.org/pkg/context/#WithTimeout"><code>context.WithTimeout</code></a> y <a href="https://golang.org/pkg/context/#WithDeadline"><code>context.WithDeadline</code></a>,</strong>
+como veremos a continuación. Dónde <strong>la primera nos permite crear un nuevo contexto cancelable mientras que la segunda y la tercera nos permiten
+definir un <em>timeout</em> (tiempo máximo para la ejecución) y un <em>deadline</em> (fecha y hora máxima para la ejecución) respectivamente.</strong></p>
+
+<p>Finalmente, <strong>si necesitamos añadir nuevas variables a nuestros contextos, también disponemos de la función <a href="https://golang.org/pkg/context/#WithValue"><code>context.WithValue</code></a>,</strong>
+cuya función es crear un nuevo contexto con una nueva variable definida.</p>
+
+<h2 id="implementando-el-patrón-context-en-nuestro-ejemplo">Implementando el patrón <em>context</em> en nuestro ejemplo</h2>
+
+<p>Ahora que ya tenemos los mecanismos necesarios para implementar dicho patrón, es hora de ver nuestro ejemplo anterior en funcionamiento:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+	<span class="nf">cancel</span><span class="p">()</span>
+
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP requests took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>    <span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Goroutine finished #%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Goroutine finished #%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Como podemos ver, ahora ya no tenemos que hacer que nuestro método que hace las peticiones HTTP tenga que esperar a un <em>timeout</em>
+interno, sinó que como consumidores de dicha función <strong>ahora podremos cancelar (mediante la función <code>cancel()</code>) el resto de peticiones que ya no nos interesan.</strong></p>
+
+<p><strong>¿Y si queremos añadir añadir un <em>timeout</em> global?</strong></p>
+
+<p>Anteriormente, cómo ya dijimos, tendríamos que añadir un nuevo parámetro, a nuestro método para pasarle el canal responsable del <em>timeout</em> global.
+Sin embargo, <strong>en esta ocasión, no es necesario tocar nuestro método y tendremos suficiente con definir que nuestro contexto tiene un <em>timeout</em>.</strong>
+Entonces, a partir de ahora, dicho contexto tendría dos posibles formas de finalizar: la función <code>cancel()</code> o cuándo se supere el <em>timeout</em>.</p>
+
+<p>Veamos entonces cómo queda nuestro ejemplo de código limpio de anotaciones:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+	<span class="nf">cancel</span><span class="p">()</span>
+
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP requests took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoHttpRequest</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>    <span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Finalmente, podemos ver el ejemplo de las dos rutinas, comunicándose entre sí, haciendo uso de los contextos.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Doing an HTTP request...&#34;</span><span class="p">)</span>
+
+	<span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+
+	<span class="nx">result2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="nx">ctx</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithValue</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;msg&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result2</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">result2</span><span class="p">)</span>
+	<span class="nx">msg2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result2</span>
+	<span class="nf">cancel</span><span class="p">()</span>
+	<span class="nx">elapsed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP requests took %s&#34;</span><span class="p">,</span> <span class="nx">elapsed</span><span class="p">)</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The whole HTTP response was: %s&#34;</span><span class="p">,</span> <span class="nx">msg2</span><span class="p">)</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// DoFirstHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoFirstHttpRequest</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously
+</span><span class="c1"></span>    <span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// DoSecondHttpRequest performs an new HTTP request
+</span><span class="c1">// that can take between 0 and 500ms to be done
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">DoSecondHttpRequest</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">result</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Do an HTTP request synchronously using the ctx variables
+</span><span class="c1"></span>    <span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">result</span> <span class="o">&lt;-</span> <span class="nx">response</span><span class="p">:</span>
+    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>Como podéis ver, ahora ya <strong>hemos conseguido lograr todos los objetivos que nos fijamos inicialmente, de una forma bastante senzilla y clara:</strong></p>
+
+<ul>
+<li>Las rutinas más lentas serán canceladas (evitando que queden paradas indefinidamente).</li>
+<li>Tenemos la posibilidad de definir un <em>timeout</em> o un <em>deadline</em> común para todo el proceso.</li>
+<li>Podemos usar el contexto como un contenedor de variables, para mantener la firma de nuestros métodos intacta.</li>
+</ul>
+
+<p><br/></p>
+
+<p>A nosotros, cuándo descubrimos éste patrón, nos pareció muy interesante, pues nos ayudó a resolver algunas de las problemáticas pendientes.
+Y a vosotros, <strong>¿creéis que el patrón <em>context</em> os puede servir de ayuda en vuestro día a día?</strong></p>
+
+<p>Como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+  </div>
+  
+  <div class="main-content">
+    <h4>Joan López de la Franca</h4>
+    <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        joanjan14
+      </a>
+      
+      
+      <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        joanlopez
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/concurrencia-en-golang-waitgroups/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Concurrencia en Golang: WaitGroups</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>

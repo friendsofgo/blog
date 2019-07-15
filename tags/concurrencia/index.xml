@@ -6,10 +6,19 @@
     <description>Recent content in concurrencia on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 08 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/concurrencia/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Patrones de concurrencia: context</title>
+      <link>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-context/</link>
+      <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-context/</guid>
+      <description>Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar un mayor interés es por la gestión de la concurrencia en el mismo. Sin embargo, es importante recordar que Go no es un lenguaje que destaque estrictamente por esa característica, pues al final estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python. Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación.</description>
+    </item>
     
     <item>
       <title>Concurrencia en Golang: WaitGroups</title>
