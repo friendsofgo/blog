@@ -6,10 +6,19 @@
     <description>Recent content in go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 15 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>¿Cómo usar MongoDB driver oficial en Go?</title>
+      <link>https://blog.friendsofgo.tech/posts/driver-oficial-mongodb-golang/</link>
+      <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/driver-oficial-mongodb-golang/</guid>
+      <description>No creo que a nadie le extrañe si decimos que Mongo DB es una de las bases de datos no relacionales más famosas que existen, por ello no podía faltar su adaptación a Go para poder utilizarla. Hasta hace poco contábamos con varias librerías para utilizar MongoDB, siendo una de las más utilizadas https://gopkg.in/mgo.v2, y si bien es cierto que era realmente útil no teníamos una solución oficial por parte del equipo de mongo para integrarse con nuestro lenguaje favorito.</description>
+    </item>
     
     <item>
       <title>Patrones de concurrencia: context</title>

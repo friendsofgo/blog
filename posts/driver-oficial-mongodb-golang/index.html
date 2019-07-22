@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+    
+    
+    
+
+<title>¿Cómo usar MongoDB driver oficial en Go? • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="¿Cómo usar MongoDB driver oficial en Go?"/>
+<meta name="twitter:description" content="No creo que a nadie le extrañe si decimos que Mongo DB es una de las bases de datos no relacionales más famosas que existen, por ello no podía faltar su adaptación a Go para poder utilizarla. Hasta hace poco contábamos con varias librerías para utilizar MongoDB, siendo una de las más utilizadas https://gopkg.in/mgo.v2, y si bien es cierto que era realmente útil no teníamos una solución oficial por parte del equipo de mongo para integrarse con nuestro lenguaje favorito."/>
+
+<meta property="og:title" content="¿Cómo usar MongoDB driver oficial en Go?" />
+<meta property="og:description" content="No creo que a nadie le extrañe si decimos que Mongo DB es una de las bases de datos no relacionales más famosas que existen, por ello no podía faltar su adaptación a Go para poder utilizarla. Hasta hace poco contábamos con varias librerías para utilizar MongoDB, siendo una de las más utilizadas https://gopkg.in/mgo.v2, y si bien es cierto que era realmente útil no teníamos una solución oficial por parte del equipo de mongo para integrarse con nuestro lenguaje favorito." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/driver-oficial-mongodb-golang/" />
+<meta property="article:published_time" content="2019-07-22T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-07-22T00:00:00&#43;00:00"/>
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>¿Cómo usar MongoDB driver oficial en Go?</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 22 Jul, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/bases-de-datos">BASES DE DATOS</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/bases-de-datos">bases de datos</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/nosql">nosql</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/no-relacional">no relacional</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/mongo">mongo</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/mongodb">mongodb</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 9 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>No creo que a nadie le extrañe si decimos que <a href="https://www.mongodb.com/"><strong>Mongo DB</strong></a> es una de las bases de datos no relacionales más famosas que existen, por ello no podía faltar su adaptación a <strong>Go</strong> para poder utilizarla. Hasta hace poco contábamos con varias librerías para utilizar <strong>MongoDB</strong>, siendo una de las más utilizadas <a href="http://labix.org/mgo">https://gopkg.in/mgo.v2</a>, y si bien es cierto que era realmente útil no teníamos una solución oficial por parte del equipo de mongo para integrarse con nuestro lenguaje favorito.</p>
+
+<p>Pero esto cambió recientemente, <a href="https://www.mongodb.com/blog/post/official-mongodb-go-driver-now-ga-and-ready-for-production">donde en marzo de este mismo año se presentaba la versión estable de este driver oficial para mongo</a>.</p>
+
+<p>Así que vamos a explicar cómo utilizar el driver oficial, para qué podáis utilizar <strong>MongoDB</strong> en aquellos proyectos que necesitéis.</p>
+
+<h2 id="instalando-la-librería">Instalando la librería</h2>
+
+<p>Recordemos que hoy en día tenemos dos formas distintas de instalar las librerías de <strong>Go</strong>, una sería seguir haciendo uso del <code>go get</code></p>
+
+<pre><code>$ go get -u go.mongodb.org/mongo-driver
+</code></pre>
+
+<p>El cual si tenemos los modules activos además de instalarnos la librería la pondrá a disposición de nuestro proyecto en sus respectivos ficheros <code>go.mod</code> y <code>go.sum</code></p>
+
+<p>O podemos simplemente importarla en nuestro proyecto y hacer uso del comando <code>go mod tidy</code> el cual se encargará de añadirla a nuestro <code>go.mod</code> y <code>go.sum</code> e instalarla también.</p>
+
+<p>Si te ves algo perdido con esto de los módulos te recomendamos <a href="https://blog.friendsofgo.tech/posts/go-modules-en-tres-pasos/">nuestro artículo sobre como iniciarte en <strong>Go modules</strong></a></p>
+
+<h2 id="conectar-con-mongodb">Conectar con MongoDB</h2>
+
+<p>Antes de empezar con este punto quiero decir que todos los métodos de esta nueva librería de <strong>MongoDB</strong> esperaran un <code>context</code>, hace poco <a href="https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-context/">hablamos sobre los contextos en <strong>Go</strong></a>, te será útil para manejar tus contextos dentro de la nueva librería de <strong>MongoDB</strong> para simplificar en este artículo, he decidido utilizar el <code>context.TODO()</code> que si recordamos de dicho artículo se utiliza para indicar que esperamos un contexto pero aún no hemos decidido como acabar de utilizarlo.</p>
+
+<p>Ahora sí veamos como conectarnos a un mongo que tenemos levantado en <code>localhost</code> en el puerto por defecto <code>27017</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;context&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+
+	<span class="s">&#34;go.mongodb.org/mongo-driver/mongo&#34;</span>
+	<span class="s">&#34;go.mongodb.org/mongo-driver/mongo/options&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">host</span> <span class="o">:=</span> <span class="s">&#34;localhost&#34;</span>
+	<span class="nx">port</span> <span class="o">:=</span> <span class="mi">27017</span>
+
+	<span class="nx">clientOpts</span> <span class="o">:=</span> <span class="nx">options</span><span class="p">.</span><span class="nf">Client</span><span class="p">().</span><span class="nf">ApplyURI</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;mongodb://%s:%d&#34;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">))</span>
+	<span class="nx">client</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mongo</span><span class="p">.</span><span class="nf">Connect</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">clientOpts</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Check the connections
+</span><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Ping</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Congratulations, you&#39;re already connected to MongoDB!&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Si vemos el código anterior, quizás nos sorprenda la línea, <code>err = client.Ping(context.TODO(), nil)</code>, y es que aunque la función <code>mongo.Connect</code> nos devuelva un client, nada nos asegura que realmente hayamos conectado correctamente, así que se nos ofrece un método <code>Ping</code> el cual sino devuelve error es que todo ha ido correcto, así que con esta doble comprobación os ahorraréis futuros dolores de cabeza.</p>
+
+<p>Recordemos que en <strong>Go</strong> no es necesario estar abriendo y cerrando conexiones contra nuestras bases de datos, como si que pasa en otros lenguajes de programación, ya que utilizaremos el pool de conexiones. Pero igualmente la librería nos ofrece una forma de realizar una desconexión de <strong>MongoDB</strong> si vemos que realmente ya no es necesario seguir utilizándolo, como podría ser el ejemplo de un script de un sólo uso, etc.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="o">...</span>
+
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Discconect</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">())</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Closed connection&#34;</span><span class="p">)</span>
+
+<span class="o">...</span></code></pre></div>
+<h2 id="modelando-nuestro-modelo">Modelando nuestro modelo</h2>
+
+<p>En <strong>Go</strong> creo que a nadie pilla por sorpresa si hablamos de los <code>tags</code>, esos campos personalizables que sirven para realizar conversiones a otros tipos partiendo desde nuestro <code>struct</code>, muy utilizado en el caso de <code>json</code> por ejemplo. En el driver de <strong>MongoDB</strong> esto no iba a ser menos y tenemos su propio <code>tag bson</code>, quizás si habéis utilizado la librería que mencionamos al principio del artículo esto no os coja de nuevo, ya que es completamente igual, así que dotando a nuestros parámetros del <code>struct</code> de este tag, podremos personalizar el nombre de los campos que serán su representación en nuestro <strong>MongoDB</strong>, además habría que recalcar, que sino declaramos ningún tag, el valor por defecto del nombre del campo será el mismo que en la propiedad pero todo en minúscula.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Starship</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID</span>            <span class="kt">string</span>  <span class="s">`bson:&#34;-&#34;`</span>
+	<span class="nx">Name</span>          <span class="kt">string</span>  <span class="s">`bson:&#34;name&#34;`</span>
+	<span class="nx">Model</span>         <span class="kt">string</span>  <span class="s">`bson:&#34;model&#34;`</span>
+	<span class="nx">CostInCredits</span> <span class="kt">int64</span>   <span class="s">`bson:&#34;costInCredits&#34;`</span>
+	<span class="nx">Pilots</span>        <span class="p">[]</span><span class="nx">Pilot</span> <span class="s">`bson:&#34;pilots&#34;`</span>
+<span class="p">}</span></code></pre></div>
+<p>Como véis es realmente sencillo crear nuestros modelos, además haciendo uso de <code>bson:&quot;-&quot;</code> a la hora de persistir dicho modelo, ignorará esas propiedades, por ejemplo en el caso de nuestro ejemplo hemos decidido que el campo <code>ID</code> sería util para <code>Mysql</code> pero no nos es útil en <strong>MongoDB</strong>, así podemos tener un mismo modelo para ambos casos.</p>
+
+<h2 id="operaciones-crud">Operaciones CRUD</h2>
+
+<p>Ahora que ya podemos conectarnos a nuestra base de datos y además sabemos como crear nuestros modelos, es hora de realizar operaciones.</p>
+
+<p>Recordemos que en <strong>MongoDB</strong> tenemos <em>colecciones</em> que vienen a ser similares a las tablas de <em>Mysql</em> que serán donde se almacenen nuestros documentos.</p>
+
+<p>Antes de realizar ninguna operación tendremos que indicar al driver contra que colección queremos realizar la acción</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">collection</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Database</span><span class="p">(</span><span class="s">&#34;swapi&#34;</span><span class="p">).</span><span class="nf">Collection</span><span class="p">(</span><span class="s">&#34;starships&#34;</span><span class="p">)</span></code></pre></div>
+<p>Algo que hay que tener en cuenta con <strong>MongoDB</strong> y que tiene sus pros y contras, <strong>es que si intentamos insertar sobre una colección que no existe, la creará por defecto.</strong></p>
+
+<h3 id="insertando-documentos">Insertando documentos</h3>
+
+<p>Esta claro que si queremos tener alguna información en nuestra base de datos lo primero que tenemos que hacer es realizar un <code>insert</code>, vamos a ver como se hace:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">deathStar</span> <span class="o">:=</span> <span class="nx">Starship</span><span class="p">{</span>
+	<span class="nx">Name</span><span class="p">:</span>          <span class="s">&#34;Death Star&#34;</span><span class="p">,</span>
+	<span class="nx">Model</span><span class="p">:</span>         <span class="s">&#34;DS-1 Orbital Battle Station&#34;</span><span class="p">,</span>
+	<span class="nx">CostInCredits</span><span class="p">:</span> <span class="mi">1000000000000</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">insertResult</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">collection</span><span class="p">.</span><span class="nf">InsertOne</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">deathStar</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Death Star had been inserted: &#34;</span><span class="p">,</span> <span class="nx">insertResult</span><span class="p">.</span><span class="nx">InsertID</span><span class="p">)</span></code></pre></div>
+<p>Como el propio nombre del método indica <code>InsertOne</code> sólo podremos insertar un documento a la vez, ¿qué pasa si queremos insertar varios?</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">executor</span> <span class="o">:=</span> <span class="nx">Starship</span><span class="p">{</span>
+	<span class="nx">Name</span><span class="p">:</span>          <span class="s">&#34;Executor&#34;</span><span class="p">,</span>
+	<span class="nx">Model</span><span class="p">:</span>         <span class="s">&#34;Executor-class star dreadnought&#34;</span><span class="p">,</span>
+	<span class="nx">CostInCredits</span><span class="p">:</span> <span class="mi">1143350000</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">millenniumFalcon</span> <span class="o">:=</span> <span class="nx">Starship</span><span class="p">{</span>
+	<span class="nx">Name</span><span class="p">:</span>          <span class="s">&#34;Millennium Falcon&#34;</span><span class="p">,</span>
+	<span class="nx">Model</span><span class="p">:</span>         <span class="s">&#34;YT-1300 light freighter&#34;</span><span class="p">,</span>
+	<span class="nx">CostInCredits</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">starships</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{}{</span><span class="nx">executor</span><span class="p">,</span> <span class="nx">millenniumFalcon</span><span class="p">}</span>
+
+<span class="nx">insertManyResult</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">collection</span><span class="p">.</span><span class="nf">InsertMany</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">starships</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Inserted multiple starships: &#34;</span><span class="p">,</span> <span class="nx">insertManyResult</span><span class="p">.</span><span class="nx">InsertedIDs</span><span class="p">)</span></code></pre></div>
+<h3 id="el-paquete-bson">El paquete bson</h3>
+
+<p>Anteriormente vimos que hacíamos uso de <code>bson</code> para poder indicar que nombres serían los que tendrían nuestras propiedades dentro de los documentos de <strong>MongoDB</strong>, pues bien, también utilizaremos <code>bson</code> para realizar filtrados u operaciones sobre <strong>MongoDB</strong>.</p>
+
+<p>Para ello tendremos que importar el paquete <code>go.mongodb.org/mongo-driver/bson</code>, este paquete nos ofrece cuatro tipos diferentes que podremos utilizar en nuestras operaciones.</p>
+
+<ul>
+<li><code>D</code>: Un <code>BSON document</code>. Este tipo se suele utilizar en situaciones que el orden importa, como los comandos de <strong>MongoDB</strong></li>
+<li><code>M</code>: Viene a representar un mapa no ordenado, es igual que el tipo anterior, pero en este caso no tendrá un orden específico.</li>
+<li><code>A</code>: Un array de <code>BSON</code></li>
+<li><code>E</code>: Un elemento concreto dentro de un tipo <code>D</code></li>
+</ul>
+
+<p>Puede que aquí os estaréis preguntando, ¿qué es esto de <code>BSON</code>? <code>BSON</code> es la forma que tiene <strong>MongoDB</strong> de trabajar con los documentos, no es más que la representación de JSON en binario, (Binary-encoded JSON)</p>
+
+<h3 id="modificando-nuestros-documentos">Modificando nuestros documentos</h3>
+
+<p>Ahora que ya conocemos un poco mejor como utilizar el paquete <code>bson</code> podremos realizar operaciones de modificación sobre nuestros documentos, veamos como:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">filter</span> <span class="o">:=</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="s">&#34;Executor&#34;</span><span class="p">}}</span>
+
+<span class="nx">updateResult</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">collectionUpdateOne</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{</span>
+	<span class="p">{</span><span class="s">&#34;$set&#34;</span><span class="p">,</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{</span>
+		<span class="p">{</span><span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="s">&#34;Executor Black&#34;</span><span class="p">},</span>
+	<span class="p">}},</span>
+<span class="p">})</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Matched %v documents and updated %v documents.\n&#34;</span><span class="p">,</span> <span class="nx">updateResult</span><span class="p">.</span><span class="nx">MatchedCount</span><span class="p">,</span> <span class="nx">updateResult</span><span class="p">.</span><span class="nx">ModifiedCount</span><span class="p">)</span></code></pre></div>
+<h2 id="buscando-documentos">Buscando documentos</h2>
+
+<p>Ya va siendo hora de comprobar si realmente nuestras acciones han dado resultado y se han ejecutado correctamente, así que vamos a buscar si nuestras naves han sido realmente persistidas en la base de datos.</p>
+
+<p>Para poder buscar documentos, tendremos que hacer uso de un filtro y este será utilizado con <code>bson</code> al igual que hemos visto en los updates, así que aprovecharemos el filtro anterior <code>filter := bson.D{{&quot;name&quot;, &quot;Executor&quot;}}</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">result</span> <span class="nx">Starship</span>
+
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">collection</span><span class="p">.</span><span class="nf">FindOne</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">filter</span><span class="p">).</span><span class="nf">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">result</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span><span class="kc">nil</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Starship found: %v\n&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span></code></pre></div>
+<p>Realmente este ejemplo es un poco mentirijilla, ya que si no hay resultado no devolverá error sino que dejará nuestra estructura a su valor inicial, así que tendríamos que asegurarnos que realmente nuestro <code>struct</code> ha sido inicializado:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">result</span><span class="p">.</span><span class="nx">Name</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Starship found: %v\n&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Starship not found&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>Bueno, ya vemos que buscar un sólo documento resulta bastante sencillo, vamos a ver ahora como resolver la búsqueda de más de un documento a la vez:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">findOpts</span> <span class="o">:=</span> <span class="nx">options</span><span class="p">.</span><span class="nf">Find</span><span class="p">()</span>
+<span class="nx">findOpts</span><span class="p">.</span><span class="nf">SetLimit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">results</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Starship</span>
+
+<span class="nx">cur</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">collection</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{}},</span> <span class="nx">findOptions</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="nx">cur</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">())</span> <span class="p">{</span>
+    
+    <span class="c1">// create a value into which the single document can be decoded
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">Starship</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cur</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">results</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">results</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cur</span><span class="p">.</span><span class="nf">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">cur</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">())</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Found multiple documents (array of pointers): %+v\n&#34;</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span></code></pre></div>
+<p>Aquí se nos complica un poco la cosa, pero vayamos por parte, lo primero que vemos es que hemos declarado unas opciones de búsquedas, <code>findOpts.SetLimit(2)</code> y es que si queremos ordenar, hacer un limit, u otro tipo de operaciones tendremos que hacer uso del paquete <code>go.mongodb.org/mongo-driver/mongo/options</code>, os recomendamos visitar <a href="https://godoc.org/go.mongodb.org/mongo-driver/mongo/options">la documentación del propio paquete</a> para averiguar todo lo que puedes hacer con él.</p>
+
+<p>Por otro lado, vemos que pasamos un <code>bson.D{{}}</code> al método <code>Find</code> esto es porque no queremos realizar ningún filtro en particular, sino lo haríamos como lo hemos visto en casos anteriores. El método <code>Find</code> nos devolverá un <code>cursor</code> el cual tendremos que recorrernos para poder añadir los resultados a nuestro <code>slice</code>.</p>
+
+<h3 id="eliminando-documentos">Eliminando documentos</h3>
+
+<p>Por último pero no menos importante tenemos la opción de eliminar documentos. Como hemos visto en otras operaciones tenemos la opción de borrar un sólo registro pasando un filtro, <code>collection.DeleteOne()</code> o borrar varios de golpe, con un filtro o a lo loco sin <code>where</code> <code>collection.DeleteMany()</code>, e incluso tenemos <code>collection.Drop()</code> para eliminar todos los documentos de una colección.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">deleteResult</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">collection</span><span class="p">.</span><span class="nf">DeleteOne</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">filter</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Starship deleted&#34;</span><span class="p">,</span> <span class="nx">deleteResult</span><span class="p">.</span><span class="nx">DeletedCount</span><span class="p">)</span></code></pre></div>
+<h2 id="próximos-pasos">Próximos pasos</h2>
+
+<p>Si quieres ver como ha quedado todo el código que hemos ido creando a lo largo del artículo, podéis verlo en el <a href="https://gist.github.com/aperezg/75824db97dd7f81047e32e9fe052954c">siguiente Gist</a>. Os recomendamos encarecidamente que os ayudéis de la increíble documentación que tiene la propia librería <a href="https://godoc.org/go.mongodb.org/mongo-driver">haciendo uso de <em>GoDoc</em></a>.</p>
+
+<p>Además si quieres colaborar con el proyecto, podéis reportar bugs que encontréis en el <a href="https://jira.mongodb.org/projects/GODRIVER/issues">JIRA de MongoDB</a> o también podéis hacer uso de su <a href="https://groups.google.com/forum/#!forum/mongodb-go-driver">Google Group para dudas y sugerencias</a>.</p>
+
+<p>Obviamente nosotros siempre estaremos encantados de resolver vuestras dudas que dejéis en los comentarios o a través de nuestra cuenta de Twitter <a href="https://twitter.com/friendsofgotech">@FriendsofGoTech</a></p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+  </div>
+  
+  <div class="main-content">
+    <h4>Adrián Pérez</h4>
+    <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        adrianpgl
+      </a>
+      
+      
+      <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        aperezg
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/patrones-de-concurrencia-context/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Patrones de concurrencia: context</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
