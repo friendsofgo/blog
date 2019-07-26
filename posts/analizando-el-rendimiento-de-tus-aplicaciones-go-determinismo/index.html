@@ -11,7 +11,7 @@
 <meta http-equiv="Cache-Control" content="public" />
 <!-- Enable responsiveness on mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.56.0" />
 
     
     
@@ -30,8 +30,8 @@
  Seguimos con el jefe del proyecto preguntando por las mejoras de nuestra implementación, pues, a pesar de que vimos como comparar el rendimiento de nuestras implementaciones, aún no hemos sido capaces de encontrar qué es lo que hace qué nuestra implementación sea excesivamente lenta en comparación con la de la competencia." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.friendsofgo.tech/posts/analizando-el-rendimiento-de-tus-aplicaciones-go-determinismo/" />
-<meta property="article:published_time" content="2019-02-25T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-02-25T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2019-02-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-02-25T00:00:00+00:00" />
 
 
     
@@ -294,16 +294,16 @@ del cliente HTTP encargado de hacer las peticiones a los servicios externos, por
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">HttpClient</span> <span class="kd">interface</span> <span class="p">{</span>
    <span class="nf">Do</span><span class="p">(</span><span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 <span class="p">}</span></code></pre></div>
-<p><em>(aunque idealmente también nos podríamos abstraer de la request/response específica del paquete &ldquo;net/http&rdquo;)</em></p>
+<p><em>(aunque idealmente también nos podríamos abstraer de la request/response específica del paquete &ldquo;net/http&rdquo;)</em></p></li>
 
-<ol>
-<li>Lo segundo será hacer que nuestra &ldquo;<em>constructora</em>&rdquo; permita recibir un cliente HTTP para pasárselo a nuestro integrador:</li>
-</ol>
+<li><p>Lo segundo será hacer que nuestra &ldquo;<em>constructora</em>&rdquo; permita recibir un cliente HTTP para pasárselo a nuestro integrador:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewIntegrator</span><span class="p">(</span><span class="nx">client</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="nx">Integrator</span></code></pre></div></li>
 
 <li><p>Finalmente, inyectaremos el cliente HTTP en cuestión:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">c</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
-<span class="nx">i</span> <span class="o">:=</span> <span class="nf">NewIntegrator</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span></code></pre></div>
+<span class="nx">i</span> <span class="o">:=</span> <span class="nf">NewIntegrator</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span></code></pre></div></li>
+</ol>
+
 <h2 id="fakeando-los-datos-de-los-servicios-externos"><em>Fakeando</em> los datos de los servicios externos</h2>
 
 <p>Algo similar a los <em>snippets</em> anteriores podría ser el código de producción, sin embargo, para dotar a nuestros <em>benchmarks</em>
@@ -313,8 +313,7 @@ de determinismo, <strong>deberemos inyectar un cliente HTTP <em>fake</em>, esto,
 <code>func FakeData() []byte</code> que nos devuelve los datos <em>fake</em> que queremos que devuelvan nuestros clientes <em>fake</em>.</p>
 
 <ol>
-<li><strong>Crear tu propio cliente <em>fake</em>:</strong></li>
-</ol>
+<li><p><strong>Crear tu propio cliente <em>fake</em>:</strong></p>
 
 <p>Es quizás opción más práctica y sencilla para un caso como el planteado, sin embargo, en algunas ocasiones puede resultar
 demasiado tedioso tener que hacer todas las implementaciones a mano.</p>
@@ -351,10 +350,9 @@ del cuerpo y la URL de la petición.</p>
 </span><span class="c1"></span>        <span class="nx">rw</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nf">FakeData</span><span class="p">())</span>
     <span class="p">}))</span>
     
-<span class="nx">c</span> <span class="o">:=</span> <span class="nx">fakeServer</span><span class="p">.</span><span class="nf">Client</span><span class="p">()</span></code></pre></div>
-<ol>
-<li><strong>Usar el paquete <a href="https://github.com/matryer/moq"><code>moq</code></a> sin hacer aserciones sobre las llamadas de los métodos:</strong></li>
-</ol>
+<span class="nx">c</span> <span class="o">:=</span> <span class="nx">fakeServer</span><span class="p">.</span><span class="nf">Client</span><span class="p">()</span></code></pre></div></li>
+
+<li><p><strong>Usar el paquete <a href="https://github.com/matryer/moq"><code>moq</code></a> sin hacer aserciones sobre las llamadas de los métodos:</strong></p>
 
 <p>Este no es quizás el mejor ejemplo para debatir sobre el uso de <em>mocks</em>, pero, en una ocasión similar a ésta,
 resultaría imprescindible ser conscientes de éste aspecto, pues, imaginad que tenemos una API que tiene varias formas

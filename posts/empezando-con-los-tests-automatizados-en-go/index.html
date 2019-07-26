@@ -11,7 +11,7 @@
 <meta http-equiv="Cache-Control" content="public" />
 <!-- Enable responsiveness on mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.56.0" />
 
     
     
@@ -32,8 +32,8 @@ Veamos un sencillo ejemplo:
 package main import ( &#34;strings&#34; &#34;testing&#34; ) func IsSuperAnimal(animal string) bool { return strings.ToLower(animal) == &#34;gopher&#34; } func TestIsSuperAnimal(t *testing." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.friendsofgo.tech/posts/empezando-con-los-tests-automatizados-en-go/" />
-<meta property="article:published_time" content="2019-01-21T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-01-21T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2019-01-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-01-21T00:00:00+00:00" />
 
 
     
@@ -339,13 +339,14 @@ Además, esta aproximación nos introduce el concepto de <a href="https://golang
 </code></pre></li>
 
 <li><p>Por otro lado, podemos hacer que, la ejecución de cada uno de los casos, se realice de forma <strong>concurrente</strong>.
-Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</p></li>
+Para ello haríamos uso de la sentencia que anteriormente teníamos comentada.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nf">Parallel</span><span class="p">()</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">t</span><span class="p">.</span><span class="nf">Parallel</span><span class="p">()</span></code></pre></div>
+
 <h2 id="assertions">Assertions</h2>
 
 <p>Aquellos lectores que vengáis de otros lenguajes de programación, seguramente estéis echando de menos sentencias cómo:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">$this-&gt;assertEquals($expected, $got);   // php</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">got</span><span class="o">);</span>    <span class="o">//</span> <span class="n">java</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">$this-&gt;assertEquals($expected, $got);   // php</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">assertEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">got</span><span class="p">);</span>    <span class="o">//</span> <span class="n">java</span></code></pre></div>
 <p>En este sentido, los desarrolladores de Go nos dan libertad, pues podemos:</p>
 
 <ul>
