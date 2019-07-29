@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.56.1" />
+
+    
+    
+    
+
+<title>Patrones de concurrencia: pipeline • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Patrones de concurrencia: pipeline"/>
+<meta name="twitter:description" content="Lo dijimos, y lo prometido es deuda. Volvemos a la carga para seguir nuestra serie de patrones de concurrencia con un nuevo patrón. De nuevo, intentando dar solución a problematicas para las que aún no habíamos dado respuesta. Hoy es el turno de las pipelines.
+De hecho, una pipeline no es ninguna definición formal en el contexto de la terminología de Go. Pero, sí que podemos definir dicho concepto de manera informal:"/>
+
+<meta property="og:title" content="Patrones de concurrencia: pipeline" />
+<meta property="og:description" content="Lo dijimos, y lo prometido es deuda. Volvemos a la carga para seguir nuestra serie de patrones de concurrencia con un nuevo patrón. De nuevo, intentando dar solución a problematicas para las que aún no habíamos dado respuesta. Hoy es el turno de las pipelines.
+De hecho, una pipeline no es ninguna definición formal en el contexto de la terminología de Go. Pero, sí que podemos definir dicho concepto de manera informal:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pipeline/" />
+<meta property="article:published_time" content="2019-07-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-07-29T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Patrones de concurrencia: pipeline</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 29 Jul, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/concurrencia">CONCURRENCIA</a>
+  •
+  
+  <a class="badge badge-category" href="/categories/patrones-de-concurrencia">PATRONES DE CONCURRENCIA</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/concurrencia">concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/patrones">patrones</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/patrones-de-concurrencia">patrones de concurrencia</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/gorrutina">gorrutina</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/modelo-de-concurrencia">modelo de concurrencia</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 7 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Lo dijimos, y lo prometido es deuda. Volvemos a la carga para seguir nuestra serie de patrones de concurrencia con un nuevo patrón.
+De nuevo, intentando dar solución a problematicas para las que aún no habíamos dado respuesta. <strong>Hoy es el turno de las <em>pipelines</em>.</strong></p>
+
+<p>De hecho, <strong>una <em>pipeline</em> no es ninguna definición formal en el contexto de la terminología de Go.</strong> Pero, <strong>sí que podemos definir dicho concepto de manera informal:</strong></p>
+
+<blockquote>
+<p>Una <em>pipeline</em> es una serie de diferentes etapas conectadas por canales y formadas por grupos de rutinas que reciben los datos de salida de la etapa anterior,
+aplican una función sobre los mismos, y mediante dicha aplicación generan nuevos datos que serán enviados a la siguiente etapa. Y así sucesivamente.</p>
+</blockquote>
+
+<h2 id="veamos-un-ejemplo">Veamos un ejemplo</h2>
+
+<p>Vista la definición textual, creemos que lo mejor es ver un ejemplo para comprender mejor qué pinta tiene una <em>pipeline</em>.</p>
+
+<p>Además, aprovechamos dicho ejemplo para añadir <strong>un par de conceptos más:</strong></p>
+
+<ul>
+<li>Llamaremos <em>source</em> o <em>producer</em> a la primera de todas las etapas.</li>
+<li>Y llamaremos <em>sink</em> o <em>consumer</em> a la última de todas las etapas.</li>
+</ul>
+
+<p>Por lo tanto, <strong>el ejemplo más pequeño y sencillo de comprender será aquél formado estrictamente por un productor (o <em>source</em>) y un consumidor (o <em>sink</em>).
+Sin etapas intermedias entre ellos.</strong> Algo así:</p>
+
+<p align="center"><img alt="simple pipeline" src="https://res.cloudinary.com/fogo/image/upload/c_scale,w_400/v1564400959/fogo/blog/simple_pipeline.png" /></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;math/rand&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">N</span> <span class="p">=</span> <span class="mi">10</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">out</span> <span class="o">:=</span> <span class="nf">random</span><span class="p">(</span><span class="nx">N</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="nx">out</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">random</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">out</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">x</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UTC</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">())).</span><span class="nf">Int</span><span class="p">()</span>
+			<span class="nx">out</span> <span class="o">&lt;-</span> <span class="nx">x</span>
+		<span class="p">}</span>
+		<span class="nb">close</span><span class="p">(</span><span class="nx">out</span><span class="p">)</span>
+	<span class="p">}()</span>
+	<span class="k">return</span> <span class="nx">out</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nb">print</span><span class="p">(</span><span class="nx">in</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">n</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">in</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p><strong>En esta pequeña representación del patrón <em>pipeline</em> podemos ver los dos elementos anteriormente introducidos.</strong>
+En primer lugar, un <strong>productor</strong> (o grupo de productores) <strong>encargado de generar números aleatorios,</strong> y, en segundo lugar,
+un <strong>consumidor</strong> (o grupo de consumidores) <strong>responsable de escribir dichos números en la salida estándar del sistema.</strong></p>
+
+<p>Ya está, ya tenemos nuestra primera <em>pipeline</em>. Sencilla, pero no por ello menos funcional.</p>
+
+<h2 id="añadiendo-más-complejidad-a-nuestras-pipelines">Añadiendo más complejidad a nuestras <em>pipelines</em></h2>
+
+<p>Efectivamente, ya tenemos nuestra pipeline funcionando.
+Sin embargo, las situaciones reales dónde la aplicación de dicho patrón sea una posible solución a nuestros problemas,
+serán situaciones con una complejidad más elevada que la vista hasta ahora.</p>
+
+<p>Entonces, veamos algunos de los recursos que tenemos a la hora de tener que hacer que nuestras <em>pipelines</em> respondan a lógicas más complejas.</p>
+
+<h3 id="distribuir-el-cómputo-de-nuestras-etapas-fan-out">Distribuir el cómputo de nuestras etapas (<em>fan-out</em>)</h3>
+
+<p><strong>Una situación muy común en las <em>pipelines</em> es precisamente la de tener que hacer una tarea repetitiva múltiples veces.</strong>
+Pongamos por ejemplo que tenemos que hacer un conjunto de peticiones HTTP o que tengamos que leer un conjunto de ficheros.
+En este tipo de situaciones, lo habitual será tener una (o pocas) rutinas con los datos relativos a las tareas que debemos realizar
+(el listado de <em>endpoints</em> a peticionar o el listado de ficheros a leer) y que nuestro procedimiento consista en instanciar
+tantas rutinas como sean necesarias para llevar a cabo dichas tareas de la forma más rápida (paralelizable) posible.</p>
+
+<p><strong>Este tipo de recurso se llama <em>fan-out</em> y se correspondería con algo así:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;io/ioutil&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">filePaths</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;lorem1.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem2.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem3.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem4.txt&#34;</span><span class="p">}</span>
+	<span class="nx">channels</span> <span class="o">:=</span> <span class="nf">readFiles</span><span class="p">(</span><span class="nx">filePaths</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channels</span> <span class="p">{</span>
+		<span class="nx">b</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">readFiles</span><span class="p">(</span><span class="nx">paths</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="o">&lt;-</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">channels</span> <span class="p">[]</span><span class="o">&lt;-</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">paths</span> <span class="p">{</span>
+		<span class="nx">contentStream</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+		<span class="k">go</span> <span class="nf">readFile</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">contentStream</span><span class="p">)</span>
+		<span class="nx">channels</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">channels</span><span class="p">,</span> <span class="nx">contentStream</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">channels</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">readFile</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stream</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+	<span class="nx">stream</span> <span class="o">&lt;-</span> <span class="nx">b</span>
+<span class="p">}</span></code></pre></div>
+<p>Como podemos ver, lo que hacemos es instanciar una nueva rutina para cada uno de los <em>path</em> que nos pasan. Además,
+dotamos a cada una de estas rutinas con un canal a través del cuál nos publicará los datos leídos del fichero.</p>
+
+<h3 id="recopilar-los-resultados-del-cómputo-de-nuestras-etapas-fan-in">Recopilar los resultados del cómputo de nuestras etapas (<em>fan-in</em>)</h3>
+
+<p><strong>La situación opuesta a la anterior se daría cuándo queramos hacer la operación inversa.
+Es decir, juntar todos los resultados de los cómputos anteriores.</strong>
+Por ejemplo, para juntar todos los datos recibidos por HTTP o para juntar el contenido de todos los ficheros leídos.</p>
+
+<p><strong>En esta ocasión estaríamos hablando de un <em>fan-in</em> y sería algo como:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;io/ioutil&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">filePaths</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;lorem1.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem2.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem3.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem4.txt&#34;</span><span class="p">}</span>
+	<span class="nx">channels</span> <span class="o">:=</span> <span class="nf">readFiles</span><span class="p">(</span><span class="nx">filePaths</span><span class="p">)</span>
+
+	<span class="nx">b</span> <span class="o">:=</span> <span class="nf">mergeContent</span><span class="p">(</span><span class="nx">channels</span><span class="o">...</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">mergeContent</span><span class="p">(</span><span class="nx">channels</span> <span class="o">...</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">bytes</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">agg</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channels</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">agg</span> <span class="o">&lt;-</span> <span class="o">&lt;-</span><span class="nx">c</span>
+		<span class="p">}(</span><span class="nx">ch</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">channels</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">b</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">agg</span><span class="p">:</span>
+			<span class="nx">bytes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">b</span><span class="o">...</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span>
+<span class="p">}</span></code></pre></div>
+<p>En este caso, <strong>la función <code>mergeContent</code> es la responsable de hacer ese <em>fan-in</em> de todos los canales que instanciamos
+en el ejemplo de código anterior.</strong> De esta forma habríamos cerrado el ciclo que consistiría en crear múltiples rutinas
+para paralelizar la lectura de varios ficheros (o de varias peticiones HTTP) y en juntar los resultados de todas ellas.</p>
+
+<p><strong>A partir de aquí nuestra <em>pipeline</em> podría seguir de forma lineal o con nuevas apariciones de ambos recursos (<em>fan-out</em>, <em>fan-in</em>).</strong></p>
+
+<p>Además, <strong>nos debemos fijar en un pequeño detalle presente en el último ejemplo de código.</strong> Pues, si buscáis ejemplos
+de <em>fan-in</em> / <em>fan-out</em> os daréis cuenta que, habitualmente, los ejemplos no tienen un número variable (dinámico) de canales
+a gestionar.  Sin embargo, en esta ocasión, <strong>el código es compatible con cualquier número de canales.</strong> Pese a que podríamos
+saber de antemano que el <em>slice</em> que recibimos como argumento siempre tendrá un tamaño fijo de cuatro elementos.</p>
+
+<p>Eso es gracias a las siguientes líneas de código:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">agg</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channels</span> <span class="p">{</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">agg</span> <span class="o">&lt;-</span> <span class="o">&lt;-</span><span class="nx">c</span>
+    <span class="p">}(</span><span class="nx">ch</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p><strong>Cuyo objetivo es permitirnos hacer un <code>select</code> sobre los múltiples canales recibidos</strong> (que recordemos no sabemos el número).
+Por lo tanto, <strong>de este modo lo que haremos es hacer una redirección (<em>forward</em>) de los diferentes canales a un único canal agregado</strong>
+(que será sobre el que haremos realmente el <code>select</code>.</p>
+
+<h3 id="cancelando-las-tareas-de-nuestra-pipeline">Cancelando las tareas de nuestra <em>pipeline</em></h3>
+
+<p>De modo similar a como lo veíamos en el artículo sobre el <a href="/posts/patrones-de-concurrencia-context/">patrón <em>context</em></a>,
+<strong>habrá situaciones en las que necesitaremos notificar a las rutinas de nuestras etapas de que deben finalizar su ejecución.</strong>
+Eso, evidentemente, lo podríamos gestionar con contextos. Aunque hoy vamos a presentar otro medio de llevarlo a cabo.
+A éste le llamaremos <em>done channel</em>. Y basicamente consiste en hacer la siguiente gestión:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;io/ioutil&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;os/signal&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">:</span>
+			<span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="nx">filePaths</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;lorem1.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem2.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem3.txt&#34;</span><span class="p">,</span> <span class="s">&#34;lorem4.txt&#34;</span><span class="p">}</span>
+	<span class="nx">channels</span> <span class="o">:=</span> <span class="nf">readFiles</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span> <span class="nx">filePaths</span><span class="p">)</span>
+
+	<span class="nx">b</span> <span class="o">:=</span> <span class="nf">mergeContent</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span> <span class="nx">channels</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">mergeContent</span><span class="p">(</span><span class="nx">done</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">channels</span> <span class="p">[]</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">bytes</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">agg</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channels</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">agg</span> <span class="o">&lt;-</span> <span class="o">&lt;-</span><span class="nx">c</span>
+		<span class="p">}(</span><span class="nx">ch</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">channels</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">b</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">agg</span><span class="p">:</span>
+			<span class="nx">bytes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">b</span><span class="o">...</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">done</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">readFiles</span><span class="p">(</span><span class="nx">done</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">paths</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">channels</span> <span class="p">[]</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">paths</span> <span class="p">{</span>
+		<span class="nx">contentStream</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+		<span class="k">go</span> <span class="nf">readFile</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">contentStream</span><span class="p">)</span>
+		<span class="nx">channels</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">channels</span><span class="p">,</span> <span class="nx">contentStream</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">channels</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">readFile</span><span class="p">(</span><span class="nx">done</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">stream</span> <span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+	<span class="k">select</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">stream</span> <span class="o">&lt;-</span> <span class="nx">b</span><span class="p">:</span>
+	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">done</span><span class="p">:</span>
+	<span class="p">}</span>
+
+<span class="p">}</span></code></pre></div>
+<p>Qué como podemos ver, <strong>básicamente consiste en propagar un <em>done channel</em> (<code>chan struct{}</code>) por todas las rutinas y hacer
+que éstas tengan la señal de dicho canal como una condición de salida.</strong></p>
+
+<p>Y, ¡eso es todo!</p>
+
+<p><strong>En esta ocasión, además, hemos vinculado la finalización de la tarea a la señal de fin de ejecución del programa (<code>CTRL + C</code>),
+de un modo similar a como haríamos un <em>cleanup</em> de nuestras aplicaciones.</strong> Pero, como podemos ver, la señal de <em>done</em> la
+podríamos gestionar de cualquier otro modo (publicando en dicho canal cuándo quisiéramos pausar la ejecución de todas las rutinas).</p>
+
+<p><br/></p>
+
+<p><strong>¿Aún no conocías éste patrón?</strong> Cuéntamos qué tipo de problema crees que te ayudará a resolver.</p>
+
+<p><strong>¿Ya lo conocías y ya lo habías puesto en práctica?</strong> Cuéntamos qué tipo de problema te ha ayudado a resolver.</p>
+
+<p>Como siempre, estaremos encantados de recibir vuestro <em>feedback</em> en los comentarios del blog o vía <a href="https://twitter.com/FriendsofGOTech">Twitter</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/jlopez.png" alt="Joan López de la Franca">
+  </div>
+  
+  <div class="main-content">
+    <h4>Joan López de la Franca</h4>
+    <p>Software Engineer @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/joanjan14" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        joanjan14
+      </a>
+      
+      
+      <a href="http://github.com/joanlopez" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        joanlopez
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/driver-oficial-mongodb-golang/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">¿Cómo usar MongoDB driver oficial en Go?</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>

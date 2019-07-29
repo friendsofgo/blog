@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 22 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Patrones de concurrencia: pipeline</title>
+      <link>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pipeline/</link>
+      <pubDate>Mon, 29 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pipeline/</guid>
+      <description>Lo dijimos, y lo prometido es deuda. Volvemos a la carga para seguir nuestra serie de patrones de concurrencia con un nuevo patrón. De nuevo, intentando dar solución a problematicas para las que aún no habíamos dado respuesta. Hoy es el turno de las pipelines.
+De hecho, una pipeline no es ninguna definición formal en el contexto de la terminología de Go. Pero, sí que podemos definir dicho concepto de manera informal:</description>
+    </item>
     
     <item>
       <title>¿Cómo usar MongoDB driver oficial en Go?</title>
