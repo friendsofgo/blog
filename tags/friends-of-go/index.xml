@@ -6,10 +6,20 @@
     <description>Recent content in friends of go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 29 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/friends-of-go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data races vs Race conditions</title>
+      <link>https://blog.friendsofgo.tech/posts/data-races-vs-race-conditions/</link>
+      <pubDate>Mon, 05 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/data-races-vs-race-conditions/</guid>
+      <description>Hoy os traemos un artículo algo diferente, y es que esta vez se trata de una traducción de otro artículo. El artículo al cual haremos referencia es: https://cronokirby.github.io/posts/data-races-vs-race-conditions, y hemos tomado esta opción porque el artículo original está genial como está, pero queremos que sea accesible nuestra comunidad hispana por lo interesante que es.
+En este post se hablará sobre la diferencia entre Data Races y Race Conditions, y como las estructuras de datos o patrones de datos que a priori están libres Data Races pueden acabar en Race conditions.</description>
+    </item>
     
     <item>
       <title>Patrones de concurrencia: pipeline</title>
