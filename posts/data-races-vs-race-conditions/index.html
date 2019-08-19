@@ -249,9 +249,9 @@ En este post se hablará sobre la diferencia entre Data Races y Race Conditions,
 
 <h2 id="data-races">Data Races</h2>
 
-<p>Bajo la definición de <em>data races</em> <a href="https://doc.rust-lang.org/nomicon/races.html">que ofrece rust</a>, podemos decir que <em>data races</em> es cuando uno o más hilos acceden concurrentemente a una posición de memoria o variable, al menos uno de ellos está escribiendo y al menos uno de ellos no está sincronizado con los otros hilos.</p>
+<p>Bajo la definición de <em>data races</em> <a href="https://doc.rust-lang.org/nomicon/races.html">que ofrece rust</a>, podemos decir que <em>data races</em> es cuando uno o más hilos acceden concurrentemente a una posición de memoria o variable, al menos uno  está escribiendo y al menos uno no está sincronizado con los otros hilos.</p>
 
-<p>Por ejemplo, muchas lecturas concurrentes sobre una variable no sincronizada, es perfectamente correcto:</p>
+<p>El ejemplo anterior es perfectamente válido, donde hay múltiples lecturas concurrentes sobre una variable no sincronizada:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">a</span> <span class="p">=</span> <span class="mi">3</span>
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -260,7 +260,7 @@ En este post se hablará sobre la diferencia entre Data Races y Race Conditions,
     <span class="p">}</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Thread A: %d\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
 <span class="p">}</span></code></pre></div>
-<p>Aunque el orden de impresión variará de una ejecución a otra, no hay <em>data races</em> ya que ambas gorrutinas simplemente están leyendo de la constante.</p>
+<p>Aunque el orden de impresión variará de una ejecución a otra, <strong>no hay <em>data races</em> ya que ambas gorrutinas simplemente están leyendo de la constante</strong>.</p>
 
 <p>Pero, si introducimos ahora una gorrutina que tenga acceso a modificar los datos, tendremos nuestro <em>data race</em>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -283,11 +283,11 @@ En este post se hablará sobre la diferencia entre Data Races y Race Conditions,
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Thread A: %d\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
     <span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
 <span class="p">}</span></code></pre></div>
-<p>Ambas gorrutinas acceden a la variable <code>a</code> al mismo tiempo, y una de ellas está escribiendo, pero como el acceso ha sido sincronizado ya no tendremos más un <em>data race</em>.</p>
+<p>Ambas gorrutinas acceden a la variable <code>a</code> al mismo tiempo, y una de ellas está escribiendo, pero como el acceso ha sido sincronizado ya no tendremos <em>data race</em>.</p>
 
 <h2 id="race-conditions">Race conditions</h2>
 
-<p>Las condiciones de carrera o <em>Race conditions</em> se producen por el no determinismo en los programas concurrentes. En teoría cualquier acción que lleve a un comportamiento de no determinista en concurrencia podría ser considerada una <em>race condition</em>, pero en la práctica lo que constituye una <em>race condition</em> depende de la propiedades que queremos que nuestro programa respete.</p>
+<p>Las condiciones de carrera o <em>Race conditions</em> se producen por el no determinismo en los programas concurrentes. En teoría cualquier acción que lleve a un comportamiento no determinista mientras ejecutamos concurrencia podría ser considerado un <em>race condition</em>, pero en la práctica lo que constituye un <em>race condition</em> depende de la propiedades que queremos que nuestro programa respete.</p>
 
 <p>Vamos a ver un ejemplo:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -312,19 +312,19 @@ Thread B
 ...
 </pre>
 
-<p>Esto podría ser considerado una <em>race condition</em>, si lo que quisiéramos es que nuestro programa mantuviera el orden exacto de los dos mensajes. Podríamos utilizar algún tipo de sincronización para forzar el orden en que se muestran los mensajes, si fuera el caso.</p>
+<p>Si lo que qusiéramos es que nuestro programa mantuviera el orden de impresión, podría considerarse un <em>race condition</em>. Podríamos utilizar algún tipo de sincronización para forzar el orden en que se muestran los mensajes, si fuera lo que quisieramos.</p>
 
-<p>En la práctica no consideraríamos este caso como una <em>race condition</em>, incluso si la ejecución no es determinista, porque no es una propiedad que nos importe.</p>
+<p>En la práctica no consideraríamos este caso como un <em>race condition</em>, incluso si la ejecución no es determinista, porque no es una propiedad que nos importe.</p>
 
-<p>En resumen, una <em>race condition</em> es una violación de las propiedades de nuestro programa que se produce al ejecutarse de manera concurrente.</p>
+<p>En resumen, un <em>race condition</em> es una violación de las propiedades de nuestro programa que se produce al ejecutarse de manera concurrente.</p>
 
 <h2 id="races-conditions-sin-data-races">Races Conditions sin Data races</h2>
 
-<p>Si hemos escuchado charlas sobre concurrencia en <strong>Go</strong> hemos oído eso de que si usamos canales podremos evitar las <em>races conditions</em>, porque las operaciones sobre ellos son siempre seguras (thread safe)</p>
+<p>Si hemos escuchado charlas sobre concurrencia en <strong>Go</strong> hemos oído eso de que si usamos canales podremos evitar los <em>races conditions</em>, porque las operaciones sobre ellos son siempre seguras (thread safe)</p>
 
-<p>Es verdad que los <strong>canales en Go están libres de data races, siempre y cuando la memoria no sea compartida de otra manera</strong>. Eso quiere decir que es realmente sencillo escribir un programa con una <em>race condition</em> a pesar de utilizar sólo canales.</p>
+<p>Es verdad que los <strong>canales en Go están libres de data races, siempre y cuando la memoria no sea compartida de otra manera</strong>. Eso quiere decir que es realmente sencillo escribir un programa con un <em>race condition</em> aunque sólo utilicemos canales.</p>
 
-<p>En este ejemplo, tendremos un servidor que responde a las peticiones paran obtener y modificar el valor de un entero:</p>
+<p>En este ejemplo, tendremos un servidor que responde a las peticiones para obtener y modificar el valor de un entero:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">msg</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">id</span> <span class="kt">int</span>
     <span class="nx">amount</span> <span class="kt">int</span>
