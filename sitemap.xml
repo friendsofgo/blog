@@ -4,81 +4,81 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/concurrencia/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/concurrencia/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/friends-of-go/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/go/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/golang/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/gorrutina/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/modelo-de-concurrencia/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/patrones/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/patrones-de-concurrencia/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/patrones-de-concurrencia/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pooling/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-work/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/tags/</loc>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pooling/</loc>
     <lastmod>2019-08-12T00:00:00+00:00</lastmod>
   </url>
   
