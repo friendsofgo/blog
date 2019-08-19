@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="public" />
 <!-- Enable responsiveness on mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="generator" content="Hugo 0.57.1" />
+<meta name="generator" content="Hugo 0.56.2" />
 
     
 
@@ -180,10 +180,14 @@
   
   <div class="post-list__item">
     <span class="item__title--big">
-      <a href="/posts/" >Posts</a>
+      <a href="/posts/patrones-de-concurrencia-work/" >Patrones de concurrencia: work</a>
     </span>
     <div class="post-info">
       
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
       
       <span class="item__date">
         <i class="fas fa-calendar-alt"></i> 19 Aug, 2019
@@ -191,15 +195,351 @@
     </div>
     <span >
       
-      
+      El calor (o el frío, según el hemisferio en el que viváis) sigue, y con ello los patrones de concurrencia. Ya hemos publicado unos cuantos artículos sobre algunos de ellos, pero aún nos quedan más por publicar. Y a ello vamos. Esta vez es el turno del patrón de concurrencia work.
+Contextualización de la problemática Si hacéis un poco de memoria, y si no podéis echarle un vistazo al último artículo, recordaréis que el patrón pooling hace uso de un buffered channel como método para almacenar varios recursos compartidos.
       
     </span>
+    
+    ... <a class="read-more-symbol" href="/posts/patrones-de-concurrencia-work/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/patrones-de-concurrencia-pooling/" >Patrones de concurrencia: pooling</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 12 Aug, 2019
+      </span>
+    </div>
+    <span >
+      
+      Hace tres semanas, y después de meses recibiendo feedback reclamando más artículos sobre la concurrencia en Go, decidimos empezar una nueva serie de artículos sobre patrones de concurrencia que ha dado mucho de que hablar.
+Dicha serie empezó con uno de los patrones más comunes entre las aplicaciones concurrentes en Go: el patrón context. Después seguimos repasando otro patrón, también muy habitual a la hora de manejar grades volúmenes de datos de diferentes fuentes: el patrón pipeline.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/patrones-de-concurrencia-pooling/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/data-races-vs-race-conditions/" >Data races vs Race conditions</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 5 Aug, 2019
+      </span>
+    </div>
+    <span >
+      
+      Hoy os traemos un artículo algo diferente, y es que esta vez se trata de una traducción de otro artículo. El artículo al cual haremos referencia es: https://cronokirby.github.io/posts/data-races-vs-race-conditions, y hemos tomado esta opción porque el artículo original está genial como está, pero queremos que sea accesible nuestra comunidad hispana por lo interesante que es.
+En este post se hablará sobre la diferencia entre Data Races y Race Conditions, y como las estructuras de datos o patrones de datos que a priori están libres Data Races pueden acabar en Race conditions.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/data-races-vs-race-conditions/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/patrones-de-concurrencia-pipeline/" >Patrones de concurrencia: pipeline</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 29 Jul, 2019
+      </span>
+    </div>
+    <span >
+      
+      Lo dijimos, y lo prometido es deuda. Volvemos a la carga para seguir nuestra serie de patrones de concurrencia con un nuevo patrón. De nuevo, intentando dar solución a problematicas para las que aún no habíamos dado respuesta. Hoy es el turno de las pipelines.
+De hecho, una pipeline no es ninguna definición formal en el contexto de la terminología de Go. Pero, sí que podemos definir dicho concepto de manera informal:
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/patrones-de-concurrencia-pipeline/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/driver-oficial-mongodb-golang/" >¿Cómo usar MongoDB driver oficial en Go?</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 22 Jul, 2019
+      </span>
+    </div>
+    <span >
+      
+      No creo que a nadie le extrañe si decimos que Mongo DB es una de las bases de datos no relacionales más famosas que existen, por ello no podía faltar su adaptación a Go para poder utilizarla. Hasta hace poco contábamos con varias librerías para utilizar MongoDB, siendo una de las más utilizadas https://gopkg.in/mgo.v2, y si bien es cierto que era realmente útil no teníamos una solución oficial por parte del equipo de mongo para integrarse con nuestro lenguaje favorito.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/driver-oficial-mongodb-golang/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/patrones-de-concurrencia-context/" >Patrones de concurrencia: context</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 15 Jul, 2019
+      </span>
+    </div>
+    <span >
+      
+      Una de las principales características por las que, los nuevos allegados al lenguaje de programación Go, suelen mostrar un mayor interés es por la gestión de la concurrencia en el mismo. Sin embargo, es importante recordar que Go no es un lenguaje que destaque estrictamente por esa característica, pues al final estamos hablando de un lenguaje de programación compilado, tipado y con una sencillez comparable a la de Python. Siendo éste último el lenguaje considerado de excelencia (por su sencillez) para los que se inician en la programación.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/patrones-de-concurrencia-context/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/concurrencia-en-golang-waitgroups/" >Concurrencia en Golang: WaitGroups</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 8 Jul, 2019
+      </span>
+    </div>
+    <span >
+      
+      En la primera parte sobre concurrencia hablamos sobre cómo empezar a realizar concurrencia, y de algunas de las particularidades nativas que nos traía Go, como es la palabra go para lanzar las gorrutinas, y dentro del mundo de los canales, los unbuffered channels y como gestionarlos con select y bucles infinitos dentro de otras gorrutinas.
+Por si todo esto fuera poco, nuestro compañero Joan, nos hablaba del modelo de actores, algo muy común en lenguajes como Elixir o Erlang, y cómo realizarlo en Go.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/concurrencia-en-golang-waitgroups/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/crear-un-bot-de-slack-en-go/" >Crear un bot de Slack en Go</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 1 Jul, 2019
+      </span>
+    </div>
+    <span >
+      
+      Slack es una herramienta de comunicación en equipo que se lanzó al mercado en agosto del 2013. Ofrece salas de chat organizadas por temas, así como grupos privados y mensajes directos. Posee un cuadro de búsqueda que permite acceder a todo el contenido de la aplicación y, además, integra una gran cantidad de servicios a terceros y respalda las integraciones hechas por la comunidad.
+Como decíamos, las integraciones de la comunidad de servicios a terceros son una de las funcionalidades más exitosas de Slack, sin embargo, si tuviéramos que destacar dos de ellas, nos quedaríamos con los bots y los slash commands.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/crear-un-bot-de-slack-en-go/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/repasando-el-modelo-de-actores-en-go/" >Repasando el modelo de actores en Go</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/jlopez">Joan López de la Franca</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 25 Jun, 2019
+      </span>
+    </div>
+    <span >
+      
+      La mayoría de nosotros, cuándo oímos hablar del modelo de actores (o actor model en inglés), o bien no sabemos de qué estamos hablando, o bien nos viene a la cabeza el framework Akka (para la JVM, entre cuyas funcionalidades destaca el soporte para el modelo de actores).
+Para los primeros, el modelo de actores es un modelo de concurrencia sobre el que centraremos el artículo de hoy. Para los segundos, hoy veremos una posible implementación del mismo en el ecosistema Go.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/repasando-el-modelo-de-actores-en-go/">➦</a>
+    
+  </div>
+  
+  
+  
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/posts/concurrencia-en-golang/" >Concurrencia en Golang</a>
+    </span>
+    <div class="post-info">
+      
+      
+      
+      <span class="item__author">
+        <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a></span>
+      
+      <span class="item__date">
+        <i class="fas fa-calendar-alt"></i> 17 Jun, 2019
+      </span>
+    </div>
+    <span >
+      
+      No es ningún misterio que una de las principales características por las que la gente se interesa por Go es la concurrencia. La premisa de Go con la concurrencia es hacerla sencilla y manejable para todos, cosa que no podemos decir de otros lenguajes, donde incluso ni existe la concurrencia y tenemos que buscarnos la vida de otras maneras.
+Pero antes de meternos de llenos a picar, deberíamos entender bien que es la concurrencia y en qué se diferencia del paralelismo, ya que muchas veces estos términos tienden a confundirse.
+      
+    </span>
+    
+    ... <a class="read-more-symbol" href="/posts/concurrencia-en-golang/">➦</a>
     
   </div>
   
   
 </div>
 
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item disabled">
+    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/4/">4</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
 
 
         </div>
