@@ -22,6 +22,16 @@ Dicha serie empezó con uno de los patrones más comunes entre las aplicaciones 
     </item>
     
     <item>
+      <title>Patrones de concurrencia: pooling</title>
+      <link>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-work/</link>
+      <pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-work/</guid>
+      <description>Hace tres semanas, y después de meses recibiendo feedback reclamando más artículos sobre la concurrencia en Go, decidimos empezar una nueva serie de artículos sobre patrones de concurrencia que ha dado mucho de que hablar.
+Dicha serie empezó con uno de los patrones más comunes entre las aplicaciones concurrentes en Go: el patrón context. Después seguimos repasando otro patrón, también muy habitual a la hora de manejar grades volúmenes de datos de diferentes fuentes: el patrón pipeline.</description>
+    </item>
+    
+    <item>
       <title>Patrones de concurrencia: pipeline</title>
       <link>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-pipeline/</link>
       <pubDate>Mon, 29 Jul 2019 00:00:00 +0000</pubDate>

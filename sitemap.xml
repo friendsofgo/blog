@@ -68,6 +68,11 @@
   </url>
   
   <url>
+    <loc>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-work/</loc>
+    <lastmod>2019-08-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.friendsofgo.tech/posts/</loc>
     <lastmod>2019-08-12T00:00:00+00:00</lastmod>
   </url>
@@ -423,12 +428,12 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
+    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
+    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
   </url>
   
