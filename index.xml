@@ -6,10 +6,20 @@
     <description>Recent content on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 19 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GopherCon UK 2019: Go más allá del Brexit</title>
+      <link>https://blog.friendsofgo.tech/posts/gophercon_uk_2019_go_mas_alla_del_brexit/</link>
+      <pubDate>Mon, 26 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/gophercon_uk_2019_go_mas_alla_del_brexit/</guid>
+      <description>Los titulares que auguran que el &amp;ldquo;Brexit duro&amp;rdquo; es ya inevitable son muchos, de hecho, parece que la fecha límite es el 31 de octubre, para lo que quedan poco más de dos meses. Sin embargo, nada de eso nos impidió disfrutar de una edición más de la GopherCon UK, de nuevo con una nota sobresaliente.
+The Brewery, la ubicación dónde se ha realizado el evento los últimos años estaba a rebosar ya el primer día, el pasado 21 de agosto.</description>
+    </item>
     
     <item>
       <title>Patrones de concurrencia: work</title>

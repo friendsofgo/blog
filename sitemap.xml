@@ -4,13 +4,47 @@
   
   <url>
     <loc>https://blog.friendsofgo.tech/</loc>
-    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.friendsofgo.tech/categories/</loc>
-    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/gophercon_uk_2019_go_mas_alla_del_brexit/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/posts/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.friendsofgo.tech/tags/dotgo/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -29,17 +63,6 @@
   <url>
     <loc>https://blog.friendsofgo.tech/posts/patrones-de-concurrencia-work/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/posts/</loc>
-    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/</loc>
-    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -490,26 +513,8 @@
   </url>
   
   <url>
-    <loc>https://blog.friendsofgo.tech/categories/conferences/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/conferences/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.friendsofgo.tech/posts/dotgo_2019_la_dot_mas_gopher/</loc>
     <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.friendsofgo.tech/tags/dotgo/</loc>
-    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

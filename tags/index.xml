@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 19 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>conferences</title>
+      <link>https://blog.friendsofgo.tech/tags/conferences/</link>
+      <pubDate>Mon, 26 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/conferences/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dotgo</title>
+      <link>https://blog.friendsofgo.tech/tags/dotgo/</link>
+      <pubDate>Mon, 26 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/tags/dotgo/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>concurrencia</title>
@@ -422,24 +440,6 @@
       <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.friendsofgo.tech/tags/directory-structure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>conferences</title>
-      <link>https://blog.friendsofgo.tech/tags/conferences/</link>
-      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/conferences/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dotgo</title>
-      <link>https://blog.friendsofgo.tech/tags/dotgo/</link>
-      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.friendsofgo.tech/tags/dotgo/</guid>
       <description></description>
     </item>
     
