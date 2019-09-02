@@ -6,10 +6,20 @@
     <description>Recent content in go on Blog | Friends of GO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-ES</language>
-    <lastBuildDate>Mon, 19 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.friendsofgo.tech/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Utilizando un mock server para nuestra API Rest</title>
+      <link>https://blog.friendsofgo.tech/posts/mock-server/</link>
+      <pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.friendsofgo.tech/posts/mock-server/</guid>
+      <description>Quizás este no es un artículo propiamente de Go pero si que utilizaremos una herramienta escrita en Go y además creada por nosotros, que nada tiene que envidiar a otras soluciones de mock server del mercado.
+¿Qué es un mock server? Seguramente mientras estamos desarrollando nos hemos encontrado con la necesidad de conectar con una API de terceros o algún microservicio propio para poder hacer alguna funcionalidad, poned por ejemplo que tenemos que conectarnos con la API que ya desarrollamos en un artículo anterior, GopherAPI.</description>
+    </item>
     
     <item>
       <title>Patrones de concurrencia: work</title>

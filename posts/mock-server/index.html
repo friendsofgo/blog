@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+    
+
+
+
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.56.2" />
+
+    
+    
+    
+
+<title>Utilizando un mock server para nuestra API Rest • Blog | Friends of GO</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Utilizando un mock server para nuestra API Rest"/>
+<meta name="twitter:description" content="Quizás este no es un artículo propiamente de Go pero si que utilizaremos una herramienta escrita en Go y además creada por nosotros, que nada tiene que envidiar a otras soluciones de mock server del mercado.
+¿Qué es un mock server? Seguramente mientras estamos desarrollando nos hemos encontrado con la necesidad de conectar con una API de terceros o algún microservicio propio para poder hacer alguna funcionalidad, poned por ejemplo que tenemos que conectarnos con la API que ya desarrollamos en un artículo anterior, GopherAPI."/>
+
+<meta property="og:title" content="Utilizando un mock server para nuestra API Rest" />
+<meta property="og:description" content="Quizás este no es un artículo propiamente de Go pero si que utilizaremos una herramienta escrita en Go y además creada por nosotros, que nada tiene que envidiar a otras soluciones de mock server del mercado.
+¿Qué es un mock server? Seguramente mientras estamos desarrollando nos hemos encontrado con la necesidad de conectar con una API de terceros o algún microservicio propio para poder hacer alguna funcionalidad, poned por ejemplo que tenemos que conectarnos con la API que ya desarrollamos en un artículo anterior, GopherAPI." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.friendsofgo.tech/posts/mock-server/" />
+<meta property="article:published_time" content="2019-09-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-02T00:00:00+00:00" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.6a83d62c39a364f036df4db1ecd564645635d6c7fc182425cb501218fec485f5.css">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" media="print">
+
+
+
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    
+
+</head>
+
+
+    <body class="theme-base-0d ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      
+      
+      
+      
+      
+      <div class="author-image">
+        <a href="https://blog.friendsofgo.tech/">
+          <img src="https://blog.friendsofgo.tech//img/logo.png" alt="Author Image" class=" img--headshot element--center">
+        </a>
+      </div>
+      
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Blog | Friends of GO</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/">
+						<span>Inicio</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="https://friendsofgo.tech">
+						<span>Web</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/newsletter/">
+						<span>Newsletter</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/FriendsOfGoTech" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/friendsofgo" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:contact@friendsofgo.tech" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2019 Friends of GO
+  
+  
+  <a href="/privacidad">Privacidad</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+<article>
+  <header>
+    <h1>Utilizando un mock server para nuestra API Rest</h1>
+    
+    
+<div class="post__meta">
+  
+  
+  
+  <i class="fas fa-user-alt"></i> <a href="/authors/aperez">Adrián Pérez</a>
+  
+  
+  
+  <i class="fas fa-calendar-alt"></i> 2 Sep, 2019
+  
+  
+  
+  
+  
+  in
+  
+  
+  <a class="badge badge-category" href="/categories/mock-server">MOCK SERVER</a>
+  
+  
+  
+  
+  
+  
+  
+  
+  <br />
+   <i class="fas fa-tags"></i>
+  
+  <a class="badge badge-tag" href="/tags/go">go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/golang">golang</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/friends-of-go">friends of go</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/mock-server">mock server</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/api">api</a>
+   
+  
+  <a class="badge badge-tag" href="/tags/api-rest">api rest</a>
+  
+  
+  
+  
+  <br />
+  <i class="fas fa-clock"></i> 9 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Quizás este no es un artículo propiamente de <strong>Go</strong> pero si que utilizaremos una herramienta escrita en <strong>Go</strong> y además creada por nosotros, que nada tiene que envidiar a otras soluciones de <strong>mock server</strong> del mercado.</p>
+
+<h2 id="qué-es-un-mock-server">¿Qué es un mock server?</h2>
+
+<p>Seguramente mientras estamos desarrollando nos hemos encontrado con la necesidad de conectar con una API de terceros o algún microservicio propio para poder hacer alguna funcionalidad, poned por ejemplo que tenemos que conectarnos con la <a href="https://blog.friendsofgo.tech/posts/como_crear_una_api_rest_en_golang/">API que ya desarrollamos en un artículo anterior</a>, <a href="https://github.com/friendsofgo/gopherapi">GopherAPI</a>.</p>
+
+<p>Al estar conectados a una API real si queremos hacer pruebas se nos puede hacer complicado, ya que puede que tengamos restricciones como sólo hacer x peticiones al días, autenticaciones, o incluso procesos de compra que no podemos ir probando sin parar, o podría ser que podamos consumir de dicho microservicio pero lo lleve otro equipo y haya subido un bug y tengamos que esperar a que lo arreglen, o no poder empezar a desarrollar por ejemplo el frontend de la aplicación por no tener un server sobre el que probar. Seguro que son situaciones que os habéis encontrado en vuestro día a día, ¿pero cómo lo solucionamos?</p>
+
+<p>Imagino que no os pillaré por sorpresa si os digo que con un <strong>mock server</strong>, y ¿qué es un <strong>mock server</strong>? pues nada más y nada menos que <em>un servidor que provee datos dummy para simular dependencias externas</em></p>
+
+<h2 id="por-qué-debería-de-utilizar-un-mock-server">¿Por qué debería de utilizar un mock server?</h2>
+
+<p>Como ya hemos comentado nos podemos encontrar multitud de situaciones que hagan nuestro día a día desarrollando algo frustrante, pero además de esto podemos encontrar otras situaciones donde un <strong>mock server</strong> nos será de gran utilidad.</p>
+
+<p>Primero que nada cuando utilizamos un <strong>mock server</strong> incluimos el mismo dentro de nuestro proyecto, con lo cual obtenemos una de los primeros beneficios de utilizar un <strong>mock server que es tenerlo todo auto contenido</strong> es decir <strong>nuestro proyecto podrá ejecutarse de manera aislada</strong>.</p>
+
+<p>Gracias a esto además <strong>todo estará desacoplado de dependencias externas</strong>, por ello da igual que si nuestro proyecto depende de un proyecto de otro equipo y este otro equipo sube un bug no nos debe afectar durante nuestro proceso de desarrollo, aunque si que habrá que tener una buena suite de tests que nos cubran de estos casos antes de subir a producción.</p>
+
+<p>Finalmente lo que obtendremos es un <strong>entorno de desarrollo realmente estable</strong>.</p>
+
+<p>Otra ventaja que iremos observando al utilizar un <strong>mock server es que todo sucederá en localhost, por ello no tendremos problemas de latencia o de comunicación con otros microservicios</strong>.</p>
+
+<p>Y por último y quizás un punto realmente importante a tener en cuenta es el de <strong>testing</strong> y es que con un <strong>mock server tenemos el control absoluto de lo que sucede en nuestro servidor</strong> por ello podemos llegar a crear casos que son muy complejos de replicar en un entorno real.</p>
+
+<h2 id="me-has-convencido-cómo-creo-mi-mock-server">Me has convencido, ¿cómo creo mi mock server?</h2>
+
+<p>Como comentamos al principio del artículo para crear nuestro mock server vamos a utilizar una aplicación que hemos desarrollado desde <a href="https://github.com/friendsofgo">Friends of Go</a> y si nos sigues desde hace tiempo posiblemente la conozcas de sobra, no es otra que <a href="https://github.com/friendsofgo/killgrave">Killgrave</a>, llamada así por el villano de marvel que era capaz de que las personas hicieran lo que él quisiera con sólo decirlo, igual que un <strong>mock server</strong>. Además la aplicación es completamente Open Source y se aceptan de muy buen grado contribuciones.</p>
+
+<p>Habría que remarcar que hay empresas como <a href="https://atrapalo.com" rel="nofollow" target="_blank">Atrápalo</a> que ya la utilizan en su día a día y les ha ayudado a mejorar su flujo de trabajo.</p>
+
+<p>Lo primero que debes de hacer para empezar a utilizar la aplicación es descargarla e instalarla, y tenemos varios modos de hacer esto:</p>
+
+<p>Si eres usuario de Mac y tienes <a href="https://brew.sh/index_es">Homebrew</a> instalado es tan sencillo como:</p>
+
+<pre><code>$ brew install friendsofgo/tap/killgrave
+</code></pre>
+
+<p>O puedes compilarla desde <strong>Go</strong>:</p>
+
+<pre><code>$ go get -u github.com/friendsofgo/killgrave/cmd/killgrave
+</code></pre>
+
+<p>O vía docker:</p>
+
+<pre><code>$ docker run -it --rm -p 3000:3000 -v $PWD/:/home -w /home friendsofgo/killgrave
+</code></pre>
+
+<p>O incluso instalar el binario que más se adapte a tus necesidades y plataforma, <a href="https://github.com/friendsofgo/killgrave/releases" target="_blank"><a href="https://github.com/friendsofgo/killgrave/releases">https://github.com/friendsofgo/killgrave/releases</a></a>.</p>
+
+<p>Una vez instalado tendremos a nuestra disposición las siguientes opciones:</p>
+
+<pre><code>-config string
+        path with configuration file
+ -host string
+        if you run your server on a different host (default &quot;localhost&quot;)
+ -imposters string
+        directory where your imposter are saved (default &quot;imposters&quot;)
+ -port int
+        por to run the server (default 3000)
+ -version
+        show the version of the application
+</code></pre>
+
+<h2 id="configurando-nuestro-mock-server">Configurando nuestro mock server</h2>
+
+<p>Vamos a aprovechar la API que realizamos en su día, <a href="https://github.com/friendsofgo/gopherapi">GopherAPI</a> para hacer el mock de la misma, recordemos que dentro del propio repositorio tenemos la colección de Postman que nos puede ir de maravilla para ver como funcionan los endpoints.</p>
+
+<p>Dado que <em>Killgrave</em> funciona con ficheros de configuración y es mucho más cómodo que estar poniendo cada parámetro por flag, empezaremos creando dicho fichero de configuración.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># config.yml</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>imposters_path<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gopherapi&#34;</span><span class="w">
+</span><span class="w"></span>port<span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span><span class="w"></span>host<span class="p">:</span><span class="w"> </span><span class="s2">&#34;localhost&#34;</span><span class="w">
+</span><span class="w"></span>cors<span class="p">:</span><span class="w">
+</span><span class="w">  </span>methods<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>headers<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>exposed_headers<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Cache-Control&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>origins<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;*&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>allow_credentials<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></div>
+<p>Vamos a explicar que es cada parámetro, <code>imposters_path</code> aquí indicaremos donde estarán nuestros impostores, es decir dónde estarán los ficheros que le dirán a nuestros endpoints como deben de comportarse. Luego podemos especificar un puerto, <code>port</code>, y un <code>host</code>, además si el proyecto que va a consumir de tu <strong>mock server</strong> es un proyecto javascript, podrás configurar el <code>cors</code>, siendo este parámetro completamente opcional y podríamos obviarlo.</p>
+
+<h2 id="cómo-creamos-un-imposter">¿Cómo creamos un imposter?</h2>
+
+<p>Vamos a ver un ejemplo completito como es la creación de un Gopher, que se trata de un <code>POST</code> al endpoint <code>/gophers</code> donde además tendremos que pasar un <code>request body en json</code>.</p>
+
+<p>Vamos a ver cómo quedaría nuestro <code>imposter</code> y luego explicaremos cada parte.</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">gopherapi/create_gopher.imp.json</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;endpoint&#34;</span><span class="p">:</span> <span class="s2">&#34;/gophers&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;schemaFile&#34;</span><span class="p">:</span> <span class="s2">&#34;schemas/create_gopher_request.json&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;response&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>Antes que nada hay que aclarar una cosa, cada fichero de imposter, debe ser del tipo <code>.imp.json</code> y no sólo <code>.json</code>, esta ha sido una extensión que decidimos crear de cara a que pudieran haber otro tipos de ficheros al mismo nivel y no hubiera que estar comprobando si son imposters o no.</p>
+
+<p>Algo muy importante de los <code>imposters</code> es que un mismo fichero puede contener N <code>imposters</code>, esto es muy útil para poder simular diferentes casos, sólo hay que tener en cuenta que debemos mantener nuestros <code>imposters</code> ordenados, empezando por el más restrictivo y acabando por el menos restrictivo.</p>
+
+<p>Por ejemplo supongamos que enviando un <code>query param error=true</code> queremos hacer que devuelva un error 500, pero en los demás casos siga respondiendo igual.</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">gopherapi/create_gopher.imp.json</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;endpoint&#34;</span><span class="p">:</span> <span class="s2">&#34;/gophers&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;schemaFile&#34;</span><span class="p">:</span> <span class="s2">&#34;schemas/create_gopher_request.json&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;true&#34;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;response&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;{\&#34;error\&#34;: \&#34;gopher could not be saved\&#34;}&#34;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;endpoint&#34;</span><span class="p">:</span> <span class="s2">&#34;/gophers&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;schemaFile&#34;</span><span class="p">:</span> <span class="s2">&#34;schemas/create_gopher_request.json&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;apiKey&#34;</span><span class="p">:</span> <span class="s2">&#34;{v:[\\w]+}&#34;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;response&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span></code></pre></div>
+<p>Colocando primero el caso más restrictivo, haremos que sea el primero en ser evaluado, si pusiéramos el menos restrictivo entraríamos en ese caso primeramente y nunca llegaríamos a ver el error.</p>
+
+<p>Algo que tenéis que conocer además de los <code>imposters</code> es que cuando hagamos una modificación sobre ellos deberéis de reiniciar la aplicación.</p>
+
+<h2 id="configurando-mi-request">Configurando mi Request</h2>
+
+<p>Ya hemos visto como crear un <code>imposters</code> pero vamos a entrar en detalle en cada parte, empezando por la <code>request</code>.
+Lo primero que vemos es <code>method</code>, obviamente aquí podremos definir el tipo de método que esperamos en nuestra <code>request</code>, en este caso como dijimos será un <code>POST</code>, después tendremos que decidir que <code>endpoint</code> queremos simular, tendremos que poner la ruta relativa al <code>host</code>, en nuestro caso declaramos como <code>host</code>, <code>localhost</code> y <code>3000</code> como puerto, así que cuando hagamos una petición a este endpoint tendremos que hacerlo con la url, <code>http://localhost:3000/gophers</code>.</p>
+
+<p>A continuación nos encontramos con una funcionalidad propia de <code>Killgrave</code> y realmente interesante y es que podemos definir un <a href="https://json-schema.org/">json schema</a> para validar nuestra <code>request</code>, gracias a esto no tendremos que especificar campos especificos, sino que podremos decir, que esperamos cierto campo de tipo string, boolean, etc, o ¡incluso regex!, así que tendréis un sin fin de posibilidades para poder validar vuestras requests.</p>
+
+<p>En nuestro caso el <code>json schema</code> a utilizar será el siguiente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">gopherapi/schemas/create_gopher_request.json</span>
+
+<span class="p">{</span>
+  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;ID&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;image&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;age&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;integer&#34;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;required&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;ID&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;name&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;image&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;age&#34;</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+<p>Este parámetro además es opcional, ya que nuestras peticiones no siempre tienen que venir con un body.</p>
+
+<p>Por otro lado nos encontramos con dos parámetros opcionales más que son, <code>headers</code>, y <code>params</code> ambos son parámetros opcionales pero que una vez establecidos son de cumplimiento obligatorio, es decir si establecemos que nuestra <code>request</code> reciba el <code>header</code>, <code>Content-Type</code> con el valor <code>application/json</code>, cuando hagamos la petición <code>POST</code> debemos de pasar dicho <code>header</code> de lo contrario nos devolvería un <code>404</code>, lo mismo pasa con los <code>params</code>, los cuales se usan para definir los parámetros de una url, por ejemplo <code>?apiKey=12345678</code>.</p>
+
+<p>Ambos parámetros permiten el uso de regex, pero con ciertas particularidades si queremos definir una <code>regex</code> en un header haremos lo siguiente:</p>
+
+<pre><code>...
+&quot;headers&quot;: {
+	 &quot;Content-Type&quot;: &quot;application/json&quot;,
+	 &quot;Api-Key&quot;: &quot;[\\w]+&quot;
+}
+...
+</code></pre>
+
+<p>Esto nos obligaría para cumplir con este <code>imposter</code> a tener que pasar un <code>header Api-Key</code> con una palabra. Por el contrario podemos querer por ejemplo pasar el <code>apikey</code> vía <code>query param</code></p>
+
+<pre><code>
+...
+&quot;headers&quot;: {
+ &quot;Content-Type&quot;: &quot;application/json&quot;
+}
+&quot;params&quot;: {
+	&quot;apiKey&quot;: &quot;{v:[\\w]+}&quot;
+}
+...
+
+</code></pre>
+
+<p>Como veis aquí la notación cambia un poco, y es que cuando vamos a usar <code>regex</code> dentro de los <code>endpoints</code> o de los <code>params</code> debemos hacerlo con la notación que específica <a href="https://www.gorillatoolkit.org/pkg/mux" rel="nofollow">Gorilla Mux</a> que es la librería que usa <code>Killgrave</code> por debajo para funcionar, que no es otra que poner la regex entre llaves y asignando un nombre de variable seguido de dos puntos.</p>
+
+<p>Con esto ya tendríamos nuestra <code>request</code> lista, pero como hemos comentado antes, un <strong>mock server simula las respuestas que queremos obtener a partir de una <code>request</code></strong>, así que veamos como configuramos nuestra response.</p>
+
+<h2 id="configurando-mi-response">Configurando mi Response</h2>
+
+<p>La parte de la response es todavía más sencilla si cabe, en nuestro ejemplo anterior en el caso satisfactorio veíamos una `response como esta:</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">...</span>
+<span class="s2">&#34;response&#34;</span><span class="err">:</span> <span class="p">{</span>
+            <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="err">...</span></code></pre></div>
+<p>Donde podemos definir el <code>status</code>, el cual corresponderá con cualquier <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" rel="nofollow">código http válido</a>, además podemos especificar que <code>headers</code> va a devolver nuestra respuesta, incluso podemos llegar a especificar si lo que vamos a devolver es un <code>html</code>, <code>csv</code>, <code>pdf</code>, etc&hellip;</p>
+
+<p>Si además vemos el ejemplo que pusimos cuando devolvíamos error</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">...</span>
+<span class="s2">&#34;response&#34;</span><span class="err">:</span> <span class="p">{</span>
+            <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="nt">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;body&#34;</span><span class="p">:</span> <span class="s2">&#34;{\&#34;error\&#34;: \&#34;gopher could not be saved\&#34;}&#34;</span>
+        <span class="p">}</span>
+<span class="err">...</span></code></pre></div>
+<p>Podemos especificar un <code>body</code>, o si lo que vamos a retornar es algún fichero o el <code>json</code> es demasiado engorroso para tenerlo en el propio imposter, podemos cambiar este argumento a <code>bodyFile</code> y especificar la ruta de nuestro fichero de <code>response</code>.</p>
+
+<h2 id="resumen">Resumen</h2>
+
+<p>Ya estáis listos para empezar a crear vuestros <strong>mock server</strong> y ponerlo como una tarea más de vuestro desarrollo, para poder tener todas las ventajas que ofrecen, si llegáis a empezar a utilizar <code>Killgrave</code> en vuestra empresa dejádnoslo saber, enviándonos un mail a <a href="mailto:contact@friendsofgo.tech">contact@friendsofgo.tech</a> estaremos muy contento de saber sobre ello. Además recordad que <strong>es un proyecto Open Source, escrito íntegramente en Go</strong>, con lo cual puede ser un buen sitio para empezar a <a href="https://github.com/friendsofgo/killgrave/issues?q=is%3Aissue+is%3Aopen">colaborar</a>.</p>
+
+<p>Y como siempre, si tenéis cualquier duda o comentario podéis dejarlo en los comentarios o en nuestro Twitter <a href="https://twitter.com/friendsofgotech">@FriendsofGoTech</a>.</p>
+
+  </div>
+  
+
+
+<div class="about-the-author" id="about-the-author">
+  
+  <div class="left-column">
+    <img class="profile-pic" src="https://res.cloudinary.com/fogo/image/upload/v1548598049/fogo/authors/aperez.png" alt="Adrián Pérez">
+  </div>
+  
+  <div class="main-content">
+    <h4>Adrián Pérez</h4>
+    <p>Technical Product Manager @ Atrapalo and Co-founder of Friends of Go</p>
+    <p class="social-author">
+      
+      <a href="http://twitter.com/adrianpgl" target="_blank" rel="noopener">
+        <img alt="twitter" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/twitter-logo-silhouette_1_letrqc.png">
+        adrianpgl
+      </a>
+      
+      
+      <a href="http://github.com/aperezg" target="_blank" rel="noopener">
+        <img alt="github" class="icon-img" height="22" width="22"
+          src="https://res.cloudinary.com/practicaldev/image/upload/v1456342401/github-logo_m841aq.png">
+        aperezg
+      </a>
+      
+    </p>
+  </div>
+</div>
+
+
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/posts/gophercon_uk_2019_go_mas_alla_del_brexit/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">GopherCon UK 2019: Go más allá del Brexit</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        <div id="graphcomment"></div>
+<script type="text/javascript">
+  window.graphcomment_id = 'friends-of-go';
+   
+  (function() {
+    var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+    gc.src = 'https://graphcomment.com/js/integration.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+  })();
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131289398-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#161616",
+                    "text": "#ffffff"
+                },
+                "button": {
+                    "background": "#73d7e2",
+                    "text": "#ffffff"
+                }
+            },
+            "content": {
+                "message": "Utilizamos cookies de terceros para generar estadísticas de audiencia analizando tu navegación. Si sigues navegando estarás aceptando su uso",
+                "dismiss": "Acepto",
+                "link": "Más información",
+                "href": "/privacidad"
+            }
+        })
+    });
+</script>
+
+
+    </body>
+</html>
